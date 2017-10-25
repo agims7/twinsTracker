@@ -1,0 +1,62 @@
+page-bootle-feeding {
+    ion-grid {
+        width: 100%;
+        height: 100%;
+        background-color: #3f3f3f;
+        .header {
+            height: 40%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .logo-content {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .logo {
+                    height: 150px;
+                    width: 150px;
+                    background-color: #CFF4FF;
+                    border-radius: 20px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    p {
+                        text-align: center;
+                    }
+                }
+            }
+            .choice-content {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .choice {
+                    text-align: center;
+                    .choice-title {
+                        margin: 0 0 5px;
+                        color: white;
+                    }
+                    button {
+                        margin: 5px 0;
+                    }
+                    .selected {
+                        background-color: #00cc66;
+                    }
+                }
+            }
+        }
+        .content {
+            height: 60&;
+            .child-content {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                ul {
+                    list-style: none;
+                    padding: 0;
+                    color: white;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,98 @@
+page-modal {
+    .icon-back {
+        font-weight: normal;
+        font-size: 35px;
+    }
+    .breast-choice {
+        text-align: center;
+        p {
+            color: white;
+        }
+        .selected {
+            background-color: #00cc66;
+        }
+        .child-breast-side {
+            margin-top: 25px;
+            color: white;
+        }
+    }
+    .bootle-together {
+        color: white;
+        text-align: center;
+        margin: 0 15px;
+        .drunk-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .drunk {
+                margin-bottom: 0;
+            }
+            .drunk-value-box {
+                width: 65px;
+                margin-left: 15px;
+            }
+        }
+    }
+    .timer-content {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        .timer-running {
+            .timer {
+                width: 150px;
+                height: 75px;
+                margin: auto;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+        .timer-controls {
+            display: flex;
+            flex-direction: column;
+            .start {
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 50px 0 50px 130px;
+                background: transparent;
+                position: relative;
+                top: 20px;
+                span {
+                    position: absolute;
+                    color: white;
+                    left: -85px;
+                    top: 0;
+                    transform: translate(-50%, -50%);
+                }
+            }
+            .clear {
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 50px 130px 50px 0;
+                border-color: transparent #007bff transparent transparent;
+                background: transparent;
+                position: relative;
+                top: -20px;
+                span {
+                    position: absolute;
+                    color: white;
+                    left: 55px;
+                    top: 0;
+                    transform: translateY(-50%);
+                }
+            }
+        }
+    }
+    .comment {
+        margin: 20px 15px 0;
+    }
+}
+
+.counter-start {
+    border-color: transparent transparent transparent #00cc66;
+}
+.counter-pause {
+    border-color: transparent transparent transparent #ff3333;
+}

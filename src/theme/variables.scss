@@ -23,7 +23,27 @@ $app-direction: ltr;
 // http://ionicframework.com/docs/theming/overriding-ionic-variables/
 
 
+@import url('https://fonts.googleapis.com/css?family=Nunito:300,400,700,900');
+@import url('https://fonts.googleapis.com/css?family=Josefin+Slab:300,400,700');
 
+* {
+  font-family: 'Nunito', sans-serif;
+  font-size: 20px;
+}
+
+.ion-content,
+.scroll-content {
+  background-color: #3f3f3f !important;
+}
+
+//Buttons {
+
+  .button {
+    height: 45px;
+    padding: 10px 15px;
+    line-height: 20px;
+    border-radius: 15px;
+  }
 
 // Named Color Variables
 // --------------------------------------------------
@@ -38,7 +58,9 @@ $colors: (
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #222,
+
+  background: #3f3f3f
 );
 
 
