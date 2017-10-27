@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar color="background">
     <ion-title>
-      Ionic Timer
+      Twins Tracker
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -11,7 +11,8 @@
 
     <div class="blocks-container">
       <button *ngFor="let category of categoriesService.categories; let i = index" [navParams]="[category.color]" [navPush]="category.name" [ngStyle]="{'background-color': category.color}" class="navigation-block">
-        {{ category.text }}
+        <p>{{ category.text }}</p>
+        <img class="icon" [src]="category.icon" alt="">
       </button>
     </div>
 

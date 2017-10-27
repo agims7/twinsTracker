@@ -1,25 +1,32 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 
-/**
- * Generated class for the MedicinePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { ModalPage } from '../modal/modal';
 
-@IonicPage()
+import { ChildrenService } from '../../services/children';
+
 @Component({
   selector: 'page-medicine',
   templateUrl: 'medicine.html',
 })
 export class MedicinePage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public together: boolean = true;
+  
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public modalCtrl: ModalController,
+    public childrenService: ChildrenService
+  ) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MedicinePage');
+  medicineOption() {
+    this.together  = this.together ? false : true;
+  }
+
+  openModal(index) {
+    const modal = this.modalCtrl.create(ModalPage, {"category": "medicine", "text": "Lekarstwa", "together": this.together, "child": index });
+    modal.present();
   }
 
 }

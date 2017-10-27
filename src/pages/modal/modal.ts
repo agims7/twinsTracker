@@ -14,13 +14,22 @@ export class ModalPage {
   public clock: boolean = false;
   public timeStopped: boolean = false;
   public paramData: any;
+  public childSelectedIndex: any;
   public childSelected: number;
   public breastSelected: boolean = false;
   public breastLeft: boolean = true;
   public breastRight: boolean = false;
   public breastSide: any = [];
   public bottleSelected: boolean = false;
-  public feeding: string = '';
+  public sleepingSelected: boolean = false;
+  public diaperSelected: boolean = false;
+  public medicineSelected: boolean = false;
+  public growthSelected: boolean = false;
+  public togetherOrNot: string = '';
+  public running: boolean;
+
+  public fecesDone = [false, false];
+  public urineDone = [false, false];
 
   constructor(
     public navCtrl: NavController,
@@ -33,10 +42,12 @@ export class ModalPage {
   ionViewDidEnter() {
     this.paramData = this.navParams.data;
     this.title = this.paramData.text;
+    this.childSelectedIndex = [this.paramData.child];
     this.childSelected = this.childrenService.children[this.paramData.child].name;
     this.clearOption();
     this.checkModalOption(this.navParams.data.category);
     this.setNameLocation();
+    this.isTogeth();
     console.log(this.navParams.data)
   }
 
@@ -44,23 +55,51 @@ export class ModalPage {
     this.clock = false;
     this.breastSelected = false;
     this.bottleSelected = false;
+    this.sleepingSelected = false;
+    this.diaperSelected = false;
+    this.medicineSelected = false;
+    this.growthSelected = false;
     this.breastLeft = true;
     this.breastRight = false;
+    this.fecesDone = [false, false];
+    this.urineDone = [false, false];
+  }
+
+  isTogeth() {
+    if (this.paramData.together) {
+      this.togetherOrNot = 'razem';
+    } else {
+      this.togetherOrNot = 'osobno';
+    }
   }
 
   checkModalOption(option) {
     switch (option) {
       case ('breastFeeding'): {
         this.breastSelected = true;
+        this.running = this.timerService.breastFeeding.running;
         break;
       }
       case ('bottleFeeding'): {
         this.bottleSelected = true;
-        if (this.paramData.together) {
-          this.feeding = 'razem';
-        } else {
-          this.feeding = 'osobno';
-        }
+        this.running = this.timerService.bottleFeeding.running;
+        break;
+      }
+      case ('slipping'): {
+        this.sleepingSelected = true;
+        this.running = this.timerService.breastFeeding.running;
+        break;
+      }
+      case ('diaper'): {
+        this.diaperSelected = true;
+        break;
+      }
+      case ('medicine'): {
+        this.medicineSelected = true;
+        break;
+      }
+      case ('growth'): {
+        this.growthSelected = true;
         break;
       }
     }
@@ -99,7 +138,7 @@ export class ModalPage {
   }
 
   run() {
-    if (this.timerService.breastFeeding.running === true) {
+    if (this.running === true) {
       this.timeStopped = true;
       this.clock = true;
     } else {
@@ -112,6 +151,16 @@ export class ModalPage {
   clear() {
     this.timeStopped = false;
     this.timerService.clearBreastFeeding()
+  }
+
+  poo(child) {
+    console.log('child', child, 'gowno', this.fecesDone, 'urine', this.urineDone)
+    this.fecesDone[child] ? this.fecesDone[child] = false : this.fecesDone[child] = true;
+  }
+
+  pee(child) {
+    console.log('child', child, 'gowno', this.fecesDone, 'urine', this.urineDone)
+    this.urineDone[child] ? this.urineDone[child] = false : this.urineDone[child] = true;
   }
 
   save() {

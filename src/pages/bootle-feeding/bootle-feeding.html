@@ -28,11 +28,13 @@
       </ion-col>
     </ion-row>
 
-    <ion-row class="content">
+    <h1 class="select-child">Wybierz dziecko:</h1>
+    <ion-row class="content">  
       <ion-col *ngFor="let child of childrenService.children; let i = index">
         <div class="child-content">
           <button ion-button (click)="openModal(i)">
-            {{ child.name }}
+            <span>{{ child.name }}</span>
+            <ion-icon name="arrow-round-forward"></ion-icon>
           </button>
           <ul>
             <li>czas</li>

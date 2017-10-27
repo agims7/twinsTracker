@@ -8,23 +8,23 @@
 </ion-header> -->
 
 <ion-header>
-    <ion-toolbar color="background">
-      <ion-title>
-        {{ title }}
-      </ion-title>
-      <ion-buttons start>
-        <button ion-button navPop>
-          <ion-icon name="arrow-back" class="icon-back"></ion-icon>
-        </button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
+  <ion-toolbar color="background">
+    <ion-title>
+      {{ title }}
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button navPop>
+        <ion-icon name="arrow-back" class="icon-back"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
 
 <ion-content>
   <ion-grid>
     <div *ngIf="breastSelected" class="breast-choice">
-      <p>Wybierz pierś dla</p>
+      <p>Wybierz pierś</p>
       <div>
         <button ion-button (click)="breastSelection(0)" [ngClass]="{'selected': breastLeft}">
           Lewa
@@ -34,66 +34,274 @@
         </button>
       </div>
       <ion-row *ngIf="paramData.together">
-        <ion-col *ngFor="let child of childrenService.children; let i = index">
-          <p class="child-breast-side">{{ child.name }}: {{ breastSide[i]}}</p>
+        <ion-col col-6 *ngFor="let child of childrenService.children; let i = index">
+          <p class="child">{{ child.name }}</p>
+          <p class="small-child-info">pierś: {{ breastSide[i]}}</p>
+          <div class="timer-content">
+            <div class="timer-running">
+              <ion-card class="timer">
+                <ion-card-content align="center">
+                  <h1>{{addZero(timerService.breastFeeding.hours)}}:{{addZero(timerService.breastFeeding.minutes)}}:{{addZero(timerService.breastFeeding.seconds)}}:{{addZero(timerService.breastFeeding.miliseconds)}}</h1>
+                </ion-card-content>
+              </ion-card>
+            </div>
+            <div class="timer-controls">
+              <button (click)="run()" class="start" [ngClass]="{'counter-start': !timerService.breastFeeding.running, 'counter-pause': timerService.breastFeeding.running}">
+                <span *ngIf="!timerService.breastFeeding.running">Start</span>
+                <span *ngIf="timerService.breastFeeding.running">Pauza</span>
+              </button>
+              <button [disabled]="!clock" (click)="clear()" class="clear">
+                <span>Wyczyść</span>
+              </button>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="!paramData.together">
+        <ion-col>
+          <p class="child">{{ childSelected }}</p>
+          <p class="small-child-info">pierś: {{ breastSide[0]}}</p>
+          <div class="timer-content">
+            <div class="timer-running">
+              <ion-card class="timer">
+                <ion-card-content align="center">
+                  <h1>{{addZero(timerService.breastFeeding.hours)}}:{{addZero(timerService.breastFeeding.minutes)}}:{{addZero(timerService.breastFeeding.seconds)}}:{{addZero(timerService.breastFeeding.miliseconds)}}</h1>
+                </ion-card-content>
+              </ion-card>
+            </div>
+            <div class="timer-controls">
+              <button (click)="run()" class="start" [ngClass]="{'counter-start': !timerService.breastFeeding.running, 'counter-pause': timerService.breastFeeding.running}">
+                <span *ngIf="!timerService.breastFeeding.running">Start</span>
+                <span *ngIf="timerService.breastFeeding.running">Pauza</span>
+              </button>
+              <button [disabled]="!clock" (click)="clear()" class="clear">
+                <span>Wyczyść</span>
+              </button>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <div *ngIf="bottleSelected" class="bootle">
+      <ion-row *ngIf="paramData.together">
+        <ion-col col-6 *ngFor="let child of childrenService.children; let i = index">
+          <p class="child">{{ child.name }}</p>
+          <div class="timer-content">
+            <div class="timer-running">
+              <ion-card class="timer">
+                <ion-card-content align="center">
+                  <h1>{{addZero(timerService.bottleFeeding.hours)}}:{{addZero(timerService.bottleFeeding.minutes)}}:{{addZero(timerService.bottleFeeding.seconds)}}:{{addZero(timerService.bottleFeeding.miliseconds)}}</h1>
+                </ion-card-content>
+              </ion-card>
+            </div>
+            <div class="timer-controls">
+              <button (click)="run()" class="start" [ngClass]="{'counter-start': !timerService.bottleFeeding.running, 'counter-pause': timerService.bottleFeeding.running}">
+                <span *ngIf="!timerService.bottleFeeding.running">Start</span>
+                <span *ngIf="timerService.bottleFeeding.running">Pauza</span>
+              </button>
+              <button [disabled]="!clock" (click)="clear()" class="clear">
+                <span>Wyczyść</span>
+              </button>
+            </div>
+            <div class="drunk-value-box">
+              <span>Wypite:</span>
+              <ion-item class="drunk-value">
+                <ion-input placeholder="ml" type="number"></ion-input>
+              </ion-item>
+            </div>
+          </div>
         </ion-col>
       </ion-row>
       <ion-row *ngIf="!paramData.together">
-          <ion-col>
-              <p class="child-breast-side">{{ childSelected }}: {{ breastSide[0]}}</p>
-            </ion-col>
+        <ion-col>
+          <p class="child">{{ childSelected }}</p>
+          <div class="timer-content">
+            <div class="timer-running">
+              <ion-card class="timer">
+                <ion-card-content align="center">
+                  <h1>{{addZero(timerService.bottleFeeding.hours)}}:{{addZero(timerService.bottleFeeding.minutes)}}:{{addZero(timerService.bottleFeeding.seconds)}}:{{addZero(timerService.bottleFeeding.miliseconds)}}</h1>
+                </ion-card-content>
+              </ion-card>
+            </div>
+            <div class="timer-controls">
+              <button (click)="run()" class="start" [ngClass]="{'counter-start': !timerService.bottleFeeding.running, 'counter-pause': timerService.bottleFeeding.running}">
+                <span *ngIf="!timerService.bottleFeeding.running">Start</span>
+                <span *ngIf="timerService.bottleFeeding.running">Pauza</span>
+              </button>
+              <button [disabled]="!clock" (click)="clear()" class="clear">
+                <span>Wyczyść</span>
+              </button>
+            </div>
+            <div class="drunk-value-box">
+              <span>Wypite:</span>
+              <ion-item class="drunk-value">
+                <ion-input placeholder="ml" type="number"></ion-input>
+              </ion-item>
+            </div>
+          </div>
+        </ion-col>
       </ion-row>
     </div>
 
-    <div *ngIf="bottleSelected" class="bootle-together">
-        <p>Karmienie: {{ feeding }}</p>
-      </div>
-
-    <div class="timer-content">
-      <div class="timer-running">
-        <ion-card class="timer">
-          <ion-card-content align="center">
-            <h1>{{addZero(timerService.breastFeeding.hours)}}:{{addZero(timerService.breastFeeding.minutes)}}:{{addZero(timerService.breastFeeding.seconds)}}:{{addZero(timerService.breastFeeding.miliseconds)}}</h1>
-          </ion-card-content>
-        </ion-card>
-      </div>
-      <div class="timer-controls">
-        <button (click)="run()" class="start" [ngClass]="{'counter-start': !timerService.breastFeeding.running, 'counter-pause': timerService.breastFeeding.running}">
-          <span *ngIf="!timerService.breastFeeding.running">Start</span>
-          <span *ngIf="timerService.breastFeeding.running">Pauza</span>
-        </button>
-        <button [disabled]="!clock" (click)="clear()" class="clear">
-            <span>Wyczyść</span>
-        </button>
-      </div>
+    <div *ngIf="diaperSelected" class="dieper">
+      <ion-row *ngIf="paramData.together">
+        <ion-col col-6 *ngFor="let child of childrenService.children; let i = index">
+          <p class="child">{{ child.name }}</p>
+          <div class="diaper-content">
+            <div class="diaper-controls">
+              <button (click)="poo(i)" class="feces" [ngClass]="{'selected': fecesDone[i]}">
+                <span>Kupka</span>
+              </button>
+              <button (click)="pee(i)" class="urine" [ngClass]="{'selected': urineDone[i]}">
+                <span>Siku</span>
+              </button>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="!paramData.together">
+        <ion-col>
+          <p class="child">{{ childSelected }}</p>
+          <div class="diaper-content">
+            <div class="diaper-controls">
+              <button (click)="poo(childSelectedIndex)" class="feces" [ngClass]="{'selected': fecesDone[childSelectedIndex]}">
+                <span>Kupka</span>
+              </button>
+              <button (click)="pee(childSelectedIndex)" class="urine" [ngClass]="{'selected': urineDone[childSelectedIndex]}">
+                <span>Siku</span>
+              </button>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
     </div>
 
-    <div *ngIf="bottleSelected" class="bootle-together">
-        <p class="drunk">Wypite:</p>
-        <ion-row *ngIf="paramData.together">
-            <ion-col *ngFor="let child of childrenService.children; let i = index" class="drunk-box">
-                <span>{{ child.name }}:</span>
-                <ion-item class="drunk-value-box">
-                    <ion-input placeholder="ml" type="number"></ion-input>
-                  </ion-item>
-              </ion-col>
-        </ion-row>
-        <ion-row *ngIf="!paramData.together">
-            <ion-col class="drunk-box">
-                <span>{{ childSelected }}:</span>
-                <ion-item class="drunk-value-box">
-                    <ion-input placeholder="ml" type="number"></ion-input>
-                  </ion-item>
-              </ion-col>
+    <div *ngIf="medicineSelected" class="medicine">
+        <h1>Podane lekarstwa: </h1>
+        <h2>{{ togetherOrNot }}</h2>
+        <ion-row>
+          <ion-col>
+            <div class="medicine-content">
+              <h2>Wprowadź dane:</h2>
+              <div class="medicine-controls">
+                <ion-row>
+                  <ion-col>
+                      <p>Nazwa</p>
+                  </ion-col>
+                  <ion-col>
+                      <ion-item>
+                          <ion-input placeholder="lekarstwo" type="text"></ion-input>
+                        </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <p>Dawka:</p>
+                    </ion-col>
+                    <ion-col>
+                        <ion-item>
+                            <ion-input placeholder="dawka" type="text"></ion-input>
+                          </ion-item>
+                    </ion-col>
+                  </ion-row>
+              </div>
+            </div>
+          </ion-col>
         </ion-row>
       </div>
+
+      <div *ngIf="growthSelected" class="growth">
+          <p class="child">{{ childSelected }}</p>
+          <ion-row>
+            <ion-col>
+              <div class="growth-content">
+                <h3>Wprowadź dane:</h3>
+                <div class="growth-controls">
+                  <ion-row>
+                    <ion-col>
+                        <p>Waga (w gramach)</p>
+                    </ion-col>
+                    <ion-col>
+                        <ion-item>
+                            <ion-input placeholder="gramy" type="number"></ion-input>
+                          </ion-item>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                      <ion-col>
+                          <p>Długość/wzrost (cm):</p>
+                      </ion-col>
+                      <ion-col>
+                          <ion-item>
+                              <ion-input placeholder="cm" type="number"></ion-input>
+                            </ion-item>
+                      </ion-col>
+                    </ion-row>
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+        </div>
+  
+
+    <div *ngIf="sleepingSelected" class="sleeping">
+      <ion-row *ngIf="paramData.together">
+        <ion-col col-6 *ngFor="let child of childrenService.children; let i = index">
+          <p class="child">{{ child.name }}</p>
+          <div class="timer-content">
+            <div class="timer-running">
+              <ion-card class="timer">
+                <ion-card-content align="center">
+                  <h1>{{addZero(timerService.sleeping.hours)}}:{{addZero(timerService.sleeping.minutes)}}:{{addZero(timerService.sleeping.seconds)}}:{{addZero(timerService.sleeping.miliseconds)}}</h1>
+                </ion-card-content>
+              </ion-card>
+            </div>
+            <div class="timer-controls">
+              <button (click)="run()" class="start" [ngClass]="{'counter-start': !timerService.sleeping.running, 'counter-pause': timerService.sleeping.running}">
+                <span *ngIf="!timerService.sleeping.running">Start</span>
+                <span *ngIf="timerService.sleeping.running">Pauza</span>
+              </button>
+              <button [disabled]="!clock" (click)="clear()" class="clear">
+                <span>Wyczyść</span>
+              </button>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="!paramData.together">
+        <ion-col>
+          <p class="child">{{ childSelected }}</p>
+          <div class="timer-content">
+            <div class="timer-running">
+              <ion-card class="timer">
+                <ion-card-content align="center">
+                  <h1>{{addZero(timerService.sleeping.hours)}}:{{addZero(timerService.sleeping.minutes)}}:{{addZero(timerService.sleeping.seconds)}}:{{addZero(timerService.sleeping.miliseconds)}}</h1>
+                </ion-card-content>
+              </ion-card>
+            </div>
+            <div class="timer-controls">
+              <button (click)="run()" class="start" [ngClass]="{'counter-start': !timerService.sleeping.running, 'counter-pause': timerService.sleeping.running}">
+                <span *ngIf="!timerService.sleeping.running">Start</span>
+                <span *ngIf="timerService.sleeping.running">Pauza</span>
+              </button>
+              <button [disabled]="!clock" (click)="clear()" class="clear">
+                <span>Wyczyść</span>
+              </button>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+    <!-- ////////////////// -->
 
     <div class="comment">
       <ion-row>
         <ion-col>
-            <ion-item>
-                <ion-input type="text" placeholder="Komentarz"></ion-input>
-              </ion-item>
+          <ion-item>
+            <ion-input type="text" placeholder="Komentarz"></ion-input>
+          </ion-item>
         </ion-col>
         <ion-col>
           <button [disabled]="!timeStopped" ion-button block navPop (click)="save()">Zapisz</button>

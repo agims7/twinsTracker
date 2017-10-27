@@ -1,3 +1,144 @@
 page-timetable {
+    ion-grid {
+        width: 100%;
+        height: 100%;
+        background-color: #3f3f3f;
+        ion-item-divider,
+        ion-item {
+            padding: 0 15px !important;
+        }
+        .choice {
+            button {
+                height: 35px;
+            }
+            .selected {
+                background-color: #D2F1D0;
+                color: #3f3f3f;
+            }
+        }
 
+
+        .item-content {
+            padding: 0 !important;
+            ion-label {
+                margin: 0;
+                ion-col {
+                    padding: 0 10px !important;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                .child-name-field,
+                .event-description-field {
+                    justify-content: start;
+                }
+            }
+            .avatar {
+                min-height: 35px;
+                min-width: 35px;
+                margin: 6px 0;
+                .child-image {
+                    width: 35px;
+                    height: 35px;
+                }
+            }
+            .child-name,
+            .event-description {
+                color: white;
+            }
+            .event-date {
+                font-size: 11px;
+                color: rgb(204, 204, 204);
+            }
+        }
+        .devider {
+            margin-top: 10px;
+            padding: 10px;
+        }
+    }
+    .add-button {
+        background-color: #D2F1D0;
+        color: #3f3f3f;
+        margin-bottom: 15px;
+        ion-icon {
+            margin-left: 10px;
+        }
+    }
+}
+
+.datepicker-wrapper {    
+    background-color: #D2F1D0 !important;
+    option {
+        background-color: #3f3f3f !important;
+        color: #D2F1D0 !important;
+        &:hover {
+            background-color: #D2F1D0 !important;
+            color: #3f3f3f !important;
+        }
+    }
+    select {
+        font-family: 'Arial';
+        display: inline-block;
+        width: 30%;
+        cursor: pointer;
+        padding: 10px 15px;
+        outline: 0;
+        border: 1px solid #3f3f3f;
+        border-radius: 5px;
+        background: #D2F1D0;
+        color: #3f3f3f;
+        text-align: center;
+        -moz-appearance: none;
+        &::-ms-expand {
+            display: none;
+        }
+        &:hover,
+        &:focus {
+            color: #FFFFFF;
+            background: #D2F1D0;
+        }
+        &:disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        option {
+            background: #fff;        
+            color: #000;
+            text-align: center;
+        }
+    }
+    .datepicker-header {
+        background-color: #3f3f3f !important;
+        color: #D2F1D0 !important;
+        .weekday-header {
+            background-color: #D2F1D0 !important;
+            color: #3f3f3f !important;
+        }
+    }
+    .datepicker-current {
+        background-color: #d9d9d9 !important;
+        color: #3f3f3f !important;
+    }
+    .datepicker-calendar {
+        background-color: #D2F1D0 !important;
+            ion-icon {
+                color: #D2F1D0;
+            }
+    }
+    .datepicker-footer,
+    .datepicker-controls {
+        background-color: #D2F1D0 !important;
+        button {
+            background-color: #3f3f3f !important;
+            color: #D2F1D0;
+        }
+        select {
+            background-color: #3f3f3f !important;
+            color: #D2F1D0;
+        }
+    }
+    .datepicker-selected {
+        background-color: #3f3f3f !important;
+        color: #D2F1D0 !important;
+    }
 }

@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-navbar color="background">
+    <ion-title>
+      Nowe element
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+
+    <div class="timetable-content">
+      <h3>Wprowadź dane:</h3>
+      <ion-row>
+        <ion-item>
+          <ion-label>Dziecko:</ion-label>
+          <ion-select [(ngModel)]="kid" multiple="false">
+            <ion-option *ngFor="let child of choiceArray; let i = index" value="child.name">{{ child.name }}</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-row>
+      <ion-row>
+        <ion-item>
+          <ion-label>Opis:</ion-label>
+          <ion-input type="text" placeholder="Opis wydarzenia" value="" class="textarea"></ion-input>
+        </ion-item>
+      </ion-row>
+      <ion-row>
+        <ion-item>
+          <span class="datepicker">Data:</span>
+          <button class="datepicker-button" item-end ion-button icon-left ion-datepicker (ionChanged)="setDate($event);" [value]="date"
+            [localeStrings]="object">
+            <span>{{ showTime(date) }}</span>
+            <ion-icon name="calendar"></ion-icon>
+          </button>
+        </ion-item>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col >
+            <button navPop ion-button block class="add-button">Dodaj</button>           
+        </ion-col>
+        <ion-col >
+            <button navPop ion-button block class="add-button">Wroć</button>            
+        </ion-col>
+      </ion-row>
+    </div>
+
+  </ion-grid>
+</ion-content>

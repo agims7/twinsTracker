@@ -1,25 +1,32 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 
-/**
- * Generated class for the DiaperPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { ModalPage } from '../modal/modal';
 
-@IonicPage()
+import { ChildrenService } from '../../services/children';
+
 @Component({
   selector: 'page-diaper',
   templateUrl: 'diaper.html',
 })
 export class DiaperPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public together: boolean = true;
+  
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public modalCtrl: ModalController,
+    public childrenService: ChildrenService
+  ) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad DiaperPage');
+  diaperOption() {
+    this.together  = this.together ? false : true;
+  }
+
+  openModal(index) {
+    const modal = this.modalCtrl.create(ModalPage, {"category": "diaper", "text": "Pieluszka", "together": this.together, "child": index });
+    modal.present();
   }
 
 }

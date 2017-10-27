@@ -11,88 +11,144 @@ page-modal {
         .selected {
             background-color: #00cc66;
         }
-        .child-breast-side {
+        .child {
             margin-top: 25px;
             color: white;
+            font-size: 25px;
+        }
+        .small-child-info {
+            font-size: 19px;
         }
     }
-    .bootle-together {
+
+    .bootle,
+    .sleeping,
+    .dieper,
+    .medicine,
+    .growth {
         color: white;
         text-align: center;
-        margin: 0 15px;
-        .drunk-box {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            .drunk {
-                margin-bottom: 0;
-            }
+        position: relative;
+        margin-bottom: 20px;
             .drunk-value-box {
-                width: 65px;
-                margin-left: 15px;
-            }
-        }
-    }
-    .timer-content {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        .timer-running {
-            .timer {
-                width: 150px;
-                height: 75px;
-                margin: auto;
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                .drunk-value {
+                    width: 65px;
+                    margin-left: 15px;
+                }
+            }
+    }
+    .timer-content {
+        .timer {
+            height: 53px;
+            color: #3f3f3f;
+            h1 {
+                font-size: 20px;
             }
         }
         .timer-controls {
             display: flex;
             flex-direction: column;
+            position: relative;
             .start {
                 width: 0;
                 height: 0;
                 border-style: solid;
-                border-width: 50px 0 50px 130px;
+                border-width: 43px 130px 43px 0;
+                border-color: transparent #00CC66 transparent transparent;
+                margin: auto;
                 background: transparent;
                 position: relative;
-                top: 20px;
                 span {
                     position: absolute;
                     color: white;
-                    left: -85px;
-                    top: 0;
-                    transform: translate(-50%, -50%);
+                    top: 50%;
+                    transform: translateY(-50%);
+                    left: 75px;
                 }
             }
             .clear {
                 width: 0;
                 height: 0;
                 border-style: solid;
-                border-width: 50px 130px 50px 0;
-                border-color: transparent #007bff transparent transparent;
+                border-width: 43px 0 43px 130px;
+                border-color: transparent transparent transparent #007bff;
+                margin: auto;
                 background: transparent;
                 position: relative;
-                top: -20px;
+                top: -35px;
                 span {
                     position: absolute;
                     color: white;
-                    left: 55px;
-                    top: 0;
+                    top: 50%;
                     transform: translateY(-50%);
+                    right: 50px;
                 }
             }
         }
     }
-    .comment {
-        margin: 20px 15px 0;
+    .diaper-content {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        .diaper-controls {
+            display: flex;
+            flex-direction: column;
+            .feces {
+                color: white;
+                width: 130px;
+                height: 50px;
+                transform: skew(20deg);
+                background: #727272;
+                display: flex;
+                justify-content: center;
+                margin-bottom: 10px;
+                span {
+                    transform: skew(-20deg);
+                }
+            }
+            .urine {
+                color: white;
+                width: 130px;
+                height: 50px;
+                transform: skew(-20deg);
+                background: #727272;
+                display: flex;
+                justify-content: center;
+                span {
+                    transform: skew(20deg);
+                }
+            }
+            .selected {
+                background-color: #F5CFB3;
+                color: #3f3f3f;
+            }
+        }
     }
-}
 
-.counter-start {
-    border-color: transparent transparent transparent #00cc66;
-}
-.counter-pause {
-    border-color: transparent transparent transparent #ff3333;
+    .medicine-content,
+    .growth-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 25px;
+        .medicine-controls,
+        .growth-controls {
+            display: flex;
+            flex-direction: column;
+            .row {
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+    .growth-content {
+        margin-top: 0;
+    }
+    .comment {
+        margin: 0px 15px 0;
+    }
 }

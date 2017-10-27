@@ -1,25 +1,32 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 
-/**
- * Generated class for the SleepingPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { ModalPage } from '../modal/modal';
 
-@IonicPage()
+import { ChildrenService } from '../../services/children';
+
 @Component({
   selector: 'page-sleeping',
   templateUrl: 'sleeping.html',
 })
 export class SleepingPage {
+  public together: boolean = true;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public modalCtrl: ModalController,
+    public childrenService: ChildrenService
+  ) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SleepingPage');
+  slippingOption() {
+    this.together  = this.together ? false : true;
+  }
+
+  openModal(index) {
+    const modal = this.modalCtrl.create(ModalPage, {"category": "slipping", "text": "Spanie", "together": this.together, "child": index });
+    modal.present();
   }
 
 }

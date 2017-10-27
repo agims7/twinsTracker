@@ -14,8 +14,5 @@ export class ChildrenService {
     constructor(
     ) { }
 
-    // addChild() {
-
-    // }
     
 }

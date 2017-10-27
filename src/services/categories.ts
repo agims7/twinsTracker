@@ -26,47 +26,56 @@ export class CategoriesService {
         {
             name: this.breastFeedingPage,
             color: "#5ADBA9",
-            text: "Karmienie piersią"
+            text: "Karmienie piersią",
+            icon: "../../assets/images/breast.svg"
         },
         {
             name: this.bootleFeedingPage,
             color: "#CFF4FF",
-            text: "Karmienie butelką"
+            text: "Karmienie butelką",
+            icon: "../../assets/images/bootle.svg"
         },
         {
             name: this.diaperPage,
             color: "#F5CFB3",
-            text: "Pieluszka"
+            text: "Pieluszka",
+            icon: "../../assets/images/diaper.svg"
         },
         {
             name: this.medicinePage,
             color: "#E8E8E8",
-            text: "Lekarstwa"
+            text: "Lekarstwa",
+            icon: "../../assets/images/medicine.svg"
         },
         {
             name: this.sleepingPage,
             color: "#FFFFCF",
-            text: "Spanie"
+            text: "Spanie",
+            icon: "../../assets/images/sleeping.svg"
         },
         {
             name: this.growthPage,
             color: "#5DC2A6",
-            text: "Wzrost"
+            text: "Wzrost",
+            icon: "../../assets/images/growth.svg"
         },
         {
             name: this.activityPage,
             color: "#6ECEEB",
-            text: "Aktywność"
+            text: "Aktywność",
+            icon: "../../assets/images/activity.svg"
         },
         {
             name: this.statisticsPage,
             color: "#E26A6A",
-            text: "Statystyki"
+            text: "Statystyki",
+            icon: "../../assets/images/statistics.svg"
         },
         {
             name: this.timetablePage,
             color: "#D2F1D0",
-            text: "Terminarz"
+            text: "Terminarz",
+            icon: "../../assets/images/timetable.svg"
         }
     ];
 

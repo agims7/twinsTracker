@@ -1,3 +1,62 @@
 page-activity {
-
+    ion-grid {
+        width: 100%;
+        height: 100%;
+        background-color: #3f3f3f;
+        ion-list {
+            .header {
+                background-color: #3f3f3f;
+                border: none;
+                padding: 5px;
+                .list-header {
+                    color: white;
+                    font-size: 20px;
+                    text-align: center;
+                }
+            }
+            .choice {
+                button {
+                    height: 35px;
+                }
+                .selected {
+                    background-color: #6ECEEB;
+                    color: #3f3f3f;
+                }
+            }
+            .item {
+                background-color: #3f3f3f;
+                padding: 0 !important;
+                ion-label {
+                    margin: 0 !important;
+                    ion-col {
+                        padding: 0 10px !important;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                    .child-name-field,
+                    .activity-description-field {
+                        justify-content: start;
+                    }
+                }
+                .avatar {
+                    min-height: 35px;
+                    min-width: 35px;
+                    margin: 6px 0;
+                    .child-image {
+                        width: 35px;
+                        height: 35px;
+                    }
+                }
+                .child-name,
+                .activity-description {
+                    color: white;
+                }
+                .activity-date {
+                    font-size: 11px;
+                    color: rgb(204, 204, 204);
+                }
+            }
+        }
+    }
 }

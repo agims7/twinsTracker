@@ -37,12 +37,18 @@ page-bootle-feeding {
                     }
                     button {
                         margin: 5px 0;
+                        width: 110px;
                     }
                     .selected {
-                        background-color: #00cc66;
+                        background-color: #CFF4FF;
+                        color: #3f3f3f;
                     }
                 }
             }
+        }
+        .select-child {
+            color: white;
+            text-align: center;
         }
         .content {
             height: 60&;
@@ -51,6 +57,9 @@ page-bootle-feeding {
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
+                span {
+                    margin-right: 10px;
+                }
                 ul {
                     list-style: none;
                     padding: 0;

@@ -1,25 +1,33 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the ActivityPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { ChildrenService } from '../../services/children';
 
-@IonicPage()
+import * as _ from 'lodash';
+
 @Component({
   selector: 'page-activity',
   templateUrl: 'activity.html',
 })
 export class ActivityPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public choiceArray: any = [];
+  public choice: number = 0;
+  
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public childrenService: ChildrenService
+  ) {
+    this.createTable();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ActivityPage');
+  createTable() {
+    this.choiceArray = _.clone(this.childrenService.children);
+    this.choiceArray.unshift({ name: "Razem" });
+  }
+
+  makeChoice(index) {
+    this.choice = index;
   }
 
 }

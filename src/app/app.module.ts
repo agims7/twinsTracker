@@ -14,6 +14,7 @@ import { MedicinePage } from "../pages/medicine/medicine";
 import { SleepingPage } from "../pages/sleeping/sleeping";
 import { StatisticsPage } from "../pages/statistics/statistics";
 import { TimetablePage } from "../pages/timetable/timetable";
+import { NewEventPage } from "../pages/new-event/new-event";
 
 import { ModalPage } from '../pages/modal/modal';
 
@@ -21,6 +22,7 @@ import { TimerService } from '../services/timer';
 import { CategoriesService } from '../services/categories';
 import { ChildrenService } from '../services/children';
 
+import { DatePickerModule } from 'ionic3-datepicker';
 
 @NgModule({
   declarations: [
@@ -35,11 +37,13 @@ import { ChildrenService } from '../services/children';
     SleepingPage,
     StatisticsPage,
     TimetablePage,
-    ModalPage
+    ModalPage,
+    NewEventPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    DatePickerModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -54,7 +58,8 @@ import { ChildrenService } from '../services/children';
     SleepingPage,
     StatisticsPage,
     TimetablePage,
-    ModalPage
+    ModalPage,
+    NewEventPage
   ],
   providers: [
     StatusBar,
