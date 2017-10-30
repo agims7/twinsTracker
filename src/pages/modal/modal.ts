@@ -138,6 +138,7 @@ export class ModalPage {
   }
 
   run() {
+    console.log(this.running, 'running')
     if (this.running === true) {
       this.timeStopped = true;
       this.clock = true;
@@ -146,6 +147,14 @@ export class ModalPage {
       this.clock = false;
     }
     this.timerService.runBreastFeeding();
+
+    if (this.breastSelected === true) {
+      this.timerService.runBreastFeeding();
+    } else if (this.bottleSelected === true) {
+      this.timerService.runBottleFeeding();
+    } else if (this.sleepingSelected === true) {
+      this.timerService.runSleeping();
+    }
   }
 
   clear() {
