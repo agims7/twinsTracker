@@ -38,6 +38,10 @@ $app-direction: ltr;
 
 //Buttons {
 
+button {
+    text-transform: none !important;
+}
+
   .button {
     height: 45px;
     padding: 10px 15px;

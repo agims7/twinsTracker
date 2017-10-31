@@ -156,5 +156,14 @@ page-modal {
     }
     .comment {
         margin: 0px 15px 0;
+        ion-col {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            ion-item,
+            button {
+                height: 45px !important;
+            }
+        }
     }
 }

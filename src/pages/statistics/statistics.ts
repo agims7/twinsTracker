@@ -16,7 +16,7 @@ export class StatisticsPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    private http: HttpClient
+    // private http: HttpClient
   ) {
   }
 

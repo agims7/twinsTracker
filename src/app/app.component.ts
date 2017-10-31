@@ -14,9 +14,9 @@ export class MyApp implements OnInit {
   rootPage:any = HomePage;
 
   constructor(
-    private platform: Platform,
-    private statusBar: StatusBar,
-    private splashScreen: SplashScreen,
+    public platform: Platform,
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen,
     public timerService: TimerService
   ) {
     platform.ready().then(() => {
