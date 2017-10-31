@@ -45,6 +45,83 @@ $app-direction: ltr;
     border-radius: 15px;
   }
 
+  .datepicker-wrapper {    
+    background-color: #f2f2f2 !important;
+    option {
+        background-color: #3f3f3f !important;
+        color: #f2f2f2 !important;
+        &:hover {
+            background-color: #f2f2f2 !important;
+            color: #3f3f3f !important;
+        }
+    }
+    select {
+        font-family: 'Arial';
+        display: inline-block;
+        width: 30%;
+        cursor: pointer;
+        padding: 10px 15px;
+        outline: 0;
+        border: 1px solid #3f3f3f;
+        border-radius: 5px;
+        background: #f2f2f2;
+        color: #3f3f3f;
+        text-align: center;
+        -moz-appearance: none;
+        &::-ms-expand {
+            display: none;
+        }
+        &:hover,
+        &:focus {
+            color: #FFFFFF;
+            background: #f2f2f2;
+        }
+        &:disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        option {
+            background: #fff;        
+            color: #000;
+            text-align: center;
+        }
+    }
+    .datepicker-header {
+        background-color: #3f3f3f !important;
+        color: #f2f2f2 !important;
+        .weekday-header {
+            background-color: #f2f2f2 !important;
+            color: #3f3f3f !important;
+        }
+    }
+    .datepicker-current {
+        background-color: #d9d9d9 !important;
+        color: #3f3f3f !important;
+    }
+    .datepicker-calendar {
+        background-color: #f2f2f2 !important;
+            ion-icon {
+                color: #f2f2f2;
+            }
+    }
+    .datepicker-footer,
+    .datepicker-controls {
+        background-color: #f2f2f2 !important;
+        button {
+            background-color: #3f3f3f !important;
+            color: #f2f2f2;
+        }
+        select {
+            background-color: #3f3f3f !important;
+            color: #f2f2f2;
+        }
+    }
+    .datepicker-selected {
+        background-color: #3f3f3f !important;
+        color: #f2f2f2 !important;
+    }
+}
+
 // Named Color Variables
 // --------------------------------------------------
 // Named colors makes it easy to reuse colors on various components.

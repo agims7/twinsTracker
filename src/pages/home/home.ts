@@ -12,6 +12,8 @@ import { StatisticsPage } from "../statistics/statistics";
 import { TimetablePage } from "../timetable/timetable";
 
 import { CategoriesService } from '../../services/categories';
+import { TimerService } from "../../services/timer";
+
 
 @Component({
   selector: 'page-home',
@@ -30,9 +32,10 @@ export class HomePage {
 
   constructor(
     public navCtrl: NavController,
-    public categoriesService: CategoriesService
+    public categoriesService: CategoriesService,
+    public timerService: TimerService
   ) {
-
+    this.timerService.setTimerObjects();
   }
 
 

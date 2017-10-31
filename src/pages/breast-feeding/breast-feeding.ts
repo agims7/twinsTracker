@@ -4,7 +4,6 @@ import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { ModalPage } from '../modal/modal';
 
 import { ChildrenService } from "../../services/children";
-import { TimerService } from "../../services/timer";
 
 @Component({
   selector: 'page-breast-feeding',
@@ -17,10 +16,9 @@ export class BreastFeedingPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public modalCtrl: ModalController,
-    public timerService: TimerService,
     public childrenService: ChildrenService
   ) {
-    this.timerService.setTimerObjects();
+
   }
 
   feedingOption() {

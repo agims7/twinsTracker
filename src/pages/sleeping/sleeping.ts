@@ -25,7 +25,7 @@ export class SleepingPage {
   }
 
   openModal(index) {
-    const modal = this.modalCtrl.create(ModalPage, {"category": "slipping", "text": "Spanie", "together": this.together, "child": index });
+    const modal = this.modalCtrl.create(ModalPage, {"category": "sleeping", "text": "Spanie", "together": this.together, "child": index });
     modal.present();
   }
 

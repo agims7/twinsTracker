@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 import { ChildrenService } from '../../services/children';
 
@@ -25,7 +25,6 @@ export class NewEventPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public modalCtrl: ModalController,
     public childrenService: ChildrenService
   ) {
     moment.locale('pl');

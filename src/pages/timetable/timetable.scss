@@ -67,12 +67,12 @@ page-timetable {
 }
 
 .datepicker-wrapper {    
-    background-color: #D2F1D0 !important;
+    background-color: #f2f2f2 !important;
     option {
         background-color: #3f3f3f !important;
-        color: #D2F1D0 !important;
+        color: #f2f2f2 !important;
         &:hover {
-            background-color: #D2F1D0 !important;
+            background-color: #f2f2f2 !important;
             color: #3f3f3f !important;
         }
     }
@@ -85,7 +85,7 @@ page-timetable {
         outline: 0;
         border: 1px solid #3f3f3f;
         border-radius: 5px;
-        background: #D2F1D0;
+        background: #f2f2f2;
         color: #3f3f3f;
         text-align: center;
         -moz-appearance: none;
@@ -95,7 +95,7 @@ page-timetable {
         &:hover,
         &:focus {
             color: #FFFFFF;
-            background: #D2F1D0;
+            background: #f2f2f2;
         }
         &:disabled {
             opacity: 0.5;
@@ -109,9 +109,9 @@ page-timetable {
     }
     .datepicker-header {
         background-color: #3f3f3f !important;
-        color: #D2F1D0 !important;
+        color: #f2f2f2 !important;
         .weekday-header {
-            background-color: #D2F1D0 !important;
+            background-color: #f2f2f2 !important;
             color: #3f3f3f !important;
         }
     }
@@ -120,25 +120,25 @@ page-timetable {
         color: #3f3f3f !important;
     }
     .datepicker-calendar {
-        background-color: #D2F1D0 !important;
+        background-color: #f2f2f2 !important;
             ion-icon {
-                color: #D2F1D0;
+                color: #f2f2f2;
             }
     }
     .datepicker-footer,
     .datepicker-controls {
-        background-color: #D2F1D0 !important;
+        background-color: #f2f2f2 !important;
         button {
             background-color: #3f3f3f !important;
-            color: #D2F1D0;
+            color: #f2f2f2;
         }
         select {
             background-color: #3f3f3f !important;
-            color: #D2F1D0;
+            color: #f2f2f2;
         }
     }
     .datepicker-selected {
         background-color: #3f3f3f !important;
-        color: #D2F1D0 !important;
+        color: #f2f2f2 !important;
     }
 }

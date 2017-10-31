@@ -4,41 +4,36 @@ import { ChildrenService } from './children';
 
 @Injectable()
 export class TimerService {
-    public breastFeedingInterval
-    public breastFeeding = {
-        running: false,
-        miliseconds: 0,
-        seconds: 0,
-        minutes: 0,
-        hours: 0,
-    };
-    public bottleFeedingInterval
-    public bottleFeeding = {
-        running: false,
-        miliseconds: 0,
-        seconds: 0,
-        minutes: 0,
-        hours: 0,
-    };
-    public sleepingInterval
-    public sleeping = {
-        running: false,
-        miliseconds: 0,
-        seconds: 0,
-        minutes: 0,
-        hours: 0,
-    };
-    public test: any = [];
+    public breastFeedingInterval: any = [];
+    public breastFeeding: any = [];
+    public bottleFeedingInterval: any = [];
+    public bottleFeeding: any = [];
+    public sleepingInterval: any = [];
+    public sleeping: any = [];
+    public fecesDone = [];
+    public urineDone = [];
 
     constructor(
         public childrenService: ChildrenService
     ) { }
 
     setTimerObjects() {
-        console.log('test')
         for (let key in this.childrenService.children) {
-            console.log(key)
-            this.test.push({
+            this.breastFeeding.push({
+                running: false,
+                miliseconds: 0,
+                seconds: 0,
+                minutes: 0,
+                hours: 0,
+            });
+            this.bottleFeeding.push({
+                running: false,
+                miliseconds: 0,
+                seconds: 0,
+                minutes: 0,
+                hours: 0,
+            });
+            this.sleeping.push({
                 running: false,
                 miliseconds: 0,
                 seconds: 0,
@@ -46,106 +41,121 @@ export class TimerService {
                 hours: 0,
             });
         }
-        console.log(this.test)
     }
 
-    runBreastFeeding() {
-        console.log('breast timer run ', this.breastFeeding.running);
-        if (this.breastFeeding.running === false) {
-            this.breastFeeding.running = true;
-            this.breastFeedingInterval = setInterval(() => {
-                this.breastFeeding.miliseconds++;
-                if (this.breastFeeding.miliseconds > 99) {
-                    this.breastFeeding.miliseconds = 0;
-                    this.breastFeeding.seconds++;
-                    if (this.breastFeeding.seconds > 59) {
-                        this.breastFeeding.seconds = 0;
-                        this.breastFeeding.minutes++;
-                        if (this.breastFeeding.minutes > 59) {
-                            this.breastFeeding.minutes = 0;
-                            this.breastFeeding.hours++;
+    setDiaper() {
+        console.log(this.childrenService.children)
+        for (var key in this.childrenService.children) {
+            console.log(key)
+          this.urineDone.push(false);
+          this.fecesDone.push(false);
+        }
+        console.log('wykonano: ', this.urineDone, this.fecesDone)
+      }
+
+    runBreastFeeding(index) {
+        console.log('breast timer run ', this.breastFeeding[index].running);
+        if (this.breastFeeding[index].running === false) {
+            this.breastFeeding[index].running = true;
+            this.breastFeedingInterval[index] = setInterval(() => {
+                this.breastFeeding[index].miliseconds++;
+                if (this.breastFeeding[index].miliseconds > 99) {
+                    this.breastFeeding[index].miliseconds = 0;
+                    this.breastFeeding[index].seconds++;
+                    if (this.breastFeeding[index].seconds > 59) {
+                        this.breastFeeding[index].seconds = 0;
+                        this.breastFeeding[index].minutes++;
+                        if (this.breastFeeding[index].minutes > 59) {
+                            this.breastFeeding[index].minutes = 0;
+                            this.breastFeeding[index].hours++;
                         }
                     }
                 }
             }, 10);
         } else {
-            clearInterval(this.breastFeedingInterval);
-            this.breastFeeding.running = false;
+            clearInterval(this.breastFeedingInterval[index]);
+            this.breastFeeding[index].running = false;
         }
     }
 
-    clearBreastFeeding() {
-        clearInterval(this.breastFeedingInterval);
-        this.breastFeeding.miliseconds = 0;
-        this.breastFeeding.seconds = 0;
-        this.breastFeeding.minutes = 0;
-        this.breastFeeding.hours = 0;
+    clearBreastFeeding(index) {
+        clearInterval(this.breastFeedingInterval[index]);
+        this.breastFeeding[index].miliseconds = 0;
+        this.breastFeeding[index].seconds = 0;
+        this.breastFeeding[index].minutes = 0;
+        this.breastFeeding[index].hours = 0;
     }
 
-    runBottleFeeding() {
-        console.log('bottle timer run ', this.bottleFeeding.running);
-        if (this.bottleFeeding.running === false) {
-            this.bottleFeeding.running = true;
-            this.bottleFeedingInterval = setInterval(() => {
-                this.bottleFeeding.miliseconds++;
-                if (this.bottleFeeding.miliseconds > 99) {
-                    this.bottleFeeding.miliseconds = 0;
-                    this.bottleFeeding.seconds++;
-                    if (this.bottleFeeding.seconds > 59) {
-                        this.bottleFeeding.seconds = 0;
-                        this.bottleFeeding.minutes++;
-                        if (this.bottleFeeding.minutes > 59) {
-                            this.bottleFeeding.minutes = 0;
-                            this.bottleFeeding.hours++;
+    runBottleFeeding(index) {
+        console.log('bootle timer run ', this.bottleFeeding[index].running, 'index: ', index);
+        if (this.bottleFeeding[index].running === false) {
+            console.log('index runnin = false wiec trzeba uruchomic')
+            this.bottleFeeding[index].running = true;
+            this.bottleFeedingInterval[index] = setInterval(() => {
+                this.bottleFeeding[index].miliseconds++;
+                if (this.bottleFeeding[index].miliseconds > 99) {
+                    this.bottleFeeding[index].miliseconds = 0;
+                    this.bottleFeeding[index].seconds++;
+                    if (this.bottleFeeding[index].seconds > 59) {
+                        this.bottleFeeding[index].seconds = 0;
+                        this.bottleFeeding[index].minutes++;
+                        if (this.bottleFeeding[index].minutes > 59) {
+                            this.bottleFeeding[index].minutes = 0;
+                            this.bottleFeeding[index].hours++;
                         }
                     }
                 }
             }, 10);
         } else {
-            clearInterval(this.bottleFeedingInterval);
-            this.bottleFeeding.running = false;
+            
+            console.log('index runnin = true wiec trzeba zatrzymac')
+            clearInterval(this.bottleFeedingInterval[index]);
+            this.bottleFeeding[index].running = false;
         }
     }
 
-    clearBottleFeeding() {
-        clearInterval(this.bottleFeedingInterval);
-        this.bottleFeeding.miliseconds = 0;
-        this.bottleFeeding.seconds = 0;
-        this.bottleFeeding.minutes = 0;
-        this.bottleFeeding.hours = 0;
+    clearBottleFeeding(index) {
+        clearInterval(this.bottleFeedingInterval[index]);
+        this.bottleFeeding[index].miliseconds = 0;
+        this.bottleFeeding[index].seconds = 0;
+        this.bottleFeeding[index].minutes = 0;
+        this.bottleFeeding[index].hours = 0;
     }
 
-    runSleeping() {
-        console.log('sleeping timer run ', this.sleeping.running);
-        if (this.sleeping.running === false) {
-            this.sleeping.running = true;
-            this.sleepingInterval = setInterval(() => {
-                this.sleeping.miliseconds++;
-                if (this.sleeping.miliseconds > 99) {
-                    this.sleeping.miliseconds = 0;
-                    this.sleeping.seconds++;
-                    if (this.sleeping.seconds > 59) {
-                        this.sleeping.seconds = 0;
-                        this.sleeping.minutes++;
-                        if (this.sleeping.minutes > 59) {
-                            this.sleeping.minutes = 0;
-                            this.sleeping.hours++;
+    runSleeping(index) {
+        console.log('sleeping timer run ', this.sleeping[index].running, 'index: ', index);
+        if (this.sleeping[index].running === false) {
+            console.log('index runnin = false wiec trzeba uruchomic')
+            this.sleeping[index].running = true;
+            this.sleepingInterval[index] = setInterval(() => {
+                this.sleeping[index].miliseconds++;
+                if (this.sleeping[index].miliseconds > 99) {
+                    this.sleeping[index].miliseconds = 0;
+                    this.sleeping[index].seconds++;
+                    if (this.sleeping[index].seconds > 59) {
+                        this.sleeping[index].seconds = 0;
+                        this.sleeping[index].minutes++;
+                        if (this.sleeping[index].minutes > 59) {
+                            this.sleeping[index].minutes = 0;
+                            this.sleeping[index].hours++;
                         }
                     }
                 }
             }, 10);
         } else {
-            clearInterval(this.sleepingInterval);
-            this.sleeping.running = false;
+            
+            console.log('index runnin = true wiec trzeba zatrzymac')
+            clearInterval(this.sleepingInterval[index]);
+            this.sleeping[index].running = false;
         }
     }
 
-    clearSleeping() {
-        clearInterval(this.sleepingInterval);
-        this.sleeping.miliseconds = 0;
-        this.sleeping.seconds = 0;
-        this.sleeping.minutes = 0;
-        this.sleeping.hours = 0;
+    clearSleeping(index) {
+        clearInterval(this.sleepingInterval[index]);
+        this.sleeping[index].miliseconds = 0;
+        this.sleeping[index].seconds = 0;
+        this.sleeping[index].minutes = 0;
+        this.sleeping[index].hours = 0;
     }
 
 }

@@ -11,7 +11,6 @@ import { ChildrenService } from "../../services/children";
 })
 export class ModalPage {
   public title: string = '';
-  public clock: boolean = false;
   public timeStopped: boolean = false;
   public paramData: any;
   public childSelectedIndex: any;
@@ -28,9 +27,6 @@ export class ModalPage {
   public togetherOrNot: string = '';
   public running: boolean;
 
-  public fecesDone = [false, false];
-  public urineDone = [false, false];
-
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -42,17 +38,16 @@ export class ModalPage {
   ionViewDidEnter() {
     this.paramData = this.navParams.data;
     this.title = this.paramData.text;
-    this.childSelectedIndex = [this.paramData.child];
+    this.childSelectedIndex = this.paramData.child;
     this.childSelected = this.childrenService.children[this.paramData.child].name;
     this.clearOption();
     this.checkModalOption(this.navParams.data.category);
     this.setNameLocation();
-    this.isTogeth();
+    this.isTogether();
     console.log(this.navParams.data)
   }
 
   clearOption() {
-    this.clock = false;
     this.breastSelected = false;
     this.bottleSelected = false;
     this.sleepingSelected = false;
@@ -61,11 +56,9 @@ export class ModalPage {
     this.growthSelected = false;
     this.breastLeft = true;
     this.breastRight = false;
-    this.fecesDone = [false, false];
-    this.urineDone = [false, false];
   }
 
-  isTogeth() {
+  isTogether() {
     if (this.paramData.together) {
       this.togetherOrNot = 'razem';
     } else {
@@ -77,17 +70,17 @@ export class ModalPage {
     switch (option) {
       case ('breastFeeding'): {
         this.breastSelected = true;
-        this.running = this.timerService.breastFeeding.running;
+        this.running = this.timerService.breastFeeding[0].running;
         break;
       }
       case ('bottleFeeding'): {
         this.bottleSelected = true;
-        this.running = this.timerService.bottleFeeding.running;
+        this.running = this.timerService.bottleFeeding[0].running;
         break;
       }
-      case ('slipping'): {
+      case ('sleeping'): {
         this.sleepingSelected = true;
-        this.running = this.timerService.breastFeeding.running;
+        this.running = this.timerService.sleeping[0].running;
         break;
       }
       case ('diaper'): {
@@ -137,39 +130,63 @@ export class ModalPage {
 
   }
 
-  run() {
-    console.log(this.running, 'running')
+  run(index, type) {
+    console.log('click run - index', index)
+    if (type == 'together') {
+      console.log('together')
+      if (this.breastSelected === true) {
+        this.running = this.timerService.breastFeeding[index].running;
+        this.timerService.runBreastFeeding(index);
+      } else if (this.bottleSelected === true) {
+        this.running = this.timerService.bottleFeeding[index].running;
+        this.timerService.runBottleFeeding(index);
+      } else if (this.sleepingSelected === true) {
+        this.running = this.timerService.sleeping[index].running;
+        this.timerService.runSleeping(index);
+      }
+    } else {
+      console.log('osobno')
+      if (this.breastSelected === true) {
+        this.running = this.timerService.breastFeeding[index].running;
+        this.timerService.runBreastFeeding(index);
+      } else if (this.bottleSelected === true) {
+        this.timerService.runBottleFeeding(index);
+      } else if (this.sleepingSelected === true) {
+        this.timerService.runSleeping(index);
+      }
+    }
+
     if (this.running === true) {
       this.timeStopped = true;
-      this.clock = true;
     } else {
       this.timeStopped = false;
-      this.clock = false;
-    }
-    this.timerService.runBreastFeeding();
-
-    if (this.breastSelected === true) {
-      this.timerService.runBreastFeeding();
-    } else if (this.bottleSelected === true) {
-      this.timerService.runBottleFeeding();
-    } else if (this.sleepingSelected === true) {
-      this.timerService.runSleeping();
     }
   }
 
-  clear() {
+  clear(index) {
     this.timeStopped = false;
-    this.timerService.clearBreastFeeding()
+      if (this.breastSelected === true) {
+        this.timerService.clearBreastFeeding(index);
+        this.timerService.breastFeeding[index].running = false;
+      } else if (this.bottleSelected === true) {
+        this.timerService.clearBottleFeeding(index);
+        this.timerService.bottleFeeding[index].running = false;
+      } else if (this.sleepingSelected === true) {
+        this.timerService.clearSleeping(index);
+        this.timerService.sleeping[index].running = false;
+      }
   }
+
+
 
   poo(child) {
-    console.log('child', child, 'gowno', this.fecesDone, 'urine', this.urineDone)
-    this.fecesDone[child] ? this.fecesDone[child] = false : this.fecesDone[child] = true;
+    console.log('child', child, 'gowno', this.timerService.fecesDone, 'urine', this.timerService.urineDone)
+    this.timerService.fecesDone[child] ? this.timerService.fecesDone[child] = false : this.timerService.fecesDone[child] = true;
   }
 
   pee(child) {
-    console.log('child', child, 'gowno', this.fecesDone, 'urine', this.urineDone)
-    this.urineDone[child] ? this.urineDone[child] = false : this.urineDone[child] = true;
+    console.log('child', child, 'gowno', this.timerService.fecesDone, 'urine', this.timerService.urineDone)
+    this.timerService.urineDone[child] ? this.timerService.urineDone[child] = false : this.timerService.urineDone[child] = true;
   }
 
   save() {

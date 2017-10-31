@@ -13,14 +13,21 @@
 
             <ion-list-header class="header">
                 <ion-row>
-                    <ion-col>
-                        <ion-icon color="white" name="arrow-dropleft"></ion-icon>
+                    <ion-col col-12 class="data-change">
+                            <button class="data-change-button" item-end ion-button icon-left ion-datepicker (ionChanged)="setDate($event);" [value]="date"
+                            [localeStrings]="object">
+                                <span>Zmień datę</span>
+                                <ion-icon name="calendar"></ion-icon>
+                          </button>
                     </ion-col>
                     <ion-col>
-                        <p class="list-header">Dzisiaj</p>
+                        <ion-icon class="arrow" color="white" name="arrow-dropleft"></ion-icon>
                     </ion-col>
                     <ion-col>
-                        <ion-icon color="white" name="arrow-dropright"></ion-icon>
+                        <p class="list-header">{{ showTime(date) }}</p>
+                    </ion-col>
+                    <ion-col>
+                        <ion-icon class="arrow" color="white" name="arrow-dropright"></ion-icon>
                     </ion-col>
                 </ion-row>
             </ion-list-header>

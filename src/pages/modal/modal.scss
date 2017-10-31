@@ -78,7 +78,7 @@ page-modal {
                 margin: auto;
                 background: transparent;
                 position: relative;
-                top: -35px;
+                top: -10px;
                 span {
                     position: absolute;
                     color: white;
@@ -86,6 +86,12 @@ page-modal {
                     transform: translateY(-50%);
                     right: 50px;
                 }
+            }
+            .counter-start {
+                border-color: transparent #00CC66 transparent transparent;
+            }
+            .counter-pause {
+                border-color: transparent rgb(255, 69, 69) transparent transparent;
             }
         }
     }

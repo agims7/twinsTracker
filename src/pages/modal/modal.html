@@ -1,12 +1,3 @@
-<!-- <ion-header>
-  <ion-navbar color="background">
-      <button navPop>Wroć</button>
-    <ion-title>
-      Karmienie butelką
-    </ion-title>
-  </ion-navbar>
-</ion-header> -->
-
 <ion-header>
   <ion-toolbar color="background">
     <ion-title>
@@ -23,6 +14,7 @@
 
 <ion-content>
   <ion-grid>
+    <!-- Karmienie -->
     <div *ngIf="breastSelected" class="breast-choice">
       <p>Wybierz pierś</p>
       <div>
@@ -33,6 +25,7 @@
           Prawa
         </button>
       </div>
+      <!-- Karmienie RAZEM -->
       <ion-row *ngIf="paramData.together">
         <ion-col col-6 *ngFor="let child of childrenService.children; let i = index">
           <p class="child">{{ child.name }}</p>
@@ -41,23 +34,23 @@
             <div class="timer-running">
               <ion-card class="timer">
                 <ion-card-content align="center">
-                  <h1>{{addZero(timerService.breastFeeding.hours)}}:{{addZero(timerService.breastFeeding.minutes)}}:{{addZero(timerService.breastFeeding.seconds)}}:{{addZero(timerService.breastFeeding.miliseconds)}}</h1>
+                  <h1>{{addZero(timerService.breastFeeding[i].hours)}}:{{addZero(timerService.breastFeeding[i].minutes)}}:{{addZero(timerService.breastFeeding[i].seconds)}}:{{addZero(timerService.breastFeeding[i].miliseconds)}}</h1>
                 </ion-card-content>
               </ion-card>
             </div>
             <div class="timer-controls">
-              <button (click)="run()" class="start" [ngClass]="{'counter-start': !timerService.breastFeeding.running, 'counter-pause': timerService.breastFeeding.running}">
-                <span *ngIf="!timerService.breastFeeding.running">Start</span>
-                <span *ngIf="timerService.breastFeeding.running">Pauza</span>
+              <button (click)="run(i, 'together')" class="start" [ngClass]="{'counter-start': !timerService.breastFeeding[i].running, 'counter-pause': timerService.breastFeeding[i].running}">
+                <span *ngIf="!timerService.breastFeeding[i].running">Start</span>
+                <span *ngIf="timerService.breastFeeding[i].running">Pauza</span>
               </button>
-              <button [disabled]="!clock" (click)="clear()" class="clear">
+              <button (click)="clear(i)" class="clear">
                 <span>Wyczyść</span>
               </button>
             </div>
           </div>
         </ion-col>
       </ion-row>
-
+      <!-- Karmienie OSOBNO -->
       <ion-row *ngIf="!paramData.together">
         <ion-col>
           <p class="child">{{ childSelected }}</p>
@@ -66,16 +59,16 @@
             <div class="timer-running">
               <ion-card class="timer">
                 <ion-card-content align="center">
-                  <h1>{{addZero(timerService.breastFeeding.hours)}}:{{addZero(timerService.breastFeeding.minutes)}}:{{addZero(timerService.breastFeeding.seconds)}}:{{addZero(timerService.breastFeeding.miliseconds)}}</h1>
+                  <h1>{{addZero(timerService.breastFeeding[childSelectedIndex].hours)}}:{{addZero(timerService.breastFeeding[childSelectedIndex].minutes)}}:{{addZero(timerService.breastFeeding[childSelectedIndex].seconds)}}:{{addZero(timerService.breastFeeding[childSelectedIndex].miliseconds)}}</h1>
                 </ion-card-content>
               </ion-card>
             </div>
             <div class="timer-controls">
-              <button (click)="run()" class="start" [ngClass]="{'counter-start': !timerService.breastFeeding.running, 'counter-pause': timerService.breastFeeding.running}">
-                <span *ngIf="!timerService.breastFeeding.running">Start</span>
-                <span *ngIf="timerService.breastFeeding.running">Pauza</span>
+              <button (click)="run(childSelectedIndex, 'separately')" class="start" [ngClass]="{'counter-start': !timerService.breastFeeding[childSelectedIndex].running, 'counter-pause': timerService.breastFeeding[childSelectedIndex].running}">
+                <span *ngIf="!timerService.breastFeeding[childSelectedIndex].running">Start</span>
+                <span *ngIf="timerService.breastFeeding[childSelectedIndex].running">Pauza</span>
               </button>
-              <button [disabled]="!clock" (click)="clear()" class="clear">
+              <button (click)="clear(childSelectedIndex)" class="clear">
                 <span>Wyczyść</span>
               </button>
             </div>
@@ -83,8 +76,11 @@
         </ion-col>
       </ion-row>
     </div>
+    <!-- koniec karmienia -->
 
+    <!-- Butelka -->
     <div *ngIf="bottleSelected" class="bootle">
+      <!-- Butelka RAZEM -->
       <ion-row *ngIf="paramData.together">
         <ion-col col-6 *ngFor="let child of childrenService.children; let i = index">
           <p class="child">{{ child.name }}</p>
@@ -92,16 +88,16 @@
             <div class="timer-running">
               <ion-card class="timer">
                 <ion-card-content align="center">
-                  <h1>{{addZero(timerService.bottleFeeding.hours)}}:{{addZero(timerService.bottleFeeding.minutes)}}:{{addZero(timerService.bottleFeeding.seconds)}}:{{addZero(timerService.bottleFeeding.miliseconds)}}</h1>
+                  <h1>{{addZero(timerService.bottleFeeding[i].hours)}}:{{addZero(timerService.bottleFeeding[i].minutes)}}:{{addZero(timerService.bottleFeeding[i].seconds)}}:{{addZero(timerService.bottleFeeding[i].miliseconds)}}</h1>
                 </ion-card-content>
               </ion-card>
             </div>
             <div class="timer-controls">
-              <button (click)="run()" class="start" [ngClass]="{'counter-start': !timerService.bottleFeeding.running, 'counter-pause': timerService.bottleFeeding.running}">
-                <span *ngIf="!timerService.bottleFeeding.running">Start</span>
-                <span *ngIf="timerService.bottleFeeding.running">Pauza</span>
+              <button (click)="run(i, 'together')" class="start" [ngClass]="{'counter-start': !timerService.bottleFeeding[i].running, 'counter-pause': timerService.bottleFeeding[i].running}">
+                <span *ngIf="!timerService.bottleFeeding[i].running">Start</span>
+                <span *ngIf="timerService.bottleFeeding[i].running">Pauza</span>
               </button>
-              <button [disabled]="!clock" (click)="clear()" class="clear">
+              <button (click)="clear(i)" class="clear">
                 <span>Wyczyść</span>
               </button>
             </div>
@@ -114,6 +110,7 @@
           </div>
         </ion-col>
       </ion-row>
+      <!-- Butelka OSOBNO -->
       <ion-row *ngIf="!paramData.together">
         <ion-col>
           <p class="child">{{ childSelected }}</p>
@@ -121,16 +118,16 @@
             <div class="timer-running">
               <ion-card class="timer">
                 <ion-card-content align="center">
-                  <h1>{{addZero(timerService.bottleFeeding.hours)}}:{{addZero(timerService.bottleFeeding.minutes)}}:{{addZero(timerService.bottleFeeding.seconds)}}:{{addZero(timerService.bottleFeeding.miliseconds)}}</h1>
+                  <h1>{{addZero(timerService.bottleFeeding[childSelectedIndex].hours)}}:{{addZero(timerService.bottleFeeding[childSelectedIndex].minutes)}}:{{addZero(timerService.bottleFeeding[childSelectedIndex].seconds)}}:{{addZero(timerService.bottleFeeding[childSelectedIndex].miliseconds)}}</h1>
                 </ion-card-content>
               </ion-card>
             </div>
             <div class="timer-controls">
-              <button (click)="run()" class="start" [ngClass]="{'counter-start': !timerService.bottleFeeding.running, 'counter-pause': timerService.bottleFeeding.running}">
-                <span *ngIf="!timerService.bottleFeeding.running">Start</span>
-                <span *ngIf="timerService.bottleFeeding.running">Pauza</span>
+              <button (click)="run(childSelectedIndex, 'separately')" class="start" [ngClass]="{'counter-start': !timerService.bottleFeeding[childSelectedIndex].running, 'counter-pause': timerService.bottleFeeding[childSelectedIndex].running}">
+                <span *ngIf="!timerService.bottleFeeding[childSelectedIndex].running">Start</span>
+                <span *ngIf="timerService.bottleFeeding[childSelectedIndex].running">Pauza</span>
               </button>
-              <button [disabled]="!clock" (click)="clear()" class="clear">
+              <button (click)="clear(childSelectedIndex)" class="clear">
                 <span>Wyczyść</span>
               </button>
             </div>
@@ -144,32 +141,36 @@
         </ion-col>
       </ion-row>
     </div>
+    <!-- koniec butelka -->
 
+    <!-- Pieluszka -->
     <div *ngIf="diaperSelected" class="dieper">
+      <!-- Pieluszka RAZEM -->
       <ion-row *ngIf="paramData.together">
         <ion-col col-6 *ngFor="let child of childrenService.children; let i = index">
           <p class="child">{{ child.name }}</p>
           <div class="diaper-content">
             <div class="diaper-controls">
-              <button (click)="poo(i)" class="feces" [ngClass]="{'selected': fecesDone[i]}">
+              <button (click)="poo(i)" class="feces" [ngClass]="{'selected': timerService.fecesDone[i]}">
                 <span>Kupka</span>
               </button>
-              <button (click)="pee(i)" class="urine" [ngClass]="{'selected': urineDone[i]}">
+              <button (click)="pee(i)" class="urine" [ngClass]="{'selected': timerService.urineDone[i]}">
                 <span>Siku</span>
               </button>
             </div>
           </div>
         </ion-col>
       </ion-row>
+      <!-- Pieluszka OSOBNO -->
       <ion-row *ngIf="!paramData.together">
         <ion-col>
           <p class="child">{{ childSelected }}</p>
           <div class="diaper-content">
             <div class="diaper-controls">
-              <button (click)="poo(childSelectedIndex)" class="feces" [ngClass]="{'selected': fecesDone[childSelectedIndex]}">
+              <button (click)="poo(childSelectedIndex)" class="feces" [ngClass]="{'selected': timerService.fecesDone[childSelectedIndex]}">
                 <span>Kupka</span>
               </button>
-              <button (click)="pee(childSelectedIndex)" class="urine" [ngClass]="{'selected': urineDone[childSelectedIndex]}">
+              <button (click)="pee(childSelectedIndex)" class="urine" [ngClass]="{'selected': timerService.urineDone[childSelectedIndex]}">
                 <span>Siku</span>
               </button>
             </div>
@@ -177,76 +178,50 @@
         </ion-col>
       </ion-row>
     </div>
+    <!-- Koniec pieluszka -->
 
+    <!-- Lekarstwa -->
     <div *ngIf="medicineSelected" class="medicine">
-        <h1>Podane lekarstwa: </h1>
-        <h2>{{ togetherOrNot }}</h2>
-        <ion-row>
-          <ion-col>
-            <div class="medicine-content">
-              <h2>Wprowadź dane:</h2>
-              <div class="medicine-controls">
-                <ion-row>
-                  <ion-col>
-                      <p>Nazwa</p>
-                  </ion-col>
-                  <ion-col>
-                      <ion-item>
-                          <ion-input placeholder="lekarstwo" type="text"></ion-input>
-                        </ion-item>
-                  </ion-col>
-                </ion-row>
-                <ion-row>
-                    <ion-col>
-                        <p>Dawka:</p>
-                    </ion-col>
-                    <ion-col>
-                        <ion-item>
-                            <ion-input placeholder="dawka" type="text"></ion-input>
-                          </ion-item>
-                    </ion-col>
-                  </ion-row>
-              </div>
+      <h1>Podane lekarstwa: </h1>
+      <h2>
+        {{ togetherOrNot }}
+        <span *ngIf="!paramData.together"> - {{ childSelected }}</span>
+      </h2>
+      <ion-row>
+        <ion-col>
+          <div class="medicine-content">
+            <h2>Wprowadź dane:</h2>
+            <div class="medicine-controls">
+              <ion-row>
+                <ion-col>
+                  <p>Nazwa</p>
+                </ion-col>
+                <ion-col>
+                  <ion-item>
+                    <ion-input placeholder="lekarstwo" type="text"></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <p>Dawka:</p>
+                </ion-col>
+                <ion-col>
+                  <ion-item>
+                    <ion-input placeholder="dawka" type="text"></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
             </div>
-          </ion-col>
-        </ion-row>
-      </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+    <!-- Koniec lekarstwa -->
 
-      <div *ngIf="growthSelected" class="growth">
-          <p class="child">{{ childSelected }}</p>
-          <ion-row>
-            <ion-col>
-              <div class="growth-content">
-                <h3>Wprowadź dane:</h3>
-                <div class="growth-controls">
-                  <ion-row>
-                    <ion-col>
-                        <p>Waga (w gramach)</p>
-                    </ion-col>
-                    <ion-col>
-                        <ion-item>
-                            <ion-input placeholder="gramy" type="number"></ion-input>
-                          </ion-item>
-                    </ion-col>
-                  </ion-row>
-                  <ion-row>
-                      <ion-col>
-                          <p>Długość/wzrost (cm):</p>
-                      </ion-col>
-                      <ion-col>
-                          <ion-item>
-                              <ion-input placeholder="cm" type="number"></ion-input>
-                            </ion-item>
-                      </ion-col>
-                    </ion-row>
-                </div>
-              </div>
-            </ion-col>
-          </ion-row>
-        </div>
-  
-
+    <!-- Spanie -->
     <div *ngIf="sleepingSelected" class="sleeping">
+      <!-- Spanie RAZEM -->
       <ion-row *ngIf="paramData.together">
         <ion-col col-6 *ngFor="let child of childrenService.children; let i = index">
           <p class="child">{{ child.name }}</p>
@@ -254,22 +229,23 @@
             <div class="timer-running">
               <ion-card class="timer">
                 <ion-card-content align="center">
-                  <h1>{{addZero(timerService.sleeping.hours)}}:{{addZero(timerService.sleeping.minutes)}}:{{addZero(timerService.sleeping.seconds)}}:{{addZero(timerService.sleeping.miliseconds)}}</h1>
+                  <h1>{{addZero(timerService.sleeping[i].hours)}}:{{addZero(timerService.sleeping[i].minutes)}}:{{addZero(timerService.sleeping[i].seconds)}}:{{addZero(timerService.sleeping[i].miliseconds)}}</h1>
                 </ion-card-content>
               </ion-card>
             </div>
             <div class="timer-controls">
-              <button (click)="run()" class="start" [ngClass]="{'counter-start': !timerService.sleeping.running, 'counter-pause': timerService.sleeping.running}">
+              <button (click)="run(i, 'together')" class="start" [ngClass]="{'counter-start': !timerService.sleeping[i].running, 'counter-pause': timerService.sleeping[i].running}">
                 <span *ngIf="!timerService.sleeping.running">Start</span>
                 <span *ngIf="timerService.sleeping.running">Pauza</span>
               </button>
-              <button [disabled]="!clock" (click)="clear()" class="clear">
+              <button (click)="clear(i)" class="clear">
                 <span>Wyczyść</span>
               </button>
             </div>
           </div>
         </ion-col>
       </ion-row>
+      <!-- Spanie OSOBNO -->
       <ion-row *ngIf="!paramData.together">
         <ion-col>
           <p class="child">{{ childSelected }}</p>
@@ -277,16 +253,16 @@
             <div class="timer-running">
               <ion-card class="timer">
                 <ion-card-content align="center">
-                  <h1>{{addZero(timerService.sleeping.hours)}}:{{addZero(timerService.sleeping.minutes)}}:{{addZero(timerService.sleeping.seconds)}}:{{addZero(timerService.sleeping.miliseconds)}}</h1>
+                  <h1>{{addZero(timerService.sleeping[childSelectedIndex].hours)}}:{{addZero(timerService.sleeping[childSelectedIndex].minutes)}}:{{addZero(timerService.sleeping[childSelectedIndex].seconds)}}:{{addZero(timerService.sleeping[childSelectedIndex].miliseconds)}}</h1>
                 </ion-card-content>
               </ion-card>
             </div>
             <div class="timer-controls">
-              <button (click)="run()" class="start" [ngClass]="{'counter-start': !timerService.sleeping.running, 'counter-pause': timerService.sleeping.running}">
-                <span *ngIf="!timerService.sleeping.running">Start</span>
-                <span *ngIf="timerService.sleeping.running">Pauza</span>
+              <button (click)="run(childSelectedIndex, 'separately')" class="start" [ngClass]="{'counter-start': !timerService.sleeping[childSelectedIndex].running, 'counter-pause': timerService.sleeping[childSelectedIndex].running}">
+                <span *ngIf="!timerService.sleeping[childSelectedIndex].running">Start</span>
+                <span *ngIf="timerService.sleeping[childSelectedIndex].running">Pauza</span>
               </button>
-              <button [disabled]="!clock" (click)="clear()" class="clear">
+              <button (click)="clear(childSelectedIndex)" class="clear">
                 <span>Wyczyść</span>
               </button>
             </div>
@@ -294,8 +270,44 @@
         </ion-col>
       </ion-row>
     </div>
-    <!-- ////////////////// -->
+    <!-- Koniec spanie -->
 
+    <!-- Wzrost -->
+    <div *ngIf="growthSelected" class="growth">
+      <p class="child">{{ childSelected }}</p>
+      <ion-row>
+        <ion-col>
+          <div class="growth-content">
+            <h3>Wprowadź dane:</h3>
+            <div class="growth-controls">
+              <ion-row>
+                <ion-col>
+                  <p>Waga (w gramach)</p>
+                </ion-col>
+                <ion-col>
+                  <ion-item>
+                    <ion-input placeholder="gramy" type="number"></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <p>Długość/wzrost (cm):</p>
+                </ion-col>
+                <ion-col>
+                  <ion-item>
+                    <ion-input placeholder="cm" type="number"></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+    <!-- Koniec wzrost -->
+
+    <!-- Komentarz -->
     <div class="comment">
       <ion-row>
         <ion-col>
@@ -308,9 +320,8 @@
         </ion-col>
       </ion-row>
     </div>
+    <!-- Komentarz koniec -->
 
 
   </ion-grid>
 </ion-content>
-
-<!-- OGARNAC ZAPIS w zalezosci od wybranego trybu -->

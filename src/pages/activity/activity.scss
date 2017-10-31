@@ -8,10 +8,32 @@ page-activity {
                 background-color: #3f3f3f;
                 border: none;
                 padding: 5px;
+                .data-change {
+                    display: flex;
+                    justify-content: flex-end;
+                    .data-change-button {
+                        height: 35px !important;
+                        background: transparent;
+                        color: white;
+                        font-size: 20px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        border: 1px solid white;
+                        border-radius: 4px;
+                        span {
+                            font-size: 10px;
+                            margin-right: 5px;
+                        }
+                    }
+                }
                 .list-header {
                     color: white;
                     font-size: 20px;
                     text-align: center;
+                }
+                .arrow {
+                    font-size: 35px;
                 }
             }
             .choice {
