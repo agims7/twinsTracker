@@ -44,13 +44,10 @@ export class TimerService {
     }
 
     setDiaper() {
-        console.log(this.childrenService.children)
         for (var key in this.childrenService.children) {
-            console.log(key)
           this.urineDone.push(false);
           this.fecesDone.push(false);
         }
-        console.log('wykonano: ', this.urineDone, this.fecesDone)
       }
 
     runBreastFeeding(index) {

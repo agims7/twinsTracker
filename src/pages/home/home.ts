@@ -13,7 +13,7 @@ import { TimetablePage } from "../timetable/timetable";
 
 import { CategoriesService } from '../../services/categories';
 import { TimerService } from "../../services/timer";
-
+import { RequestService } from "../../services/request";
 
 @Component({
   selector: 'page-home',
@@ -33,9 +33,17 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     public categoriesService: CategoriesService,
-    public timerService: TimerService
+    public timerService: TimerService,
+    public requestService: RequestService
   ) {
     this.timerService.setTimerObjects();
+  }
+
+  ionViewDidEnter() {
+    let id = 1;
+    this.requestService.getMethod('/children/parrent/' + id).subscribe(data => {
+      console.log(data.data, '?????????????????????????')
+    });
   }
 
 

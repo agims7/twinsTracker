@@ -18,10 +18,12 @@ import { TimetablePage } from "../pages/timetable/timetable";
 import { NewEventPage } from "../pages/new-event/new-event";
 
 import { ModalPage } from '../pages/modal/modal';
+import { StatisticModalPage } from '../pages/statistic-modal/statistic-modal';
 
 import { TimerService } from '../services/timer';
 import { CategoriesService } from '../services/categories';
 import { ChildrenService } from '../services/children';
+import { RequestService } from '../services/request';
 
 import { DatePickerModule } from 'ionic3-datepicker';
 
@@ -39,7 +41,8 @@ import { DatePickerModule } from 'ionic3-datepicker';
     StatisticsPage,
     TimetablePage,
     ModalPage,
-    NewEventPage
+    NewEventPage,
+    StatisticModalPage
   ],
   imports: [
     BrowserModule,
@@ -61,7 +64,8 @@ import { DatePickerModule } from 'ionic3-datepicker';
     StatisticsPage,
     TimetablePage,
     ModalPage,
-    NewEventPage
+    NewEventPage,
+    StatisticModalPage
   ],
   providers: [
     StatusBar,
@@ -69,7 +73,8 @@ import { DatePickerModule } from 'ionic3-datepicker';
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     TimerService,
     CategoriesService,
-    ChildrenService
+    ChildrenService,
+    RequestService
   ]
 })
 export class AppModule { }
