@@ -1,0 +1,23 @@
+<ion-content padding>
+  <ion-grid>
+    <img class="logo-image" src="./assets/images/logo.png">
+    <ion-item>
+      <ion-label fixed>Email</ion-label>
+      <ion-input type="text" email></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>Hasło</ion-label>
+      <ion-input type="password"></ion-input>
+    </ion-item>
+
+    <div class="reminder">
+      <p [navPush]="reminderPage">Nie pamiętam hasła</p>  
+    </div>
+
+    <div class="registration">
+      <p>Nie masz konta?</p>
+      <button ion-button outline color="white" [navPush]="registerPage">Zarejestruj się!</button>  
+    </div>
+
+  </ion-grid>
+</ion-content>

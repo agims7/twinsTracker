@@ -17,6 +17,10 @@ import { StatisticsPage } from "../pages/statistics/statistics";
 import { TimetablePage } from "../pages/timetable/timetable";
 import { NewEventPage } from "../pages/new-event/new-event";
 
+import { LoginPage } from "../pages/login/login";
+import { RegisterPage } from "../pages/register/register";
+import { ReminderPage } from "../pages/reminder/reminder";
+
 import { ModalPage } from '../pages/modal/modal';
 import { StatisticModalPage } from '../pages/statistic-modal/statistic-modal';
 
@@ -24,7 +28,10 @@ import { TimerService } from '../services/timer';
 import { CategoriesService } from '../services/categories';
 import { ChildrenService } from '../services/children';
 import { RequestService } from '../services/request';
+import { AuthService } from '../services/auth';
 
+
+import { IonicStorageModule } from '@ionic/storage';
 import { DatePickerModule } from 'ionic3-datepicker';
 
 @NgModule({
@@ -42,13 +49,17 @@ import { DatePickerModule } from 'ionic3-datepicker';
     TimetablePage,
     ModalPage,
     NewEventPage,
-    StatisticModalPage
+    StatisticModalPage,
+    LoginPage,
+    RegisterPage,
+    ReminderPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     DatePickerModule,
-    HttpClientModule
+    HttpClientModule,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -65,7 +76,10 @@ import { DatePickerModule } from 'ionic3-datepicker';
     TimetablePage,
     ModalPage,
     NewEventPage,
-    StatisticModalPage
+    StatisticModalPage,
+    LoginPage,
+    RegisterPage,
+    ReminderPage
   ],
   providers: [
     StatusBar,
@@ -74,7 +88,8 @@ import { DatePickerModule } from 'ionic3-datepicker';
     TimerService,
     CategoriesService,
     ChildrenService,
-    RequestService
+    RequestService,
+    AuthService
   ]
 })
 export class AppModule { }

@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
+import { LoginPage } from '../pages/login/login';
 
 import { TimerService } from "../services/timer";
 
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp implements OnInit {
-  rootPage:any = HomePage;
+export class MyApp {
+  rootPage:any = LoginPage;
 
   constructor(
     public platform: Platform,
@@ -25,10 +26,6 @@ export class MyApp implements OnInit {
       statusBar.styleDefault();
       splashScreen.hide();
     });
-  }
-
-  ngOnInit() {
-    this.timerService.setDiaper();
   }
 
 }

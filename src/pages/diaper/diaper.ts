@@ -4,6 +4,7 @@ import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { ModalPage } from '../modal/modal';
 
 import { ChildrenService } from '../../services/children';
+import { TimerService } from '../../services/timer';
 
 @Component({
   selector: 'page-diaper',
@@ -16,8 +17,13 @@ export class DiaperPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public modalCtrl: ModalController,
-    public childrenService: ChildrenService
+    public childrenService: ChildrenService,
+    public timerService: TimerService
   ) {
+  }
+
+  ionViewWillEnter() {
+    this.timerService.setDiaper();
   }
 
   diaperOption() {

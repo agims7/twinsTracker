@@ -1,0 +1,40 @@
+page-reminder {
+  .logo-image {
+    margin: 20px auto;
+    width: 135px;
+    height: 135px;
+  }
+  ion-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    ion-item {
+      background-color: #3f3f3f !important;
+      color: white !important;
+      ion-label {
+        color: white !important;
+      }
+    }
+  }
+  .reminder {
+    text-align: center;
+    color: white;
+  }
+  ion-input {
+    border: 1px solid white;
+    color: white;
+    border-radius: 4px;
+  }
+  .reminder-block {
+    margin-top: 25px;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+    p {
+      font-size: 15px;
+    }
+  }
+}
