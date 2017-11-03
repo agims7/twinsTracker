@@ -1,29 +1,40 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class RequestService {
     public prefix: string = 'http://twinsapi.mitto.usermd.net';
 
+    process: EventEmitter<any> = new EventEmitter<any>();
+    authFailed: EventEmitter<any> = new EventEmitter<any>();
+
     constructor(
         private http: HttpClient
     ) { }
 
-    postMethod(url, body): Observable<any> {
-        return this.http.post(this.prefix + url, body);
+    postMethod(url, body, token?): Observable<any> {
+        return this.http.post(this.prefix + url, body, {
+            headers: new HttpHeaders().set('x-access-token', token)
+        });
     }
 
-    getMethod(url): Observable<any> {
-        return this.http.get(this.prefix + url);
+    getMethod(url, token?): Observable<any> {
+        return this.http.get(this.prefix + url, {
+            headers: new HttpHeaders().set('x-access-token', token)
+        });
     }
 
-    deleteMethod(url, body): Observable<any> {
-        return this.http.delete(this.prefix + url, body);
+    deleteMethod(url, body, token?): Observable<any> {
+        return this.http.delete(this.prefix + url, body, {
+            headers: new HttpHeaders().set('x-access-token', token)
+        });
     }
 
-    putMethod(url, body): Observable<any> {
-        return this.http.put(this.prefix + url, body);
+    putMethod(url, body, token?): Observable<any> {
+        return this.http.put(this.prefix + url, body, {
+            headers: new HttpHeaders().set('x-access-token', token)
+        });
     }
 
 }

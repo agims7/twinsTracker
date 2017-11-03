@@ -1,14 +1,18 @@
 <ion-content padding>
   <ion-grid>
     <img class="logo-image" src="./assets/images/logo.png">
+    <form #login="ngForm">
     <ion-item>
-      <ion-label fixed>Email</ion-label>
-      <ion-input type="text" email></ion-input>
+      <ion-label floating>Email</ion-label>
+      <ion-input type="text" name="email" email [(ngModel)]="authService.userEmail" required></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label fixed>Hasło</ion-label>
-      <ion-input type="password"></ion-input>
+      <ion-label floating>Hasło</ion-label>
+      <ion-input type="password" name="password" [(ngModel)]="authService.userPassword" required></ion-input>
     </ion-item>
+
+    <button class="login-button" ion-button outline color="white" (click)="loginUser()">Zaloguj</button>  
+  </form>
 
     <div class="reminder">
       <p [navPush]="reminderPage">Nie pamiętam hasła</p>  

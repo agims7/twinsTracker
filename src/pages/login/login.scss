@@ -1,8 +1,8 @@
 page-login {
   .logo-image {
     margin: 20px auto;
-    width: 135px;
-    height: 135px;
+    width: 85px;
+    height: 85px;
   }
   ion-grid {
     display: flex;
@@ -15,6 +15,10 @@ page-login {
         color: white !important;
       }
     }
+    // .login-button {
+    //   display: flex;
+    //   justify-content: center;
+    // }
     .reminder {
       color: rgb(171, 171, 171);
       display: block;
