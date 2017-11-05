@@ -41,6 +41,7 @@ export class TimerService {
                 hours: 0,
             });
         }
+        console.log('cos tu JEEST',  this.breastFeeding)
     }
 
     setDiaper() {

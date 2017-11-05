@@ -13,27 +13,27 @@ export class RequestService {
         private http: HttpClient
     ) { }
 
-    postMethod(url, body, token?): Observable<any> {
-        return this.http.post(this.prefix + url, body, {
-            headers: new HttpHeaders().set('x-access-token', token)
+    postMethod(url, requestData?): Observable<any> {
+        return this.http.post(this.prefix + url, requestData.body, {
+            headers: new HttpHeaders().set('x-access-token', requestData.token)
         });
     }
 
-    getMethod(url, token?): Observable<any> {
+    getMethod(url, requestData?): Observable<any> {
         return this.http.get(this.prefix + url, {
-            headers: new HttpHeaders().set('x-access-token', token)
+            headers: new HttpHeaders().set('x-access-token', requestData.token)
         });
     }
 
-    deleteMethod(url, body, token?): Observable<any> {
-        return this.http.delete(this.prefix + url, body, {
-            headers: new HttpHeaders().set('x-access-token', token)
+    deleteMethod(url, requestData?): Observable<any> {
+        return this.http.delete(this.prefix + url, {
+            headers: new HttpHeaders().set('x-access-token', requestData.token)
         });
     }
 
-    putMethod(url, body, token?): Observable<any> {
-        return this.http.put(this.prefix + url, body, {
-            headers: new HttpHeaders().set('x-access-token', token)
+    putMethod(url, requestData?): Observable<any> {
+        return this.http.put(this.prefix + url, requestData.body, {
+            headers: new HttpHeaders().set('x-access-token', requestData.token)
         });
     }
 

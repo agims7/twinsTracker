@@ -15,10 +15,10 @@ export class ModalPage {
   public paramData: any;
   public childSelectedIndex: any;
   public childSelected: number;
-  public breastSelected: boolean = false;
   public breastLeft: boolean = true;
   public breastRight: boolean = false;
   public breastSide: any = [];
+  public breastSelected: boolean = false;
   public bottleSelected: boolean = false;
   public sleepingSelected: boolean = false;
   public diaperSelected: boolean = false;
@@ -26,6 +26,7 @@ export class ModalPage {
   public growthSelected: boolean = false;
   public togetherOrNot: string = '';
   public running: boolean;
+  public selection: number;
 
   constructor(
     public navCtrl: NavController,
@@ -42,6 +43,7 @@ export class ModalPage {
     this.childSelected = this.childrenService.children[this.paramData.child].name;
     this.clearOption();
     this.checkModalOption(this.navParams.data.category);
+    console.log(this.selection)
     this.setNameLocation();
     this.isTogether();
     console.log(this.navParams.data)
@@ -56,6 +58,7 @@ export class ModalPage {
     this.growthSelected = false;
     this.breastLeft = true;
     this.breastRight = false;
+    this.selection = null;
   }
 
   isTogether() {
@@ -71,28 +74,34 @@ export class ModalPage {
       case ('breastFeeding'): {
         this.breastSelected = true;
         this.running = this.timerService.breastFeeding[0].running;
+        this.selection = 0;
         break;
       }
       case ('bottleFeeding'): {
         this.bottleSelected = true;
         this.running = this.timerService.bottleFeeding[0].running;
+        this.selection = 1;
+        break;
+      }
+      case ('diaper'): {
+        this.diaperSelected = true;
+        this.selection = 2;
+        break;
+      }
+      case ('medicine'): {
+        this.medicineSelected = true;
+        this.selection = 3;
         break;
       }
       case ('sleeping'): {
         this.sleepingSelected = true;
         this.running = this.timerService.sleeping[0].running;
-        break;
-      }
-      case ('diaper'): {
-        this.diaperSelected = true;
-        break;
-      }
-      case ('medicine'): {
-        this.medicineSelected = true;
+        this.selection = 4;
         break;
       }
       case ('growth'): {
         this.growthSelected = true;
+        this.selection = 5;
         break;
       }
     }
@@ -127,7 +136,6 @@ export class ModalPage {
     } else {
       this.breastSide = ["lewa", "prawa"];
     }
-
   }
 
   run(index, type) {
@@ -165,16 +173,16 @@ export class ModalPage {
 
   clear(index) {
     this.timeStopped = false;
-      if (this.breastSelected === true) {
-        this.timerService.clearBreastFeeding(index);
-        this.timerService.breastFeeding[index].running = false;
-      } else if (this.bottleSelected === true) {
-        this.timerService.clearBottleFeeding(index);
-        this.timerService.bottleFeeding[index].running = false;
-      } else if (this.sleepingSelected === true) {
-        this.timerService.clearSleeping(index);
-        this.timerService.sleeping[index].running = false;
-      }
+    if (this.breastSelected === true) {
+      this.timerService.clearBreastFeeding(index);
+      this.timerService.breastFeeding[index].running = false;
+    } else if (this.bottleSelected === true) {
+      this.timerService.clearBottleFeeding(index);
+      this.timerService.bottleFeeding[index].running = false;
+    } else if (this.sleepingSelected === true) {
+      this.timerService.clearSleeping(index);
+      this.timerService.sleeping[index].running = false;
+    }
   }
 
 
@@ -190,7 +198,52 @@ export class ModalPage {
   }
 
   save() {
+    switch (this.selection) {
+      case (0): {
+        if (this.paramData.together) {
+          
+        } else {
+          console.log(this.childSelectedIndex, this.childrenService.children)
+          let childID = this.childrenService.children[0].id;
+        }
+        break;
+      }
+      case (1): {
+        if (this.paramData.together) {
+        } else {
 
+        }
+        break;
+      }
+      case (2): {
+        if (this.paramData.together) {
+        } else {
+
+        }
+        break;
+      }
+      case (3): {
+        if (this.paramData.together) {
+        } else {
+
+        }
+        break;
+      }
+      case (4): {
+        if (this.paramData.together) {
+        } else {
+
+        }
+        break;
+      }
+      case (5): {
+        if (this.paramData.together) {
+        } else {
+
+        }
+        break;
+      }
+    }
   }
 
 }

@@ -26,22 +26,21 @@ export class LoginPage {
   ) {
   }
 
-  // ionViewWillEnter() {
-  //   this.authService.setKeys();
-  // }
-  
   ionViewDidEnter() {
     this.authService.getKeys();
   }
 
 
   loginUser() {
-    let body = {
-      'email': this.authService.userEmail,
-      'password': this.authService.userPassword
-    };
     let token = {};
-    this.requestService.postMethod('/auth', body, token).subscribe(data => {
+    let requestData = {
+      body: {
+        'email': this.authService.userEmail,
+        'password': this.authService.userPassword
+      },
+      token: token
+    }
+    this.requestService.postMethod('/auth', requestData).subscribe(data => {
       if (data.error === false) {
         this.authService.userToken = data.token;
         this.authService.userID = data.user.id;

@@ -8,6 +8,13 @@ page-login {
     display: flex;
     justify-content: center;
     align-items: center;
+    form {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
     ion-item {
       background-color: #3f3f3f !important;
       color: white !important;
@@ -15,15 +22,16 @@ page-login {
         color: white !important;
       }
     }
-    // .login-button {
-    //   display: flex;
-    //   justify-content: center;
-    // }
+    .login-button {
+      display: flex;
+      justify-content: center;
+      margin-top: 15px;
+      width: 90%;
+    }
     .reminder {
       color: rgb(171, 171, 171);
       display: block;
       width: 100%;
-      margin-top: 15px;
       padding-left: 15px;
       p {
         font-size: 14px;

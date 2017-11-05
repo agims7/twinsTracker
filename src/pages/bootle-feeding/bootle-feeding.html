@@ -36,11 +36,14 @@
             <span>{{ child.name }}</span>
             <ion-icon name="arrow-round-forward"></ion-icon>
           </button>
-          <ul>
-            <li>czas</li>
-            <li>czas2</li>
-            <li>czas3</li>
-          </ul>
+          <div class="list-container">
+              <ul>
+                  <li *ngFor="let bootle of childrenBootles[i]">
+                     <p>{{ toTime(bootle.date) }}</p>
+                     <p>Czas: {{ bootle.time }}s<span *ngIf="bootle.comment"> - {{ bootle.comment }}</span></p>
+                 </li>
+               </ul>
+          </div>
         </div>
       </ion-col>
     </ion-row>

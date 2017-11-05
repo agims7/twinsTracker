@@ -36,11 +36,14 @@
               <span>{{ child.name }}</span>
               <ion-icon name="arrow-round-forward"></ion-icon>
             </button>
-            <ul>
-              <li>czas</li>
-              <li>czas2</li>
-              <li>czas3</li>
-            </ul>
+            <div class="list-container">
+                <ul>
+                    <li *ngFor="let diaper of childrenDiapers[i]">
+                       <p>{{ toTime(diaper.date) }}</p>
+                       <p>{{ setDiaperType(diaper.type_id) }}<span *ngIf="diaper.comment">{{ diaper.comment }}</span></p>
+                   </li>
+                 </ul>
+            </div>
           </div>
         </ion-col>
       </ion-row>

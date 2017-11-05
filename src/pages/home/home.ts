@@ -48,10 +48,6 @@ export class HomePage {
     public storage: Storage,
     private http: HttpClient
   ) {
-    this.timerService.setTimerObjects();
-  }
-
-  ionViewWillEnter() {
   }
 
   ionViewDidEnter() {
@@ -66,14 +62,19 @@ export class HomePage {
 
   getKids() {
     this.childrenService.children = [];
-        this.requestService.getMethod('/children/parrent/' + this.parrentId, this.token).subscribe(data => {
-          console.log(data, '?????????????????????????')
-          let kids = data.data;
-          for (var child of kids) {
-            console.log(child)
-            this.childrenService.children.push(child);
-          }
-        });
+    let requestData = {
+      token: this.token
+    }
+    this.requestService.getMethod('/children/parrent/' + this.parrentId, requestData).subscribe(data => {
+      let kids = data.data;
+      for (var child of kids) {
+        this.childrenService.children.push(child);
+      }
+      this.timerService.setTimerObjects();
+      console.log('cos tu wykonano settimerobjcest')
+    });
   }
+
+  
 
 }

@@ -36,11 +36,15 @@
               <span>{{ child.name }}</span>
               <ion-icon name="arrow-round-forward"></ion-icon>
             </button>
-            <ul>
-              <li>czas</li>
-              <li>czas2</li>
-              <li>czas3</li>
-            </ul>
+            <div class="list-container">
+                <ul>
+                    <li *ngFor="let growth of childrenGrowths[i]">
+                       <p>{{ toTime(growth.date) }}</p>
+                       <p>{{ growth.weight }} g / {{ growth.length }} cm</p>
+                      <p *ngIf="growth.comment"> - {{ growth.comment }}</p>
+                   </li>
+                 </ul>
+            </div>
           </div>
         </ion-col>
       </ion-row>
