@@ -7,6 +7,7 @@ import { ModalPage } from '../modal/modal';
 import { ChildrenService } from "../../services/children";
 import { RequestService } from "../../services/request";
 import { TimerService } from "../../services/timer";
+import { AuthService } from "../../services/auth";
 
 @Component({
   selector: 'page-breast-feeding',
@@ -16,7 +17,6 @@ export class BreastFeedingPage {
   public together: boolean = true;
   public childrenBreasts: any = [];
   public childrenIds: any = [];
-  public token: string;
 
   constructor(
     public navCtrl: NavController,
@@ -25,7 +25,7 @@ export class BreastFeedingPage {
     public childrenService: ChildrenService,
     public requestService: RequestService,
     public timerService: TimerService,
-    public storage: Storage
+    public authService: AuthService
   ) {
 
   }
@@ -33,19 +33,14 @@ export class BreastFeedingPage {
   ionViewDidEnter() {
     this.cleraAll();
     this.setChildrenBreasts();
-    this.storage.get('userToken').then((userToken) => {
-      this.token = userToken;
-      console.log('cos w storage')
-      this.iterateBreasts();
-    });
+    this.iterateBreasts();
   }
 
   iterateBreasts() {
-    console.log('cos tu iterate')
     let count = 0;
     for (var child of this.childrenService.children) {
       let requestData = {
-        token: this.token
+        token: this.authService.userToken
       }
       this.getBreasts(requestData, child.id, child.name, count);
       count++;
@@ -60,7 +55,7 @@ export class BreastFeedingPage {
   getBreasts(requestData, child, name, number) {
     this.requestService.getMethod('/breast/child/today/' + child, requestData).subscribe(data => {
       if (data.data.length > 0) {
-        if (data.data[0].id > this.childrenIds[0]) {
+        if (data.data[0].child_id > this.childrenIds[0]) {
           this.childrenBreasts.push(data.data)
         } else {
           this.childrenBreasts.unshift(data.data)

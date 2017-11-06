@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
 
 import { ModalPage } from '../modal/modal';
 
 import { ChildrenService } from '../../services/children';
 import { RequestService } from "../../services/request";
 import { TimerService } from "../../services/timer";
+import { AuthService } from "../../services/auth";
 
 import * as moment from 'moment';
 
@@ -18,7 +18,6 @@ export class BootleFeedingPage {
   public together: boolean = true;
   public childrenBootles: any = [];
   public childrenIds: any = [];
-  public token: string;
 
   constructor(
     public navCtrl: NavController,
@@ -27,24 +26,21 @@ export class BootleFeedingPage {
     public childrenService: ChildrenService,
     public requestService: RequestService,
     public timerService: TimerService,
-    public storage: Storage
+    public authService: AuthService
   ) {
   }
 
   ionViewDidEnter() {
     this.cleraAll();
     this.setChildrenBootles();
-    this.storage.get('userToken').then((userToken) => {
-      this.token = userToken;
-      this.iterateBootles();
-    });
+    this.iterateBootles();
   }
 
   iterateBootles() {
     let count = 0;
     for (var child of this.childrenService.children) {
       let requestData = {
-        token: this.token
+        token: this.authService.userToken
       }
       this.getBootles(requestData, child.id, child.name, count);
       count++;
@@ -59,7 +55,7 @@ export class BootleFeedingPage {
   getBootles(requestData, child, name, number) {
     this.requestService.getMethod('/bootle/child/today/' + child, requestData).subscribe(data => {
       if (data.data.length > 0) {
-        if (data.data[0].id > this.childrenIds[0]) {
+        if (data.data[0].child_id > this.childrenIds[0]) {
           this.childrenBootles.push(data.data)
         } else {
           this.childrenBootles.unshift(data.data)

@@ -46,11 +46,13 @@ export class TimerService {
     }
 
     setDiaper() {
+        this.fecesDone = [];
+        this.urineDone = [];
         for (var key in this.childrenService.children) {
-          this.urineDone.push(false);
-          this.fecesDone.push(false);
+            this.urineDone.push(false);
+            this.fecesDone.push(false);
         }
-      }
+    }
 
     runBreastFeeding(index) {
         console.log('breast timer run ', this.breastFeeding[index].running);
@@ -106,7 +108,7 @@ export class TimerService {
                 }
             }, 10);
         } else {
-            
+
             console.log('index runnin = true wiec trzeba zatrzymac')
             clearInterval(this.bottleFeedingInterval[index]);
             this.bottleFeeding[index].running = false;
@@ -142,7 +144,7 @@ export class TimerService {
                 }
             }, 10);
         } else {
-            
+
             console.log('index runnin = true wiec trzeba zatrzymac')
             clearInterval(this.sleepingInterval[index]);
             this.sleeping[index].running = false;
@@ -160,24 +162,24 @@ export class TimerService {
     toTime(date) {
         let newDate = new Date(date)
         return moment(newDate).format('HH:mm');
-      }
-    
-      pad(num) {
+    }
+
+    pad(num) {
         return ("0" + num).slice(-2);
-      }
-    
-      secondConvert(date) {
+    }
+
+    secondConvert(date) {
         let minutes = Math.floor(date / 60);
         date = date % 60;
-        let  hours = Math.floor(minutes / 60)
+        let hours = Math.floor(minutes / 60)
         minutes = minutes % 60;
         if (hours > 0) {
-          return this.pad(hours) + "h " + this.pad(minutes) + "m " + this.pad(date) + "s";  
+            return this.pad(hours) + "h " + this.pad(minutes) + "m " + this.pad(date) + "s";
         } else if (minutes > 0) {
-          return this.pad(minutes) + "m " + this.pad(date) + "s"; 
+            return this.pad(minutes) + "m " + this.pad(date) + "s";
         } else {
-          return this.pad(date) + "s";
+            return this.pad(date) + "s";
         }
-      }
+    }
 
 }

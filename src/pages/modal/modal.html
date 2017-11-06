@@ -104,7 +104,7 @@
             <div class="drunk-value-box">
               <span>Wypite:</span>
               <ion-item class="drunk-value">
-                <ion-input placeholder="ml" type="number"></ion-input>
+                <ion-input [(ngModel)]="volume[i]" placeholder="ml" type="number"></ion-input>
               </ion-item>
             </div>
           </div>
@@ -134,7 +134,7 @@
             <div class="drunk-value-box">
               <span>Wypite:</span>
               <ion-item class="drunk-value">
-                <ion-input placeholder="ml" type="number"></ion-input>
+                <ion-input [(ngModel)]="volume[childSelectedIndex]" placeholder="ml" type="number"></ion-input>
               </ion-item>
             </div>
           </div>
@@ -198,7 +198,7 @@
                 </ion-col>
                 <ion-col>
                   <ion-item>
-                    <ion-input placeholder="lekarstwo" type="text"></ion-input>
+                    <ion-input [(ngModel)]="medicine" (ngModelChange)="setMedicines()" placeholder="lekarstwo" type="text"></ion-input>
                   </ion-item>
                 </ion-col>
               </ion-row>
@@ -208,7 +208,7 @@
                 </ion-col>
                 <ion-col>
                   <ion-item>
-                    <ion-input placeholder="dawka" type="text"></ion-input>
+                    <ion-input [(ngModel)]="portion" (ngModelChange)="setMedicines()" placeholder="dawka" type="text"></ion-input>
                   </ion-item>
                 </ion-col>
               </ion-row>
@@ -286,7 +286,7 @@
                 </ion-col>
                 <ion-col>
                   <ion-item>
-                    <ion-input placeholder="gramy" type="number"></ion-input>
+                    <ion-input [(ngModel)]="weight" (ngModelChange)="setGrowths()" placeholder="gramy" type="number"></ion-input>
                   </ion-item>
                 </ion-col>
               </ion-row>
@@ -296,7 +296,7 @@
                 </ion-col>
                 <ion-col>
                   <ion-item>
-                    <ion-input placeholder="cm" type="number"></ion-input>
+                    <ion-input [(ngModel)]="length" (ngModelChange)="setGrowths()" placeholder="cm" type="number"></ion-input>
                   </ion-item>
                 </ion-col>
               </ion-row>

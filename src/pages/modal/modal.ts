@@ -5,7 +5,7 @@ import { Storage } from '@ionic/storage';
 import { TimerService } from "../../services/timer";
 import { ChildrenService } from "../../services/children";
 import { RequestService } from "../../services/request";
-
+import { AuthService } from "../../services/auth";
 
 @Component({
   selector: 'page-modal',
@@ -20,6 +20,11 @@ export class ModalPage {
   public breastLeft: boolean = true;
   public breastRight: boolean = false;
   public breastSide: any = [];
+  public volume = [];
+  public medicine: string;
+  public portion: string;
+  public weight: number;
+  public length: number;
   public breastSelected: boolean = false;
   public bottleSelected: boolean = false;
   public sleepingSelected: boolean = false;
@@ -29,7 +34,6 @@ export class ModalPage {
   public togetherOrNot: string = '';
   public running: boolean;
   public selection: number;
-  public token: string;
 
   constructor(
     public navCtrl: NavController,
@@ -37,14 +41,8 @@ export class ModalPage {
     public timerService: TimerService,
     public childrenService: ChildrenService,
     public requestService: RequestService,
-    public storage: Storage
+    public authService: AuthService
   ) {
-  }
-  
-  ionViewWillEnter() {
-    this.storage.get('userToken').then((userToken) => {
-      this.token = userToken;
-    });
   }
 
   ionViewDidEnter() {
@@ -54,9 +52,9 @@ export class ModalPage {
     this.childSelected = this.childrenService.children[this.paramData.child].name;
     this.clearOption();
     this.checkModalOption(this.navParams.data.category);
-    console.log(this.selection)
     this.setNameLocation();
     this.isTogether();
+    this.setBottleVolumes();
     console.log(this.navParams.data)
   }
 
@@ -70,6 +68,12 @@ export class ModalPage {
     this.breastLeft = true;
     this.breastRight = false;
     this.selection = null;
+    this.volume = [];
+    this.timerService.setDiaper();
+    this.medicine = null;
+    this.portion = null;
+    this.weight = null;
+    this.length = null;
   }
 
   isTogether() {
@@ -145,6 +149,13 @@ export class ModalPage {
     }
   }
 
+  setBottleVolumes() {
+    for (let child in this.childrenService.children) {
+      this.volume.push(null);
+    }
+    console.log(this.volume)
+  }
+
   setNameLocation() {
     if (this.paramData.child == 0) {
       this.breastSide = ["lewa", "prawa"];
@@ -156,7 +167,6 @@ export class ModalPage {
   run(index, type) {
     console.log('click run - index', index)
     if (type == 'together') {
-      console.log('together')
       if (this.breastSelected === true) {
         this.running = this.timerService.breastFeeding[index].running;
         this.timerService.runBreastFeeding(index);
@@ -164,21 +174,24 @@ export class ModalPage {
         this.running = this.timerService.bottleFeeding[index].running;
         this.timerService.runBottleFeeding(index);
       } else if (this.sleepingSelected === true) {
+        console.log('sleeping together')
         this.running = this.timerService.sleeping[index].running;
         this.timerService.runSleeping(index);
       }
     } else {
-      console.log('osobno')
       if (this.breastSelected === true) {
         this.running = this.timerService.breastFeeding[index].running;
         this.timerService.runBreastFeeding(index);
       } else if (this.bottleSelected === true) {
+        this.running = this.timerService.bottleFeeding[index].running;
         this.timerService.runBottleFeeding(index);
       } else if (this.sleepingSelected === true) {
+        console.log('sleeping not together')
+        this.running = this.timerService.sleeping[index].running;
         this.timerService.runSleeping(index);
       }
     }
-
+    console.log('this.running', this.running)
     if (this.running === true) {
       this.timeStopped = true;
     } else {
@@ -203,13 +216,21 @@ export class ModalPage {
 
 
   poo(child) {
-    console.log('child', child, 'gowno', this.timerService.fecesDone, 'urine', this.timerService.urineDone)
     this.timerService.fecesDone[child] ? this.timerService.fecesDone[child] = false : this.timerService.fecesDone[child] = true;
+    if (this.timerService.fecesDone[child] || this.timerService.urineDone[child]) {
+      this.timeStopped = true;
+    } else {
+      this.timeStopped = false;
+    }
   }
 
   pee(child) {
-    console.log('child', child, 'gowno', this.timerService.fecesDone, 'urine', this.timerService.urineDone)
     this.timerService.urineDone[child] ? this.timerService.urineDone[child] = false : this.timerService.urineDone[child] = true;
+    if (this.timerService.fecesDone[child] || this.timerService.urineDone[child]) {
+      this.timeStopped = true;
+    } else {
+      this.timeStopped = false;
+    }
   }
 
   getBreastSide(side) {
@@ -223,34 +244,94 @@ export class ModalPage {
     }
   }
 
+  setMedicines() {
+    if (this.medicine && this.portion) {
+      this.timeStopped = true;
+    } else {
+      this.timeStopped = false;
+    }
+  }
+
+  setGrowths() {
+    if (this.weight && this.length) {
+      this.timeStopped = true;
+    } else {
+      this.timeStopped = false;
+    }
+  }
+
   getTime(childindex) {
-    let timeInSeconds: 0;
-    timeInSeconds = this.timerService.breastFeeding[childindex].seconds;
-    timeInSeconds += this.timerService.breastFeeding[childindex].minutes * 60;
-    timeInSeconds += this.timerService.breastFeeding[childindex].hours * 60*60;
-    return timeInSeconds;
+    switch (this.selection) {
+      case (0): {
+        let timeInSeconds: 0;
+        timeInSeconds = this.timerService.breastFeeding[childindex].seconds;
+        timeInSeconds += this.timerService.breastFeeding[childindex].minutes * 60;
+        timeInSeconds += this.timerService.breastFeeding[childindex].hours * 60 * 60;
+        return timeInSeconds;
+      }
+      case (1): {
+        let timeInSeconds: 0;
+        timeInSeconds = this.timerService.bottleFeeding[childindex].seconds;
+        timeInSeconds += this.timerService.bottleFeeding[childindex].minutes * 60;
+        timeInSeconds += this.timerService.bottleFeeding[childindex].hours * 60 * 60;
+        return timeInSeconds;
+      }
+      case (4): {
+        let timeInSeconds: 0;
+        timeInSeconds = this.timerService.sleeping[childindex].seconds;
+        timeInSeconds += this.timerService.sleeping[childindex].minutes * 60;
+        timeInSeconds += this.timerService.sleeping[childindex].hours * 60 * 60;
+        return timeInSeconds;
+      }
+    }
   }
 
   save() {
     switch (this.selection) {
       case (0): {
         if (this.paramData.together) {
-          
+          let count = 0;
+          for (var child of this.childrenService.children) {
+            let childID = child.id;
+            let sideID = this.getBreastSide(this.breastSide[count]);
+            let time = this.getTime(count);
+            let requestData = {
+              token: this.authService.userToken,
+              body: {
+                'child_id': childID,
+                'side_id': sideID,
+                'time': time
+              }
+            }
+            this.requestService.postMethod('/breast', requestData).subscribe(data => {
+              if (data.error === false) {
+                console.log('Succes')
+              } else {
+                console.log('Error')
+              }
+              this.clear(this.childSelectedIndex);
+            });
+            count++;
+          }
+          this.navCtrl.pop();
         } else {
-          let childID = this.childrenService.children[0].id;
+          let childID = this.childrenService.children[this.childSelectedIndex].id;
           let sideID = this.getBreastSide(this.breastSide[this.childSelectedIndex]);
           let time = this.getTime(this.childSelectedIndex);
           let requestData = {
-            token: this.token,
+            token: this.authService.userToken,
             body: {
               'child_id': childID,
               'side_id': sideID,
               'time': time
             }
           }
-          console.log(childID, sideID, time)
-          this.requestService.postMethod('/breast/', requestData).subscribe(data => {
-            console.log(data);
+          this.requestService.postMethod('/breast', requestData).subscribe(data => {
+            if (data.error === false) {
+              console.log('Succes')
+            } else {
+              console.log('Error')
+            }
             this.clear(this.childSelectedIndex);
             this.navCtrl.pop();
           });
@@ -259,36 +340,257 @@ export class ModalPage {
       }
       case (1): {
         if (this.paramData.together) {
+          let count = 0;
+          for (var child of this.childrenService.children) {
+            let childID = child.id;
+            let volume = Number(this.volume[count]);
+            let time = this.getTime(count);
+            let requestData = {
+              token: this.authService.userToken,
+              body: {
+                'child_id': childID,
+                'volume': volume,
+                'time': time
+              }
+            }
+            this.requestService.postMethod('/bootle', requestData).subscribe(data => {
+              if (data.error === false) {
+                console.log('Succes')
+              } else {
+                console.log('Error')
+              }
+              this.clear(this.childSelectedIndex);
+            });
+            count++;
+          }
+          this.navCtrl.pop();
         } else {
-
+          let childID = this.childrenService.children[this.childSelectedIndex].id;
+          let volume = Number(this.volume[this.childSelectedIndex]);
+          let time = this.getTime(this.childSelectedIndex);
+          let requestData = {
+            token: this.authService.userToken,
+            body: {
+              'child_id': childID,
+              'volume': volume,
+              'time': time
+            }
+          }
+          this.requestService.postMethod('/bootle', requestData).subscribe(data => {
+            if (data.error === false) {
+              console.log('Succes')
+            } else {
+              console.log('Error')
+            }
+            this.clear(this.childSelectedIndex);
+            this.navCtrl.pop();
+          });
         }
         break;
       }
       case (2): {
         if (this.paramData.together) {
+          let count = 0;
+          for (var child of this.childrenService.children) {
+            let childID = child.id;
+            let type_id;
+            if (this.timerService.fecesDone[count]) {
+              let type_id = 1;
+              let requestData = {
+                token: this.authService.userToken,
+                body: {
+                  'child_id': childID,
+                  'type_id': type_id
+                }
+              }
+              this.requestService.postMethod('/diaper', requestData).subscribe(data => {
+                if (data.error === false) {
+                  console.log('Succes')
+                } else {
+                  console.log('Error')
+                }
+              });
+            }
+            if (this.timerService.urineDone[count]) {
+              let type_id = 2;
+              let requestData = {
+                token: this.authService.userToken,
+                body: {
+                  'child_id': childID,
+                  'type_id': type_id
+                }
+              }
+              this.requestService.postMethod('/diaper', requestData).subscribe(data => {
+                if (data.error === false) {
+                  console.log('Succes')
+                } else {
+                  console.log('Error')
+                }
+              });
+            }
+            count++;
+          }
+          this.navCtrl.pop();
         } else {
-
+          let childID = this.childrenService.children[this.childSelectedIndex].id;
+          let type_id;
+          if (this.timerService.fecesDone[this.childSelectedIndex]) {
+            let type_id = 1;
+            let requestData = {
+              token: this.authService.userToken,
+              body: {
+                'child_id': childID,
+                'type_id': type_id
+              }
+            }
+            this.requestService.postMethod('/diaper', requestData).subscribe(data => {
+              if (data.error === false) {
+                console.log('Succes')
+              } else {
+                console.log('Error')
+              }
+              this.clear(this.childSelectedIndex);
+            });
+          }
+          if (this.timerService.urineDone[this.childSelectedIndex]) {
+            let type_id = 2;
+            let requestData = {
+              token: this.authService.userToken,
+              body: {
+                'child_id': childID,
+                'type_id': type_id
+              }
+            }
+            this.requestService.postMethod('/diaper', requestData).subscribe(data => {
+              if (data.error === false) {
+                console.log('Succes')
+              } else {
+                console.log('Error')
+              }
+              this.clear(this.childSelectedIndex);
+            });
+          }
+          this.navCtrl.pop();
         }
         break;
       }
       case (3): {
         if (this.paramData.together) {
+          let count = 0;
+          for (var child of this.childrenService.children) {
+            let childID = child.id;
+            let medicine = this.medicine;
+            let portion = this.portion
+            let requestData = {
+              token: this.authService.userToken,
+              body: {
+                'child_id': childID,
+                'medicine': medicine,
+                'portion': portion
+              }
+            }
+            this.requestService.postMethod('/medicine', requestData).subscribe(data => {
+              if (data.error === false) {
+                console.log('Succes')
+              } else {
+                console.log('Error')
+              }
+            });
+          }
+          this.navCtrl.pop();
         } else {
-
+          let childID = this.childrenService.children[this.childSelectedIndex].id;
+          let medicine = this.medicine;
+          let portion = this.portion
+          let requestData = {
+            token: this.authService.userToken,
+            body: {
+              'child_id': childID,
+              'medicine': medicine,
+              'portion': portion
+            }
+          }
+          this.requestService.postMethod('/medicine', requestData).subscribe(data => {
+            if (data.error === false) {
+              console.log('Succes')
+            } else {
+              console.log('Error')
+            }
+          });
+          this.navCtrl.pop();
         }
         break;
       }
       case (4): {
         if (this.paramData.together) {
+          let count = 0;
+          for (var child of this.childrenService.children) {
+            let childID = child.id;
+            let time = this.getTime(count);
+            let requestData = {
+              token: this.authService.userToken,
+              body: {
+                'child_id': childID,
+                'time': time
+              }
+            }
+            this.requestService.postMethod('/sleep', requestData).subscribe(data => {
+              if (data.error === false) {
+                console.log('Succes')
+              } else {
+                console.log('Error')
+              }
+              this.clear(this.childSelectedIndex);
+            });
+            count++;
+          }
+          this.navCtrl.pop();
         } else {
-
+          let childID = this.childrenService.children[this.childSelectedIndex].id;
+          let time = this.getTime(this.childSelectedIndex);
+          let requestData = {
+            token: this.authService.userToken,
+            body: {
+              'child_id': childID,
+              'time': time
+            }
+          }
+          this.requestService.postMethod('/sleep', requestData).subscribe(data => {
+            if (data.error === false) {
+              console.log('Succes')
+            } else {
+              console.log('Error')
+            }
+            this.clear(this.childSelectedIndex);
+            this.navCtrl.pop();
+          });
         }
         break;
       }
       case (5): {
         if (this.paramData.together) {
+          // empty
         } else {
-
+          let childID = this.childrenService.children[this.childSelectedIndex].id;
+          let weight = this.weight;
+          let length = this.length;
+          let requestData = {
+            token: this.authService.userToken,
+            body: {
+              'child_id': childID,
+              'weight': weight,
+              'length': length
+            }
+          }
+          this.requestService.postMethod('/growth', requestData).subscribe(data => {
+            if (data.error === false) {
+              console.log('Succes')
+            } else {
+              console.log('Error')
+            }
+            this.clear(this.childSelectedIndex);
+            this.navCtrl.pop();
+          });
         }
         break;
       }

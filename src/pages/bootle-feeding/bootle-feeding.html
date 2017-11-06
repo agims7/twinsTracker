@@ -40,7 +40,7 @@
               <ul>
                   <li *ngFor="let bootle of childrenBootles[i]">
                      <p>{{ timerService.toTime(bootle.date) }}</p>
-                     <p>Czas: {{ timerService.secondConvert(bootle.time) }}<span *ngIf="bootle.comment"> - {{ bootle.comment }}</span></p>
+                     <p>Czas: {{ timerService.secondConvert(bootle.time) }} / Ilość: {{ bootle.volume }}ml<span *ngIf="bootle.comment"> - {{ bootle.comment }}</span></p>
                  </li>
                </ul>
           </div>

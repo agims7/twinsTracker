@@ -7,6 +7,7 @@ import { ModalPage } from '../modal/modal';
 import { ChildrenService } from '../../services/children';
 import { RequestService } from "../../services/request";
 import { TimerService } from "../../services/timer";
+import { AuthService } from "../../services/auth";
 
 import * as moment from 'moment';
 
@@ -18,7 +19,6 @@ export class GrowthPage {
   public together: boolean = false;
   public childrenGrowths: any = [];
   public childrenIds: any = [];
-  public token: string;
   
   constructor(
     public navCtrl: NavController,
@@ -27,24 +27,21 @@ export class GrowthPage {
     public childrenService: ChildrenService,
     public requestService: RequestService,
     public timerService: TimerService,
-    public storage: Storage
+    public authService: AuthService
   ) {
   }
 
   ionViewDidEnter() {
     this.cleraAll();
     this.setChildrenGrowth();
-    this.storage.get('userToken').then((userToken) => {
-      this.token = userToken;
-      this.iterateGrowth();
-    });
+    this.iterateGrowth();
   }
 
   iterateGrowth() {
     let count = 0;
     for (var child of this.childrenService.children) {
       let requestData = {
-        token: this.token
+        token: this.authService.userToken
       }
       this.getGrowth(requestData, child.id, child.name, count);
       count++;
@@ -84,11 +81,6 @@ export class GrowthPage {
   openModal(index) {
     const modal = this.modalCtrl.create(ModalPage, {"category": "growth", "text": "Wzrost", "together": this.together, "child": index });
     modal.present();
-  }
-
-  toTime(date) {
-    let newDate = new Date(date)
-    return moment(newDate).format('HH:mm');
   }
 
 }

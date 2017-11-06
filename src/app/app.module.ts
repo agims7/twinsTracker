@@ -16,20 +16,19 @@ import { SleepingPage } from "../pages/sleeping/sleeping";
 import { StatisticsPage } from "../pages/statistics/statistics";
 import { TimetablePage } from "../pages/timetable/timetable";
 import { NewEventPage } from "../pages/new-event/new-event";
-
 import { LoginPage } from "../pages/login/login";
 import { RegisterPage } from "../pages/register/register";
 import { ReminderPage } from "../pages/reminder/reminder";
-
 import { ModalPage } from '../pages/modal/modal';
 import { StatisticModalPage } from '../pages/statistic-modal/statistic-modal';
+import { SettingsPage } from "../pages/settings/settings";
+import { AddChildPage } from "../pages/add-child/add-child";
 
 import { TimerService } from '../services/timer';
 import { CategoriesService } from '../services/categories';
 import { ChildrenService } from '../services/children';
 import { RequestService } from '../services/request';
 import { AuthService } from '../services/auth';
-
 
 import { IonicStorageModule } from '@ionic/storage';
 import { DatePickerModule } from 'ionic3-datepicker';
@@ -52,7 +51,9 @@ import { DatePickerModule } from 'ionic3-datepicker';
     StatisticModalPage,
     LoginPage,
     RegisterPage,
-    ReminderPage
+    ReminderPage,
+    SettingsPage,
+    AddChildPage
   ],
   imports: [
     BrowserModule,
@@ -79,7 +80,9 @@ import { DatePickerModule } from 'ionic3-datepicker';
     StatisticModalPage,
     LoginPage,
     RegisterPage,
-    ReminderPage
+    ReminderPage,
+    SettingsPage,
+    AddChildPage
   ],
   providers: [
     StatusBar,

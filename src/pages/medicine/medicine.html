@@ -40,7 +40,7 @@
                 <ul>
                     <li *ngFor="let medicine of childrenMedicines[i]">
                        <p>{{ timerService.toTime(medicine.date) }}</p>
-                       <p>{{ medicine.medicine }}<span *ngIf="medicine.comment"> - {{ medicine.comment }}</span></p>
+                       <p>{{ medicine.medicine }} / {{ medicine.portion }}<span *ngIf="medicine.comment"> - {{ medicine.comment }}</span></p>
                    </li>
                  </ul>
             </div>

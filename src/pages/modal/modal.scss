@@ -35,8 +35,15 @@ page-modal {
                 justify-content: center;
                 align-items: center;
                 .drunk-value {
-                    width: 65px;
+                    width: 70px;
                     margin-left: 15px;
+                    padding: 0;
+                    .item-inner {
+                        padding: 0 5px; 
+                        input {
+                            text-align: center;
+                        }
+                    }
                 }
             }
     }

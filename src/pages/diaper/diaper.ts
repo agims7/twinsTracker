@@ -7,6 +7,7 @@ import { ModalPage } from '../modal/modal';
 import { ChildrenService } from '../../services/children';
 import { RequestService } from "../../services/request";
 import { TimerService } from '../../services/timer';
+import { AuthService } from "../../services/auth";
 
 import * as moment from 'moment';
 
@@ -18,7 +19,6 @@ export class DiaperPage {
   public together: boolean = true;
   public childrenDiapers: any = [];
   public childrenIds: any = [];
-  public token: string;
   
   constructor(
     public navCtrl: NavController,
@@ -27,7 +27,7 @@ export class DiaperPage {
     public childrenService: ChildrenService,
     public timerService: TimerService,
     public requestService: RequestService,
-    public storage: Storage
+    public authService: AuthService
   ) {
   }
 
@@ -38,17 +38,14 @@ export class DiaperPage {
   ionViewDidEnter() {
     this.cleraAll();
     this.setChildrenDiapers();
-    this.storage.get('userToken').then((userToken) => {
-      this.token = userToken;
-      this.iterateDiapers();
-    });
+    this.iterateDiapers();
   }
 
   iterateDiapers() {
     let count = 0;
     for (var child of this.childrenService.children) {
       let requestData = {
-        token: this.token
+        token: this.authService.userToken
       }
       this.getDiapers(requestData, child.id, child.name, count);
       count++;
