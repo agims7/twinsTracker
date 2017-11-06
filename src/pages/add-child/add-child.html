@@ -1,18 +1,53 @@
-<!--
-  Generated template for the AddChildPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>add-child</ion-title>
-  </ion-navbar>
-
+  <ion-toolbar color="background">
+    <ion-buttons start>
+        <button ion-button icon-only (tap)="goBack()">
+            <ion-icon name="arrow-back"></ion-icon>
+          </button>
+    </ion-buttons>
+    <ion-title>
+      Dodaj dziecko
+    </ion-title>
+  </ion-toolbar>
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+  <ion-grid>
+    <form *ngIf="!newChildBlock" #childForm="ngForm" (ngSubmit)="addChild(childForm)">
+      <ion-list>
+        <ion-item>
+          <ion-label fixed>Imię</ion-label>
+          <ion-input type="text" ngModel name="name" placeholder="imię dziecka" required></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label fixed>Waga</ion-label>
+            <ion-input type="number" ngModel name="weight" placeholder="g" required></ion-input>
+          </ion-item>
+          <ion-item>
+              <ion-label fixed>Długość</ion-label>
+              <ion-input type="number" ngModel name="length" placeholder="cm" required></ion-input>
+            </ion-item>
+        <ion-item>
+          <p fixed>Data</p>
+          <button class="datepicker-button" item-end ion-button icon-left ion-datepicker (ionChanged)="setDate($event);" [value]="date"
+          [localeStrings]="object">
+          <span>{{ showTime(date) }}</span>
+          <ion-icon class="date-icon" name="calendar"></ion-icon>
+        </button>
+        </ion-item>
+        <ion-item>
+            <button class="button" ion-button block (click)="takePicture()">Zrób zdjęcie</button>
+            <button class="button" ion-button block (click)="setPicture()">Załaduj zdjęcie</button>
+          </ion-item>
+      </ion-list>
+      <button class="submit-button" ion-button block color="white" type="submit" [disabled]="!childForm.valid && date && imageTaken">Dodaj</button>
+    </form>
 
+    <div class="warning" *ngIf="newChildBlock">
+      <ion-icon class="warning-icon" color="danger" name="alert"></ion-icon>
+      <h1 class="warning-first">Brak możliwości dodania więcej dzieci.</h1>
+      <h4 class="warning-second">Maksymalna ilość to 2 dzieci</h4>
+    </div>
+  </ion-grid>
 </ion-content>

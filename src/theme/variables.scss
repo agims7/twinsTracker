@@ -36,6 +36,23 @@ $app-direction: ltr;
   background-color: #3f3f3f !important;
 }
 
+//Header / Navbar
+
+.toolbar-background {
+    background-color: #3f3f3f !important;
+}
+.toolbar-title {
+    color: white !important;
+}
+.menu-inner {
+    .item {
+        background-color: #3f3f3f !important;
+    }
+    ion-label {
+        color: white !important;
+    }
+}
+
 //Buttons {
 
 button {

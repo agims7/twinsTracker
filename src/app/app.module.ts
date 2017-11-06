@@ -32,6 +32,7 @@ import { AuthService } from '../services/auth';
 
 import { IonicStorageModule } from '@ionic/storage';
 import { DatePickerModule } from 'ionic3-datepicker';
+import { Camera } from '@ionic-native/camera';
 
 @NgModule({
   declarations: [
@@ -87,6 +88,7 @@ import { DatePickerModule } from 'ionic3-datepicker';
   providers: [
     StatusBar,
     SplashScreen,
+    Camera,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     TimerService,
     CategoriesService,

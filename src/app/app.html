@@ -1,4 +1,4 @@
-<ion-menu [content]="nav">
+<ion-menu side="right" [content]="nav">
     <ion-header>
         <ion-toolbar>
             <ion-title>Menu</ion-title>
@@ -7,19 +7,23 @@
     <ion-content>
         <ion-list>
             <button ion-item (tap)="onLoad(homePage)">
-                <ion-icon name="person-add" item-left></ion-icon>
+                <ion-icon name="home" color="white" item-left></ion-icon>
                 Home
             </button>
             <button ion-item (tap)="onLoad(addChildPage)">
-                <ion-icon name="person-add" item-left></ion-icon>
+                <ion-icon name="person-add" color="white" item-left></ion-icon>
                 Dodaj dziecko
             </button>
             <button ion-item (tap)="onLoad(settingsPage)">
-                <ion-icon name="settings" item-left></ion-icon>
+                <ion-icon name="settings" color="white" item-left></ion-icon>
                 Ustawienia
+            </button>
+            <button ion-item icon-left (click)="onLogout()">
+                <ion-icon name="log-out" color="white" item-left></ion-icon>
+                Wyloguj
             </button>
         </ion-list>
     </ion-content>
 </ion-menu>
 
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-nav [root]="rootPage" #nav></ion-nav>
