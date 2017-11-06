@@ -61,7 +61,7 @@ export class DiaperPage {
   }
 
   getDiapers(requestData, child, name, number) {
-    this.requestService.getMethod('/diaper/child/' + child, requestData).subscribe(data => {
+    this.requestService.getMethod('/diaper/child/today/' + child, requestData).subscribe(data => {
       if (data.data.length > 0) {
         console.log(data.data)
         if (data.data[0].id > this.childrenIds[0]) {
@@ -100,7 +100,8 @@ export class DiaperPage {
   }
 
   toTime(date) {
-    return moment.unix(date).format('HH:mm');
+    let newDate = new Date(date)
+    return moment(newDate).format('HH:mm');
   }
 
 }

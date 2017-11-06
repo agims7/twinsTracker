@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-
+import { Storage } from '@ionic/storage';
 
 import { TimerService } from "../../services/timer";
 import { ChildrenService } from "../../services/children";
+import { RequestService } from "../../services/request";
+
 
 @Component({
   selector: 'page-modal',
@@ -27,13 +29,22 @@ export class ModalPage {
   public togetherOrNot: string = '';
   public running: boolean;
   public selection: number;
+  public token: string;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public timerService: TimerService,
-    public childrenService: ChildrenService
+    public childrenService: ChildrenService,
+    public requestService: RequestService,
+    public storage: Storage
   ) {
+  }
+  
+  ionViewWillEnter() {
+    this.storage.get('userToken').then((userToken) => {
+      this.token = userToken;
+    });
   }
 
   ionViewDidEnter() {
@@ -118,23 +129,27 @@ export class ModalPage {
     if (index === 0) {
       this.breastLeft = true;
       this.breastRight = false;
-      this.breastSide = ["lewa", "prawa"];
-    } else {
-      this.breastLeft = false;
-      this.breastRight = true;
-      this.breastSide = ["prawa", "lewa"];
-    }
-  }
-
-  setNameLocation() {
-    if (this.paramData.together) {
       if (this.paramData.child == 0) {
         this.breastSide = ["lewa", "prawa"];
       } else {
         this.breastSide = ["prawa", "lewa"];
       }
     } else {
+      this.breastLeft = false;
+      this.breastRight = true;
+      if (this.paramData.child == 0) {
+        this.breastSide = ["prawa", "lewa"];
+      } else {
+        this.breastSide = ["lewa", "prawa"];
+      }
+    }
+  }
+
+  setNameLocation() {
+    if (this.paramData.child == 0) {
       this.breastSide = ["lewa", "prawa"];
+    } else {
+      this.breastSide = ["prawa", "lewa"];
     }
   }
 
@@ -197,14 +212,48 @@ export class ModalPage {
     this.timerService.urineDone[child] ? this.timerService.urineDone[child] = false : this.timerService.urineDone[child] = true;
   }
 
+  getBreastSide(side) {
+    switch (side) {
+      case ('lewa'): {
+        return 1;
+      }
+      case ('prawa'): {
+        return 2;
+      }
+    }
+  }
+
+  getTime(childindex) {
+    let timeInSeconds: 0;
+    timeInSeconds = this.timerService.breastFeeding[childindex].seconds;
+    timeInSeconds += this.timerService.breastFeeding[childindex].minutes * 60;
+    timeInSeconds += this.timerService.breastFeeding[childindex].hours * 60*60;
+    return timeInSeconds;
+  }
+
   save() {
     switch (this.selection) {
       case (0): {
         if (this.paramData.together) {
           
         } else {
-          console.log(this.childSelectedIndex, this.childrenService.children)
           let childID = this.childrenService.children[0].id;
+          let sideID = this.getBreastSide(this.breastSide[this.childSelectedIndex]);
+          let time = this.getTime(this.childSelectedIndex);
+          let requestData = {
+            token: this.token,
+            body: {
+              'child_id': childID,
+              'side_id': sideID,
+              'time': time
+            }
+          }
+          console.log(childID, sideID, time)
+          this.requestService.postMethod('/breast/', requestData).subscribe(data => {
+            console.log(data);
+            this.clear(this.childSelectedIndex);
+            this.navCtrl.pop();
+          });
         }
         break;
       }

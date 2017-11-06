@@ -39,8 +39,8 @@
             <div class="list-container">
                 <ul>
                     <li *ngFor="let breast of childrenBreasts[i]">
-                       <p>{{ toTime(breast.date) }}</p>
-                       <p>Czas: {{ breast.time }}s<span *ngIf="breast.comment"> - {{ breast.comment }}</span></p>
+                       <p>{{ timerService.toTime(breast.date) }}</p>
+                       <p>Czas: {{ timerService.secondConvert(breast.time) }}<span *ngIf="breast.comment"> - {{ breast.comment }}</span></p>
                    </li>
                  </ul>
             </div>

@@ -6,6 +6,7 @@ import { ModalPage } from '../modal/modal';
 
 import { ChildrenService } from '../../services/children';
 import { RequestService } from "../../services/request";
+import { TimerService } from "../../services/timer";
 
 import * as moment from 'moment';
 
@@ -25,6 +26,7 @@ export class SleepingPage {
     public modalCtrl: ModalController,
     public childrenService: ChildrenService,
     public requestService: RequestService,
+    public timerService: TimerService,    
     public storage: Storage
   ) {
   }
@@ -55,7 +57,7 @@ export class SleepingPage {
   }
 
   getSleeps(requestData, child, name, number) {
-    this.requestService.getMethod('/sleep/child/' + child, requestData).subscribe(data => {
+    this.requestService.getMethod('/sleep/child/today/' + child, requestData).subscribe(data => {
       if (data.data.length > 0) {
         if (data.data[0].id > this.childrenIds[0]) {
           this.childrenSleeps.push(data.data)
@@ -82,7 +84,8 @@ export class SleepingPage {
   }
 
   toTime(date) {
-    return moment.unix(date).format('HH:mm');
+    let newDate = new Date(date)
+    return moment(newDate).format('HH:mm');
   }
 
 }

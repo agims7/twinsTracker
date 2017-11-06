@@ -71,7 +71,6 @@ export class HomePage {
         this.childrenService.children.push(child);
       }
       this.timerService.setTimerObjects();
-      console.log('cos tu wykonano settimerobjcest')
     });
   }
 

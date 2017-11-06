@@ -6,8 +6,7 @@ import { ModalPage } from '../modal/modal';
 
 import { ChildrenService } from "../../services/children";
 import { RequestService } from "../../services/request";
-
-import * as moment from 'moment';
+import { TimerService } from "../../services/timer";
 
 @Component({
   selector: 'page-breast-feeding',
@@ -25,6 +24,7 @@ export class BreastFeedingPage {
     public modalCtrl: ModalController,
     public childrenService: ChildrenService,
     public requestService: RequestService,
+    public timerService: TimerService,
     public storage: Storage
   ) {
 
@@ -58,8 +58,7 @@ export class BreastFeedingPage {
   }
 
   getBreasts(requestData, child, name, number) {
-    console.log('cos tu get breast')
-    this.requestService.getMethod('/breast/child/' + child, requestData).subscribe(data => {
+    this.requestService.getMethod('/breast/child/today/' + child, requestData).subscribe(data => {
       if (data.data.length > 0) {
         if (data.data[0].id > this.childrenIds[0]) {
           this.childrenBreasts.push(data.data)
@@ -71,11 +70,9 @@ export class BreastFeedingPage {
   }
 
   setChildrenBreasts() {
-    console.log('cos tu')
     for (var child of this.childrenService.children) {
       this.childrenIds.push(child.id)
     }
-    console.log('cos tu1')
   }
 
   feedingOption() {
@@ -85,10 +82,6 @@ export class BreastFeedingPage {
   openModal(index) {
     const modal = this.modalCtrl.create(ModalPage, { "category": "breastFeeding", "text": "Karmienie piersią", "together": this.together, "child": index });
     modal.present();
-  }
-
-  toTime(date) {
-    return moment.unix(date).format('HH:mm');
   }
 
 }

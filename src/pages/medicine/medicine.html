@@ -39,7 +39,7 @@
             <div class="list-container">
                 <ul>
                     <li *ngFor="let medicine of childrenMedicines[i]">
-                       <p>{{ toTime(medicine.date) }}</p>
+                       <p>{{ timerService.toTime(medicine.date) }}</p>
                        <p>{{ medicine.medicine }}<span *ngIf="medicine.comment"> - {{ medicine.comment }}</span></p>
                    </li>
                  </ul>

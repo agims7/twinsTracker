@@ -39,7 +39,7 @@
             <div class="list-container">
                 <ul>
                     <li *ngFor="let growth of childrenGrowths[i]">
-                       <p>{{ toTime(growth.date) }}</p>
+                       <p>{{ timerService.toTime(growth.date) }}</p>
                        <p>{{ growth.weight }} g / {{ growth.length }} cm</p>
                       <p *ngIf="growth.comment"> - {{ growth.comment }}</p>
                    </li>

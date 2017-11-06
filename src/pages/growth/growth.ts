@@ -6,6 +6,7 @@ import { ModalPage } from '../modal/modal';
 
 import { ChildrenService } from '../../services/children';
 import { RequestService } from "../../services/request";
+import { TimerService } from "../../services/timer";
 
 import * as moment from 'moment';
 
@@ -25,6 +26,7 @@ export class GrowthPage {
     public modalCtrl: ModalController,
     public childrenService: ChildrenService,
     public requestService: RequestService,
+    public timerService: TimerService,
     public storage: Storage
   ) {
   }
@@ -56,7 +58,7 @@ export class GrowthPage {
 
   getGrowth(requestData, child, name, number) {
     console.log('zapytanie')
-    this.requestService.getMethod('/growth/child/' + child, requestData).subscribe(data => {
+    this.requestService.getMethod('/growth/child/today/' + child, requestData).subscribe(data => {
       if (data.data.length > 0) {
         console.log(data)
         if (data.data[0].id > this.childrenIds[0]) {
@@ -85,7 +87,8 @@ export class GrowthPage {
   }
 
   toTime(date) {
-    return moment.unix(date).format('HH:mm');
+    let newDate = new Date(date)
+    return moment(newDate).format('HH:mm');
   }
 
 }

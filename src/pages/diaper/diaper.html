@@ -39,8 +39,8 @@
             <div class="list-container">
                 <ul>
                     <li *ngFor="let diaper of childrenDiapers[i]">
-                       <p>{{ toTime(diaper.date) }}</p>
-                       <p>{{ setDiaperType(diaper.type_id) }}<span *ngIf="diaper.comment">{{ diaper.comment }}</span></p>
+                       <p>{{ timerService.toTime(diaper.date) }}</p>
+                       <p>{{ setDiaperType(diaper.type_id) }}<span *ngIf="diaper.comment"> / {{ diaper.comment }}</span></p>
                    </li>
                  </ul>
             </div>

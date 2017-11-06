@@ -39,8 +39,8 @@
           <div class="list-container">
               <ul>
                   <li *ngFor="let bootle of childrenBootles[i]">
-                     <p>{{ toTime(bootle.date) }}</p>
-                     <p>Czas: {{ bootle.time }}s<span *ngIf="bootle.comment"> - {{ bootle.comment }}</span></p>
+                     <p>{{ timerService.toTime(bootle.date) }}</p>
+                     <p>Czas: {{ timerService.secondConvert(bootle.time) }}<span *ngIf="bootle.comment"> - {{ bootle.comment }}</span></p>
                  </li>
                </ul>
           </div>
