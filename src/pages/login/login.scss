@@ -14,6 +14,21 @@ page-login {
       justify-content: center;
       align-items: center;
       flex-direction: column;
+      .wrong {
+        color: #e94e4e;
+        font-weight: bold;
+        letter-spacing: 1px;
+        position: relative;
+        &:after {
+          content: "";
+          position: absolute;
+          height: 2px;
+          background-color: #e94e4e;
+          width: calc(100% + 30px);
+          left: -15px;
+          bottom: -5px;
+      }
+      }
     }
     ion-item {
       background-color: #3f3f3f !important;

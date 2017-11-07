@@ -17,6 +17,8 @@ import { RequestService } from '../../services/request';
 export class LoginPage {
   registerPage = RegisterPage;
   reminderPage = ReminderPage;
+  public wrongPassword: boolean = false;
+  public wrongEmail: boolean = false;
   
   constructor(
     public navCtrl: NavController, 
@@ -46,7 +48,16 @@ export class LoginPage {
         this.authService.userID = data.user.id;
         this.authService.setKeys(data.token, data.email, data.user.id);
         this.navCtrl.setRoot(HomePage);
+      } else {
+        if (data.code === 2) {
+          this.wrongPassword = true;
+          this.wrongEmail = false;
+        } else if (data.code === 1) {
+          this.wrongEmail = true;
+          this.wrongPassword = false;
+        }
       }
+      console.log(data)
     });
   }
 }
