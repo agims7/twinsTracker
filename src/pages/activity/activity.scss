@@ -22,7 +22,7 @@ page-activity {
                         border: 1px solid white;
                         border-radius: 4px;
                         span {
-                            font-size: 10px;
+                            font-size: 12px;
                             margin-right: 5px;
                         }
                     }
@@ -54,11 +54,15 @@ page-activity {
                         padding: 0 10px !important;
                         display: flex;
                         justify-content: center;
-                        align-items: center;
+                        align-items: start;
+                        flex-direction: column;
                     }
                     .child-name-field,
                     .activity-description-field {
-                        justify-content: start;
+                        justify-content: center;
+                    }
+                    .child-name-field {
+                        align-items: start;
                     }
                 }
                 .avatar {
@@ -72,11 +76,16 @@ page-activity {
                 }
                 .child-name,
                 .activity-description {
-                    color: white;
+                    color: black;
+                }
+                .activity-description-title {
+                    font-size: 17px;
+                    color: black;
                 }
                 .activity-date {
                     font-size: 11px;
-                    color: rgb(204, 204, 204);
+                    // color: rgb(204, 204, 204);
+                    color: black;
                 }
             }
         }

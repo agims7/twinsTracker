@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { HttpClient, HttpParams } from '@angular/common/http';
-
 import { Storage } from '@ionic/storage';
 
 import { ActivityPage } from "../activity/activity";
-import { BootleFeedingPage } from "../bootle-feeding/bootle-feeding";
+import { BottleFeedingPage } from "../bottle-feeding/bottle-feeding";
 import { BreastFeedingPage } from "../breast-feeding/breast-feeding";
 import { DiaperPage } from "../diaper/diaper";
 import { GrowthPage } from "../growth/growth";
@@ -26,7 +24,7 @@ import { ChildrenService } from '../../services/children';
 })
 export class HomePage {
   activityPage = ActivityPage;
-  bootleFeedingPage = BootleFeedingPage;
+  bottleFeedingPage = BottleFeedingPage;
   breastFeedingPage = BreastFeedingPage;
   diaperPage = DiaperPage;
   growthPage = GrowthPage;
@@ -44,8 +42,7 @@ export class HomePage {
     public requestService: RequestService,
     public childrenService: ChildrenService,
     public authService: AuthService,
-    public storage: Storage,
-    private http: HttpClient
+    public storage: Storage
   ) {
   }
 

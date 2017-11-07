@@ -3,6 +3,7 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
+import { BackgroundMode } from '@ionic-native/background-mode';
 
 import { NavController } from "ionic-angular";
 import { MenuController } from "ionic-angular";
@@ -31,6 +32,7 @@ export class MyApp {
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
+    public backgroundMode: BackgroundMode,
     public timerService: TimerService,
     public menuCtrl: MenuController,
     public storage: Storage,
@@ -41,6 +43,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+      this.backgroundMode.enable();
     });
   }
 

@@ -88,7 +88,7 @@ export class TimerService {
     }
 
     runBottleFeeding(index) {
-        console.log('bootle timer run ', this.bottleFeeding[index].running, 'index: ', index);
+        console.log('bottle timer run ', this.bottleFeeding[index].running, 'index: ', index);
         if (this.bottleFeeding[index].running === false) {
             console.log('index runnin = false wiec trzeba uruchomic')
             this.bottleFeeding[index].running = true;

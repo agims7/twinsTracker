@@ -38,9 +38,9 @@
           </button>
           <div class="list-container">
               <ul>
-                  <li *ngFor="let bootle of childrenBootles[i]">
-                     <p>{{ timerService.toTime(bootle.date) }}</p>
-                     <p>Czas: {{ timerService.secondConvert(bootle.time) }} / Ilość: {{ bootle.volume }}ml<span *ngIf="bootle.comment"> - {{ bootle.comment }}</span></p>
+                  <li *ngFor="let bottle of childrenBottles[i]">
+                     <p>{{ timerService.toTime(bottle.date) }}</p>
+                     <p>Czas: {{ timerService.secondConvert(bottle.time) }} / Ilość: {{ bottle.volume }}ml<span *ngIf="bottle.comment"> - {{ bottle.comment }}</span></p>
                  </li>
                </ul>
           </div>

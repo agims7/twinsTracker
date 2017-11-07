@@ -353,7 +353,7 @@ export class ModalPage {
                 'time': time
               }
             }
-            this.requestService.postMethod('/bootle', requestData).subscribe(data => {
+            this.requestService.postMethod('/bottle', requestData).subscribe(data => {
               if (data.error === false) {
                 console.log('Succes')
               } else {
@@ -376,7 +376,7 @@ export class ModalPage {
               'time': time
             }
           }
-          this.requestService.postMethod('/bootle', requestData).subscribe(data => {
+          this.requestService.postMethod('/bottle', requestData).subscribe(data => {
             if (data.error === false) {
               console.log('Succes')
             } else {
