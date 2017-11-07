@@ -9,6 +9,7 @@ import { MenuController } from "ionic-angular";
 
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+import { ChildrenPage } from '../pages/children/children';
 import { AddChildPage } from '../pages/add-child/add-child';
 import { SettingsPage } from '../pages/settings/settings';
 
@@ -20,6 +21,7 @@ import { AuthService } from "../services/auth";
 })
 export class MyApp {
   homePage = HomePage;
+  childrenPage = ChildrenPage;
   settingsPage = SettingsPage;
   addChildPage = AddChildPage;
   rootPage: any = LoginPage;

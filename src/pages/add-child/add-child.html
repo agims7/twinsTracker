@@ -41,7 +41,7 @@
             <button class="button" ion-button block (click)="setPicture()">Załaduj zdjęcie</button>
           </ion-item>
       </ion-list>
-      <button class="submit-button" ion-button block color="white" type="submit" [disabled]="!childForm.valid && date && imageTaken">Dodaj</button>
+      <button class="submit-button" ion-button block color="white" type="submit" [disabled]="!childForm.valid">Dodaj</button>
     </form>
 
     <div class="warning" *ngIf="newChildBlock">

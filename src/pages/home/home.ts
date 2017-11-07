@@ -36,7 +36,6 @@ export class HomePage {
   timetablePage = TimetablePage;
 
   public token: string;
-  public parrentId: number;
 
   constructor(
     public navCtrl: NavController,
@@ -51,29 +50,23 @@ export class HomePage {
   }
 
   ionViewDidEnter() {
-    this.storage.get('userToken').then((userToken) => {
-      this.token = userToken;
-    });
-    this.storage.get('userID').then((userID) => {
-      this.parrentId = userID;
-      this.getKids();
-    });
+    this.getKids();
   }
 
   getKids() {
     this.childrenService.children = [];
     let requestData = {
-      token: this.token
+      token: this.authService.userToken
     }
-    this.requestService.getMethod('/children/parrent/' + this.parrentId, requestData).subscribe(data => {
+    this.requestService.getMethod('/children/parrent/' + this.authService.userID, requestData).subscribe(data => {
       let kids = data.data;
-      for (var child of kids) {
-        this.childrenService.children.push(child);
+      if (data.data) {
+        for (var child of kids) {
+          this.childrenService.children.push(child);
+        }
+        this.timerService.setTimerObjects();
       }
-      this.timerService.setTimerObjects();
     });
-  }
-
-  
+  }  
 
 }

@@ -12,19 +12,24 @@ import { AuthService } from "../../services/auth";
 import * as moment from 'moment';
 
 @Component({
-  selector: 'page-add-child',
-  templateUrl: 'add-child.html',
+  selector: 'page-edit-child',
+  templateUrl: 'edit-child.html',
 })
-export class AddChildPage {
-  public date: Date = moment()['_d'];
+export class EditChildPage {
   public object = {
     monday: false,
     weekdays: ['Niedz', 'Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob'],
     months: ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień']
   };
-  public newChildBlock: boolean = false;
+  public editChildBlock: boolean = false;
   public image: string = '';
   public imageTaken: boolean = false;
+  public id: number;
+  public name: string;
+  public weight: number;
+  public length: number;
+  public photo: string;
+  public date: any;
 
   constructor(
     public navCtrl: NavController,
@@ -37,12 +42,28 @@ export class AddChildPage {
   }
 
   ionViewWillEnter() {
+    console.log(this.navParams.get('child'));
+    this.getProperties();
     if (this.childrenService.children.length > 1) {
-      this.newChildBlock = true;
+      this.editChildBlock = true;
     } else {
-      this.newChildBlock = false;
+      this.editChildBlock = false;
     }
-    this.imageTaken = false;
+    if (this.photo) {
+      this.imageTaken = true;
+    } else {
+      this.imageTaken = false;
+    }
+  }
+
+  getProperties() {
+    let child = this.navParams.get('child');
+    this.name = child.name;
+    this.id = child.id;
+    this.weight = child.weight;
+    this.length = child.length;
+    this.photo = child.photo;
+    this.date = new Date(child.dateofbirth);
   }
 
   setPicture() {
@@ -86,20 +107,19 @@ export class AddChildPage {
     });
   }
 
-  addChild(form: NgForm) {
-    let date = moment(this.date).format('YYYY-MM-DD HH:mm:ss');
+  editChild(form: NgForm) {
     let requestData = {
       token: this.authService.userToken,
       body: {
-        'parrent_id': this.authService.userID,
-        'name': form.value.name,
-        'weight': Number(form.value.weight),
-        'length': Number(form.value.length),
-        'dateofbirth': date,
-        'photo': this.image
+        'name': this.name,
+        'weight': this.weight,
+        'length': this.length,
+        'dateofbirth': this.date,
+        'photo': this.photo,
+        'id': this.id
       }
     }
-    this.requestService.postMethod('/children', requestData).subscribe(data => {
+    this.requestService.putMethod('/children', requestData).subscribe(data => {
       if (data.error === false) {
         console.log('Succes')
       } else {
@@ -110,7 +130,9 @@ export class AddChildPage {
   }
 
   setDate(date: Date) {
-    this.date = date;
+    let newDate = moment(date).format('YYYY-MM-DD HH:mm:ss');
+    this.date = newDate;
+    console.log(this.date)
   }
 
   showTime(time) {

@@ -4,8 +4,9 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class RequestService {
-    public prefix: string = 'http://twinsapi.mitto.usermd.net';
-
+    // public prefix: string = 'http://twinsapi.mitto.usermd.net'; //PROD
+    public prefix: string = 'http://localhost:8080'; //DEV
+    
     process: EventEmitter<any> = new EventEmitter<any>();
     authFailed: EventEmitter<any> = new EventEmitter<any>();
 
