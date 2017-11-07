@@ -3,12 +3,14 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
+import { BackgroundMode } from '@ionic-native/background-mode';
 
 import { NavController } from "ionic-angular";
 import { MenuController } from "ionic-angular";
 
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+import { ChildrenPage } from '../pages/children/children';
 import { AddChildPage } from '../pages/add-child/add-child';
 import { SettingsPage } from '../pages/settings/settings';
 
@@ -20,6 +22,7 @@ import { AuthService } from "../services/auth";
 })
 export class MyApp {
   homePage = HomePage;
+  childrenPage = ChildrenPage;
   settingsPage = SettingsPage;
   addChildPage = AddChildPage;
   rootPage: any = LoginPage;
@@ -29,6 +32,7 @@ export class MyApp {
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
+    public backgroundMode: BackgroundMode,
     public timerService: TimerService,
     public menuCtrl: MenuController,
     public storage: Storage,
@@ -39,6 +43,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+      this.backgroundMode.enable();
     });
   }
 

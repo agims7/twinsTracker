@@ -23,6 +23,8 @@ import { ModalPage } from '../pages/modal/modal';
 import { StatisticModalPage } from '../pages/statistic-modal/statistic-modal';
 import { SettingsPage } from "../pages/settings/settings";
 import { AddChildPage } from "../pages/add-child/add-child";
+import { ChildrenPage } from "../pages/children/children";
+import { EditChildPage } from "../pages/edit-child/edit-child";
 
 import { TimerService } from '../services/timer';
 import { CategoriesService } from '../services/categories';
@@ -33,6 +35,7 @@ import { AuthService } from '../services/auth';
 import { IonicStorageModule } from '@ionic/storage';
 import { DatePickerModule } from 'ionic3-datepicker';
 import { Camera } from '@ionic-native/camera';
+import { BackgroundMode } from '@ionic-native/background-mode';
 
 @NgModule({
   declarations: [
@@ -54,7 +57,9 @@ import { Camera } from '@ionic-native/camera';
     RegisterPage,
     ReminderPage,
     SettingsPage,
-    AddChildPage
+    AddChildPage,
+    ChildrenPage,
+    EditChildPage
   ],
   imports: [
     BrowserModule,
@@ -83,12 +88,15 @@ import { Camera } from '@ionic-native/camera';
     RegisterPage,
     ReminderPage,
     SettingsPage,
-    AddChildPage
+    AddChildPage,
+    ChildrenPage,
+    EditChildPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     Camera,
+    BackgroundMode,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     TimerService,
     CategoriesService,

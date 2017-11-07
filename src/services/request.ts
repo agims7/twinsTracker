@@ -1,11 +1,14 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class RequestService {
+     //PROD
     public prefix: string = 'http://twinsapi.mitto.usermd.net';
-
+     //DEV
+    // public prefix: string = 'http://localhost:8080';
+    
     process: EventEmitter<any> = new EventEmitter<any>();
     authFailed: EventEmitter<any> = new EventEmitter<any>();
 

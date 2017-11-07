@@ -6,10 +6,12 @@
         <ion-label floating>Email</ion-label>
         <ion-input type="text" name="email" email [(ngModel)]="authService.userEmail" required></ion-input>
       </ion-item>
+      <p *ngIf="wrongEmail" class="wrong">Błędny email</p>
       <ion-item>
         <ion-label floating>Hasło</ion-label>
         <ion-input type="password" name="password" [(ngModel)]="authService.userPassword" required></ion-input>
       </ion-item>
+      <p *ngIf="wrongPassword" class="wrong">Błędne hasło</p>
 
       <button class="login-button" ion-button block outline color="white" (click)="loginUser()">Zaloguj</button>
     </form>
