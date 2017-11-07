@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { ActivityPage } from "../pages/activity/activity";
-import { BootleFeedingPage } from "../pages/bootle-feeding/bootle-feeding";
+import { BottleFeedingPage } from "../pages/bottle-feeding/bottle-feeding";
 import { BreastFeedingPage } from "../pages/breast-feeding/breast-feeding";
 import { DiaperPage } from "../pages/diaper/diaper";
 import { GrowthPage } from "../pages/growth/growth";
@@ -13,7 +13,7 @@ import { TimetablePage } from "../pages/timetable/timetable";
 @Injectable()
 export class CategoriesService {
     activityPage = ActivityPage;
-    bootleFeedingPage = BootleFeedingPage;
+    bottleFeedingPage = BottleFeedingPage;
     breastFeedingPage = BreastFeedingPage;
     diaperPage = DiaperPage;
     growthPage = GrowthPage;
@@ -30,10 +30,10 @@ export class CategoriesService {
             icon: "./assets/images/breast.svg"
         },
         {
-            name: this.bootleFeedingPage,
+            name: this.bottleFeedingPage,
             color: "#CFF4FF",
             text: "Karmienie butelką",
-            icon: "./assets/images/bootle.svg"
+            icon: "./assets/images/bottle.svg"
         },
         {
             name: this.diaperPage,

@@ -5,7 +5,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
 
 import { ActivityPage } from "../activity/activity";
-import { BootleFeedingPage } from "../bootle-feeding/bootle-feeding";
+import { BottleFeedingPage } from "../bottle-feeding/bottle-feeding";
 import { BreastFeedingPage } from "../breast-feeding/breast-feeding";
 import { DiaperPage } from "../diaper/diaper";
 import { GrowthPage } from "../growth/growth";
@@ -26,7 +26,7 @@ import { ChildrenService } from '../../services/children';
 })
 export class HomePage {
   activityPage = ActivityPage;
-  bootleFeedingPage = BootleFeedingPage;
+  bottleFeedingPage = BottleFeedingPage;
   breastFeedingPage = BreastFeedingPage;
   diaperPage = DiaperPage;
   growthPage = GrowthPage;

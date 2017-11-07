@@ -7,7 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ActivityPage } from "../pages/activity/activity";
-import { BootleFeedingPage } from "../pages/bootle-feeding/bootle-feeding";
+import { BottleFeedingPage } from "../pages/bottle-feeding/bottle-feeding";
 import { BreastFeedingPage } from "../pages/breast-feeding/breast-feeding";
 import { DiaperPage } from "../pages/diaper/diaper";
 import { GrowthPage } from "../pages/growth/growth";
@@ -39,7 +39,7 @@ import { Camera } from '@ionic-native/camera';
     MyApp,
     HomePage,
     ActivityPage,
-    BootleFeedingPage,
+    BottleFeedingPage,
     BreastFeedingPage,
     DiaperPage,
     GrowthPage,
@@ -68,7 +68,7 @@ import { Camera } from '@ionic-native/camera';
     MyApp,
     HomePage,
     ActivityPage,
-    BootleFeedingPage,
+    BottleFeedingPage,
     BreastFeedingPage,
     DiaperPage,
     GrowthPage,

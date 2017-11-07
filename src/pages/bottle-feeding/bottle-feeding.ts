@@ -11,12 +11,12 @@ import { AuthService } from "../../services/auth";
 import * as moment from 'moment';
 
 @Component({
-  selector: 'page-bootle-feeding',
-  templateUrl: 'bootle-feeding.html',
+  selector: 'page-bottle-feeding',
+  templateUrl: 'bottle-feeding.html',
 })
-export class BootleFeedingPage {
+export class BottleFeedingPage {
   public together: boolean = true;
-  public childrenBootles: any = [];
+  public childrenBottles: any = [];
   public childrenIds: any = [];
 
   constructor(
@@ -32,39 +32,39 @@ export class BootleFeedingPage {
 
   ionViewDidEnter() {
     this.cleraAll();
-    this.setChildrenBootles();
-    this.iterateBootles();
+    this.setChildrenBottles();
+    this.iterateBottles();
   }
 
-  iterateBootles() {
+  iterateBottles() {
     let count = 0;
     for (var child of this.childrenService.children) {
       let requestData = {
         token: this.authService.userToken
       }
-      this.getBootles(requestData, child.id, child.name, count);
+      this.getBottles(requestData, child.id, child.name, count);
       count++;
     }
   }
 
   cleraAll() {
-    this.childrenBootles = [];
+    this.childrenBottles = [];
     this.childrenIds = [];
   }
 
-  getBootles(requestData, child, name, number) {
-    this.requestService.getMethod('/bootle/child/today/' + child, requestData).subscribe(data => {
+  getBottles(requestData, child, name, number) {
+    this.requestService.getMethod('/bottle/child/today/' + child, requestData).subscribe(data => {
       if (data.data.length > 0) {
         if (data.data[0].child_id > this.childrenIds[0]) {
-          this.childrenBootles.push(data.data)
+          this.childrenBottles.push(data.data)
         } else {
-          this.childrenBootles.unshift(data.data)
+          this.childrenBottles.unshift(data.data)
         }
       }
     });
   }
 
-  setChildrenBootles() {
+  setChildrenBottles() {
     for (var child of this.childrenService.children) {
       this.childrenIds.push(child.id)
     }
