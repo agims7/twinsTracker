@@ -143,6 +143,19 @@ button {
     }
 }
 
+// TIMEPICERK
+
+.picker-wrapper {
+    border-top: none !important;
+    background-color: #f2f2f2 !important;
+    .picker-toolbar {
+        background-color: #f2f2f2 !important;
+        .button-inner {
+            color: #3f3f3f !important;
+        }
+    }
+}
+
 // Named Color Variables
 // --------------------------------------------------
 // Named colors makes it easy to reuse colors on various components.

@@ -66,18 +66,13 @@ export class ActivityPage {
   makeChoice(index) {
     this.choice = index;
     let child_id = this.choiceArray[this.choice].id;
-    console.log(child_id)
     this.checkDates();
     if (child_id) {
-      console.log('signle do zrobienia')
       if (!this.diffDay) {
-        console.log('ten sam dzien')
         this.getSingleChildActivity(child_id);
       } else {
-        console.log('inny dzien')
         let diff = moment().diff(this.date, 'days');
         this.date = moment().subtract(diff, 'day')['_d'];
-        console.log(this.date, '>>>>')
         let id = child_id;
         let requestData = {
           token: this.authService.userToken,
@@ -92,25 +87,20 @@ export class ActivityPage {
               this.activityTable = data.data;
               this.emptyTable = false;
             } else {
-              console.log('Brak dzieci')
               this.emptyTable = true;
               this.activityTable = [];
             }
           }
-          console.log(data)
         });
       }
     } else {
       if (!this.diffDay) {
         this.getChildActivity()
       } else {
-        console.log('wspolne do zrobienia')
         let diff = moment().diff(this.date, 'days');
         this.date = moment().subtract(diff, 'day')['_d'];
-        console.log(this.date, '>>>>')
 
         if (this.children.length > 1) {
-          console.log('2 dzieci')
           let requestData = {
             token: this.authService.userToken,
             body: {
@@ -125,16 +115,13 @@ export class ActivityPage {
                 this.activityTable = data.data;
                 this.emptyTable = false;
               } else {
-                console.log('Brak dzieci')
                 this.emptyTable = true;
                 this.activityTable = [];
               }
             }
-            console.log(data)
           });
         }
         else if (this.children.length === 1) {
-          console.log('1 dziecko')
           let id = this.children[0];
           let requestData = {
             token: this.authService.userToken,
@@ -149,15 +136,12 @@ export class ActivityPage {
                 this.activityTable = data.data;
                 this.emptyTable = false;
               } else {
-                console.log('Brak dzieci')
                 this.emptyTable = true;
                 this.activityTable = [];
               }
             }
-            console.log(data)
           });
         } else {
-          console.log('Brak dzieci')
           this.emptyTable = true;
         }
       }
@@ -168,15 +152,12 @@ export class ActivityPage {
   checkDates() {
     let date1 = (moment(this.date).format('l'));
     let date2 = (moment(this.today).format('l'));
-    console.log(date1, date2, typeof date1)
     if (date1 == date2) {
       this.arrowFutureDisable = true;
       this.diffDay = false;
-      console.log('takie dame')
     } else {
       this.arrowFutureDisable = false;
       this.diffDay = true;
-      console.log('nie takie dame')
     }
   }
 
@@ -185,11 +166,9 @@ export class ActivityPage {
     let diff = moment().diff(date, 'days');
     if (moment().diff(date, 'days') > 0) {
       this.date = moment().subtract(diff, 'day')['_d'];
-      console.log(this.date, '>>>>')
     } else {
       this.date = moment()['_d'];
       this.getChildActivity();
-      console.log(this.date, '=====')
       return true;
     }
     this.children = [];
@@ -198,7 +177,6 @@ export class ActivityPage {
     }
 
     if (this.children.length > 1) {
-      console.log('2 dzieci')
       let requestData = {
         token: this.authService.userToken,
         body: {
@@ -213,16 +191,13 @@ export class ActivityPage {
             this.activityTable = data.data;
             this.emptyTable = false;
           } else {
-            console.log('Brak dzieci')
             this.emptyTable = true;
             this.activityTable = [];
           }
         }
-        console.log(data)
       });
     }
     else if (this.children.length === 1) {
-      console.log('1 dziecko')
       let id = this.children[0];
       let requestData = {
         token: this.authService.userToken,
@@ -237,15 +212,12 @@ export class ActivityPage {
             this.activityTable = data.data;
             this.emptyTable = false;
           } else {
-            console.log('Brak dzieci')
             this.emptyTable = true;
             this.activityTable = [];
           }
         }
-        console.log(data)
       });
     } else {
-      console.log('Brak dzieci')
       this.emptyTable = true;
     }
     this.checkDates();
@@ -280,7 +252,6 @@ export class ActivityPage {
     for (var child of this.childrenService.children) {
       this.children.push(child.id)
     }
-    console.log(this.children.length, 'GFDGDFGDGDGD')
     if (this.children.length > 1) {
       let requestData = {
         token: this.authService.userToken,
@@ -295,11 +266,10 @@ export class ActivityPage {
             this.activityTable = data.data;
             this.emptyTable = false;
           } else {
-            console.log('Brak dzieci')
             this.emptyTable = true;
             this.activityTable = [];
           }
-        } console.log(data.data)
+        }
       });
     } else if (this.children.length === 1) {
       let requestData = {
@@ -312,12 +282,11 @@ export class ActivityPage {
             this.activityTable = data.data;
             this.emptyTable = false;
           } else {
-            console.log('Brak dzieci')
             this.emptyTable = true;
             this.activityTable = [];
           }
         }
-        console.log(data.data)
+        
       });
     }
     this.checkDates();
@@ -334,27 +303,21 @@ export class ActivityPage {
           this.activityTable = data.data;
           this.emptyTable = false;
         } else {
-          console.log('Brak dzieci')
           this.emptyTable = true;
           this.activityTable = [];
         }
       }
-      console.log(data.data)
     });
     this.checkDates();
   }
 
   getDifferentDayChildActivity(sign) {
-    console.log(this.date, "THIS DATE", this.count, 'count')
-    console.log('DIFFERENCE ', moment().diff(this.date, 'days'))
     let diff = moment().diff(this.date, 'days');
     if (diff !== 0) {
       this.count = -(diff);
     }
-    console.log('count', this.count)
     if (sign === '-') {
       this.count--;
-      console.log('-----', this.count)
       if (this.count === 0) {
         this.getChildActivity();
         this.date = moment()['_d'];
@@ -362,7 +325,6 @@ export class ActivityPage {
       }
     } else if (sign === '+') {
       this.count++;
-      console.log('++++', this.count)
       if (this.count === 0) {
         this.getChildActivity();
         this.date = moment()['_d'];
@@ -374,7 +336,6 @@ export class ActivityPage {
     
 
     if (this.children.length > 1) {
-      console.log('2 dzieci')
       let requestData = {
         token: this.authService.userToken,
         body: {
@@ -389,16 +350,13 @@ export class ActivityPage {
             this.activityTable = data.data;
             this.emptyTable = false;
           } else {
-            console.log('Brak dzieci')
             this.emptyTable = true;
             this.activityTable = [];
           }
         }
-        console.log(data)
       });
     }
     else if (this.children.length === 1) {
-      console.log('1 dziecko')
       let id = this.children[0];
       let requestData = {
         token: this.authService.userToken,
@@ -413,15 +371,12 @@ export class ActivityPage {
             this.activityTable = data.data;
             this.emptyTable = false;
           } else {
-            console.log('Brak dzieci')
             this.emptyTable = true;
             this.activityTable = [];
           }
         }
-        console.log(data)
       });
     } else {
-      console.log('Brak dzieci')
       this.emptyTable = true;
     }
     this.checkDates();

@@ -14,15 +14,15 @@
       <ion-row>
         <ion-item>
           <ion-label>Dziecko:</ion-label>
-          <ion-select [(ngModel)]="kid" multiple="false">
-            <ion-option *ngFor="let child of choiceArray; let i = index" value="child.name">{{ child.name }}</ion-option>
+          <ion-select [(ngModel)]="kid">
+            <ion-option *ngFor="let child of choiceArray; let i = index" [value]="child.id">{{ child.name }}</ion-option>
           </ion-select>
         </ion-item>
       </ion-row>
       <ion-row>
         <ion-item>
           <ion-label>Opis:</ion-label>
-          <ion-input type="text" placeholder="Opis wydarzenia" value="" class="textarea"></ion-input>
+          <ion-input [(ngModel)]="description" type="text" placeholder="Opis wydarzenia" value="" class="textarea"></ion-input>
         </ion-item>
       </ion-row>
       <ion-row>
@@ -34,11 +34,15 @@
             <ion-icon name="calendar"></ion-icon>
           </button>
         </ion-item>
+        <ion-item>
+            <ion-label>Godzina</ion-label>
+            <ion-datetime displayFormat="HH:mm:ss" pickerFormat="HH mm ss" [(ngModel)]="time"></ion-datetime>
+          </ion-item>
       </ion-row>
       
       <ion-row>
         <ion-col >
-            <button navPop ion-button block class="add-button">Dodaj</button>           
+            <button ion-button block class="add-button" (tap)="addEvent()">Dodaj</button>           
         </ion-col>
         <ion-col >
             <button navPop ion-button block class="add-button">Wroć</button>            
