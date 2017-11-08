@@ -57,7 +57,6 @@ export class LoginPage {
           this.wrongPassword = false;
         }
       }
-      console.log(data)
     });
   }
 }

@@ -24,10 +24,13 @@ export class ActivityPage {
     weekdays: ['Niedz', 'Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob'],
     months: ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień']
   };
+  public today: Date = moment()['_d'];
+  public minDate: Date = moment().subtract(30, 'day')['_d'];
   public children = [];
   public activityTable = [];
-  public previousCount: number = 0;
-  public futureCount: number = 0;
+  public count: number = 0;
+  public emptyTable: boolean = false;
+  public arrowFutureDisable: boolean = true;
 
   constructor(
     public navCtrl: NavController,
@@ -51,8 +54,7 @@ export class ActivityPage {
   }
 
   clear() {
-    this.previousCount = 0;
-    this.futureCount = 0;
+    this.count = 0;
   }
 
   createTable() {
@@ -70,8 +72,105 @@ export class ActivityPage {
     }
   }
 
+  checkDates() {
+    let date1 = (moment(this.date).format('l'));
+    let date2 = (moment(this.today).format('l'));
+    console.log(date1, date2, typeof date1)
+    if (date1 == date2) {
+      this.arrowFutureDisable = true;
+      console.log('takie dame')
+    } else {
+      this.arrowFutureDisable = false;
+      console.log('nie takie dame')
+    }
+  }
+
   setDate(date: Date) {
-    this.date = date;
+    console.log(date)
+    let count = moment().diff(date, 'days');
+    // this.date = date;
+    console.log(this.count)
+
+    if (count > 0) {
+      this.date = moment().subtract(this.count, 'day')['_d'];
+      console.log(this.date, '>>>>')
+    } else if (count < 0) {
+      this.date = moment().subtract(-(this.count), 'day')['_d'];
+      console.log(this.date, '<<<<<')
+    } else {
+      this.getChildActivity();
+      this.date = moment()['_d'];
+      console.log(this.date, '=====')
+    }
+
+    // if (this.children.length > 1) {
+    //   console.log('2 dzieci')
+    //   let requestData = {
+    //     token: this.authService.userToken,
+    //     body: {
+    //       'id1': this.children[0],
+    //       'id2': this.children[1],
+    //       'count': this.count
+    //     }
+    //   }
+    //   this.requestService.postMethod('/activity/childs/day', requestData).subscribe(data => {
+    //     if (data.error === false) {
+    //       if (data.data.length > 0) {
+    //         this.activityTable = data.data; 
+    //         this.emptyTable = false;           
+    //       } else {
+    //         console.log('Brak dzieci')
+    //         this.emptyTable = true;
+    //         this.activityTable = [];
+    //       }
+    //     }     
+    //     console.log(data)
+    //   });
+    // } 
+    // else if (this.children.length === 1) {
+    //   console.log('1 dziecko')
+    //   let id = this.children[0];
+    //   let requestData = {
+    //     token: this.authService.userToken,
+    //     body: {
+    //       'id': id,
+    //       'count': this.count
+    //     }
+    //   }
+    //   this.requestService.postMethod('/activity/child/day', requestData).subscribe(data => {
+    //     if (data.error === false) {
+    //       if (data.data.length > 0) {
+    //         this.activityTable = data.data;            
+    //       } else {
+    //         console.log('Brak dzieci')
+    //         this.emptyTable = true;
+    //         this.activityTable = [];
+    //       }
+    //     }     
+    //     console.log(data)
+    //   });
+    // } else {
+    //   console.log('Brak dzieci')
+    //   this.emptyTable = true;
+    // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    this.checkDates();
   }
 
   showTime(time) {
@@ -98,6 +197,7 @@ export class ActivityPage {
   }
 
   getChildActivity() {
+    this.date = moment()['_d'];
     for (var child of this.childrenService.children) {
       this.children.push(child.id)
     }
@@ -110,8 +210,16 @@ export class ActivityPage {
         }
       }
       this.requestService.postMethod('/activity/childs', requestData).subscribe(data => {
-        this.activityTable = data.data;
-        console.log(data.data)
+        if (data.error === false) {
+          if (data.data.length > 0) {
+            this.activityTable = data.data;
+            this.emptyTable = false;
+          } else {
+            console.log('Brak dzieci')
+            this.emptyTable = true;
+            this.activityTable = [];
+          }
+        } console.log(data.data)
       });
     } else if (this.children.length === 1) {
       let requestData = {
@@ -119,10 +227,20 @@ export class ActivityPage {
       }
       let id = this.children[0];
       this.requestService.getMethod('/activity/child/' + id, requestData).subscribe(data => {
-        this.activityTable = data.data;
+        if (data.error === false) {
+          if (data.data.length > 0) {
+            this.activityTable = data.data;
+            this.emptyTable = false;
+          } else {
+            console.log('Brak dzieci')
+            this.emptyTable = true;
+            this.activityTable = [];
+          }
+        }
         console.log(data.data)
       });
     }
+    this.checkDates();
   }
 
   getSingleChildActivity(child_id) {
@@ -131,41 +249,91 @@ export class ActivityPage {
     }
     let id = child_id;
     this.requestService.getMethod('/activity/child/' + id, requestData).subscribe(data => {
-      this.activityTable = data.data;
+      if (data.error === false) {
+        if (data.data.length > 0) {
+          this.activityTable = data.data;
+          this.emptyTable = false;
+        } else {
+          console.log('Brak dzieci')
+          this.emptyTable = true;
+          this.activityTable = [];
+        }
+      }
       console.log(data.data)
     });
+    this.checkDates();
   }
 
-  getPreviousChildActivity() {
-    this.previousCount++;
-    console.log(this.previousCount);
-    let date = moment().subtract(1, 'day')['_d'];
-    console.log(date)
-    // date = moment(date).format('DD.MM.YYYY')
+  getDifferentDayChildActivity(sign) {
+    if (sign === '-') {
+      this.count--;
+      if (this.count === 0) {
+        this.getChildActivity();
+        this.date = moment()['_d'];
+        return true;
+      }
+    } else if (sign === '+') {
+      this.count++;
+      if (this.count === 0) {
+        this.getChildActivity();
+        this.date = moment()['_d'];
+        return true;
+      }
+    }
+    let date = moment().subtract(-(this.count), 'day')['_d'];
+    this.date = date;
 
-    // if (this.children.length > 1) {
-    //   let requestData = {
-    //     token: this.authService.userToken,
-    //     body: {
-    //       'id1': this.children[0],
-    //       'id2': this.children[1],
-    //       'date': date
-    //     }
-    //   }
-    //   this.requestService.postMethod('/activity/childs/day', requestData).subscribe(data => {
-    //     // this.activityTable = data.data;
-    //     console.log(data)
-    //   });
-    // } 
-    // else if (this.children.length === 1) {
-    //   let requestData = {
-    //     token: this.authService.userToken,
-    //   }
-    //   let id = this.children[0];
-    //   this.requestService.getMethod('/activity/child/day' + id, requestData).subscribe(data => {
-    //     this.activityTable = data.data;
-    //   });
-    // }
+    if (this.children.length > 1) {
+      console.log('2 dzieci')
+      let requestData = {
+        token: this.authService.userToken,
+        body: {
+          'id1': this.children[0],
+          'id2': this.children[1],
+          'count': this.count
+        }
+      }
+      this.requestService.postMethod('/activity/childs/day', requestData).subscribe(data => {
+        if (data.error === false) {
+          if (data.data.length > 0) {
+            this.activityTable = data.data;
+            this.emptyTable = false;
+          } else {
+            console.log('Brak dzieci')
+            this.emptyTable = true;
+            this.activityTable = [];
+          }
+        }
+        console.log(data)
+      });
+    }
+    else if (this.children.length === 1) {
+      console.log('1 dziecko')
+      let id = this.children[0];
+      let requestData = {
+        token: this.authService.userToken,
+        body: {
+          'id': id,
+          'count': this.count
+        }
+      }
+      this.requestService.postMethod('/activity/child/day', requestData).subscribe(data => {
+        if (data.error === false) {
+          if (data.data.length > 0) {
+            this.activityTable = data.data;
+          } else {
+            console.log('Brak dzieci')
+            this.emptyTable = true;
+            this.activityTable = [];
+          }
+        }
+        console.log(data)
+      });
+    } else {
+      console.log('Brak dzieci')
+      this.emptyTable = true;
+    }
+    this.checkDates();
   }
 
   getCategoryTitle(sourceCategory) {
