@@ -34,21 +34,23 @@ export class LoginPage {
 
 
   loginUser() {
-    let token = {};
     let requestData = {
       body: {
         'email': this.authService.userEmail,
         'password': this.authService.userPassword
-      },
-      token: token
+      }
     }
-    this.requestService.postMethod('/auth', requestData).subscribe(data => {
+    console.log('przed zapytanie http')
+    this.requestService.postLogin('/auth', requestData).subscribe(data => {
+      console.log('zapytanie post', data)
       if (data.error === false) {
+        console.log(data.error, 'error false')
         this.authService.userToken = data.token;
         this.authService.userID = data.user.id;
         this.authService.setKeys(data.token, data.email, data.user.id);
         this.navCtrl.setRoot(HomePage);
       } else {
+        console.log(data.error, 'error true')
         if (data.code === 2) {
           this.wrongPassword = true;
           this.wrongEmail = false;

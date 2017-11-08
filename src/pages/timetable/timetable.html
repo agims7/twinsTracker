@@ -15,78 +15,39 @@
     </button>
 
     <ion-row class="choice">
-        <ion-col *ngFor="let option of choiceArray; let i = index">
-                <button [ngClass]="{'selected': choice === i}" ion-button (click)="makeChoice(i)">{{ option.name }}</button>
-        </ion-col>
+      <ion-col *ngFor="let option of choiceArray; let i = index">
+        <button [ngClass]="{'selected': choice === i}" ion-button (click)="makeChoice(i)">{{ option.name }}</button>
+      </ion-col>
     </ion-row>
 
     <ion-list>
       <ion-item-group>
-
-        <ion-item-divider class="devider" color="light-background">
-          {{ toDay(1318781876) }}
-        </ion-item-divider>
-        <ion-item color="background" text-wrap class="item-content">
-          <ion-row>
-            <ion-col col-2>
-              <ion-avatar class="avatar">
-                <img class="child-image" src="./assets/images/emilka.png">
-              </ion-avatar>
-            </ion-col>
-            <ion-col col-3 class="child-name-field">
-              <h2 class="child-name">Emilka</h2>
-            </ion-col>
-            <ion-col col-5 class="event-description-field">
-              <p class="event-description">Wizyta u lekarza</p>
-            </ion-col>
-            <ion-col col-2>
-              <ion-note class="event-date">{{ toTime(1318781876) }}</ion-note>
-            </ion-col>
-          </ion-row>
-        </ion-item>
-        <ion-item color="background" text-wrap class="item-content">
-          <ion-row>
-            <ion-col col-2>
-              <ion-avatar class="avatar">
-                <img class="child-image" src="./assets/images/amelka.png">
-              </ion-avatar>
-            </ion-col>
-            <ion-col col-3 class="child-name-field">
-              <h2 class="child-name">Amelka</h2>
-            </ion-col>
-            <ion-col col-5 class="event-description-field">
-              <p class="event-description">Podanie lekarstwa wit B6</p>
-            </ion-col>
-            <ion-col col-2>
-              <ion-note class="event-date">{{ toTime(1318781846) }}</ion-note>
-            </ion-col>
-          </ion-row>
-        </ion-item>
-
-        <ion-item-divider class="devider" color="light-background">
-          {{ toDay(1318781876) }}
-        </ion-item-divider>
-        <ion-item color="background" text-wrap class="item-content">
-          <ion-row>
-            <ion-col col-2>
-              <ion-avatar class="avatar">
-                <img class="child-image" src="./assets/images/emilka.png">
-              </ion-avatar>
-            </ion-col>
-            <ion-col col-3 class="child-name-field">
-              <h2 class="child-name">Emilka</h2>
-            </ion-col>
-            <ion-col col-5 class="event-description-field">
-              <p class="event-description">Wizyta u kardiologa</p>
-            </ion-col>
-            <ion-col col-2>
-              <ion-note class="event-date">{{ toTime(1318781876) }}</ion-note>
-            </ion-col>
-          </ion-row>
-        </ion-item>
-
+        <div *ngFor="let event of eventsDates; let i = index">
+          <ion-item-divider class="devider" color="light-background">
+            {{ toDay(eventsFullDates[i]) }}
+          </ion-item-divider>
+          <ion-item *ngFor="let event of getEventsForDay(i); let x = index" color="background" text-wrap class="item-content">
+            <ion-row>
+              <ion-col col-2>
+                <ion-avatar class="avatar">
+                  <img class="child-image" [src]="getChildPhotoFromId(event.child_id)">
+                </ion-avatar>
+              </ion-col>
+              <ion-col col-3 class="child-name-field">
+                <h2 class="child-name">{{ getChildNameFromId(event.child_id) }}</h2>
+              </ion-col>
+              <ion-col col-5 class="event-description-field">
+                <p class="event-description">{{ event.description }}</p>
+              </ion-col>
+              <ion-col col-2>
+                <ion-note class="event-date">{{ toTime(event.date, event.time) }}</ion-note>
+              </ion-col>
+            </ion-row>
+          </ion-item>
+        </div>
       </ion-item-group>
     </ion-list>
+
 
 
   </ion-grid>

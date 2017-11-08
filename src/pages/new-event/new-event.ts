@@ -20,7 +20,6 @@ export class NewEventPage {
   public choice: number = 0;
   public kid: string = 'Razem';
   public description: string;
-  public children: any = [];
 
   public date: Date = moment()['_d'];
   public object = {
@@ -43,7 +42,6 @@ export class NewEventPage {
 
   ionViewDidEnter() {
     this.time = moment().format('HH:mm:ss');
-    this.children = [];
   }
 
   createTable() {
@@ -60,8 +58,7 @@ export class NewEventPage {
   }
 
   addEvent() {
-      let date = moment(this.date).format('YYYY-MM-DD HH:mm:ss');
-      date = date.slice(0, -8) + this.time;
+      let date = moment(this.date).format('YYYY-MM-DD');
       if (this.kid == 'Razem') {
         for (var child of this.childrenService.children) {
           let requestData = {
@@ -69,6 +66,7 @@ export class NewEventPage {
             body: {
               'child_id': child.id,
               'date': date,
+              'time': this.time,
               'description': this.description
             }
           }
@@ -87,6 +85,7 @@ export class NewEventPage {
           body: {
             'child_id': this.kid,
             'date': date,
+            'time': this.time,
             'description': this.description
           }
         }

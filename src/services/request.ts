@@ -5,16 +5,20 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable()
 export class RequestService {
      //PROD
-    // public prefix: string = 'http://twinsapi.mitto.usermd.net';
+    public prefix: string = 'http://twinsapi.mitto.usermd.net';
      //DEV
-    public prefix: string = 'http://localhost:8080';
+    // public prefix: string = 'http://localhost:8080';
     
     process: EventEmitter<any> = new EventEmitter<any>();
     authFailed: EventEmitter<any> = new EventEmitter<any>();
 
     constructor(
-        private http: HttpClient
+        public http: HttpClient
     ) { }
+
+    postLogin(url, requestData): Observable<any> {
+        return this.http.post(this.prefix + url, requestData.body);
+    }
 
     postMethod(url, requestData?): Observable<any> {
         return this.http.post(this.prefix + url, requestData.body, {

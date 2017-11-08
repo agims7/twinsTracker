@@ -4,11 +4,11 @@
     <p class="register">Rejestracja</p>
     <ion-item>
       <ion-label fixed>Email</ion-label>
-      <ion-input type="text" email></ion-input>
+      <ion-input [(ngModel)]="email" type="text" email></ion-input>
     </ion-item>
     <ion-item>
       <ion-label fixed>Hasło</ion-label>
-      <ion-input type="password"></ion-input>
+      <ion-input [(ngModel)]="password" type="password"></ion-input>
     </ion-item>
 
     <div class="registration">
