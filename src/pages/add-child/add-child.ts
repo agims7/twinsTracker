@@ -102,7 +102,6 @@ export class AddChildPage {
     this.requestService.postMethod('/children', requestData).subscribe(data => {
       if (data.error === false) {
         console.log('Succes')
-        alert(this.image)
       } else {
         console.log('Error')
       }
