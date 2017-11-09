@@ -8,6 +8,28 @@ page-login {
     display: flex;
     justify-content: center;
     align-items: center;
+    form {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      .wrong {
+        color: #e94e4e;
+        font-weight: bold;
+        letter-spacing: 1px;
+        position: relative;
+        &:after {
+          content: "";
+          position: absolute;
+          height: 2px;
+          background-color: #e94e4e;
+          width: calc(100% + 30px);
+          left: -15px;
+          bottom: -5px;
+      }
+      }
+    }
     ion-item {
       background-color: #3f3f3f !important;
       color: white !important;
@@ -15,15 +37,16 @@ page-login {
         color: white !important;
       }
     }
-    // .login-button {
-    //   display: flex;
-    //   justify-content: center;
-    // }
+    .login-button {
+      display: flex;
+      justify-content: center;
+      margin-top: 15px;
+      width: 90%;
+    }
     .reminder {
       color: rgb(171, 171, 171);
       display: block;
       width: 100%;
-      margin-top: 15px;
       padding-left: 15px;
       p {
         font-size: 14px;

@@ -60,10 +60,25 @@ page-growth {
                 span {
                     margin-right: 10px;
                 }
-                ul {
-                    list-style: none;
-                    padding: 0;
-                    color: white;
+                .list-container {
+                    min-width: 60%;
+                    ul {
+                        list-style: none;
+                        padding: 0;
+                        margin: 10px 0 0 0;
+                        color: white;
+                        width: 100%;
+                        text-align: left;
+                        li {
+                            border-bottom: 1px solid #636363;
+                            margin: 5px 0;
+                            p,
+                            span {
+                                font-size: 14px;
+                                margin: 2px 0 6px 0;
+                            }
+                        }
+                    }
                 }
             }
         }

@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 
 import { ChildrenService } from './children';
 
+import * as moment from 'moment';
+
 @Injectable()
 export class TimerService {
     public breastFeedingInterval: any = [];
@@ -44,11 +46,13 @@ export class TimerService {
     }
 
     setDiaper() {
+        this.fecesDone = [];
+        this.urineDone = [];
         for (var key in this.childrenService.children) {
-          this.urineDone.push(false);
-          this.fecesDone.push(false);
+            this.urineDone.push(false);
+            this.fecesDone.push(false);
         }
-      }
+    }
 
     runBreastFeeding(index) {
         console.log('breast timer run ', this.breastFeeding[index].running);
@@ -84,7 +88,7 @@ export class TimerService {
     }
 
     runBottleFeeding(index) {
-        console.log('bootle timer run ', this.bottleFeeding[index].running, 'index: ', index);
+        console.log('bottle timer run ', this.bottleFeeding[index].running, 'index: ', index);
         if (this.bottleFeeding[index].running === false) {
             console.log('index runnin = false wiec trzeba uruchomic')
             this.bottleFeeding[index].running = true;
@@ -104,7 +108,7 @@ export class TimerService {
                 }
             }, 10);
         } else {
-            
+
             console.log('index runnin = true wiec trzeba zatrzymac')
             clearInterval(this.bottleFeedingInterval[index]);
             this.bottleFeeding[index].running = false;
@@ -140,7 +144,7 @@ export class TimerService {
                 }
             }, 10);
         } else {
-            
+
             console.log('index runnin = true wiec trzeba zatrzymac')
             clearInterval(this.sleepingInterval[index]);
             this.sleeping[index].running = false;
@@ -153,6 +157,29 @@ export class TimerService {
         this.sleeping[index].seconds = 0;
         this.sleeping[index].minutes = 0;
         this.sleeping[index].hours = 0;
+    }
+
+    toTime(date) {
+        let newDate = new Date(date)
+        return moment(newDate).format('HH:mm');
+    }
+
+    pad(num) {
+        return ("0" + num).slice(-2);
+    }
+
+    secondConvert(date) {
+        let minutes = Math.floor(date / 60);
+        date = date % 60;
+        let hours = Math.floor(minutes / 60)
+        minutes = minutes % 60;
+        if (hours > 0) {
+            return this.pad(hours) + "h " + this.pad(minutes) + "m " + this.pad(date) + "s";
+        } else if (minutes > 0) {
+            return this.pad(minutes) + "m " + this.pad(date) + "s";
+        } else {
+            return this.pad(date) + "s";
+        }
     }
 
 }

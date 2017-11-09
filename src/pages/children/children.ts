@@ -35,6 +35,7 @@ export class ChildrenPage {
     this.navCtrl.setRoot(HomePage);
   }
 
+<<<<<<< HEAD
   // remove(id) {
   //   let requestData = {
   //     token: this.authService.userToken,
@@ -48,6 +49,21 @@ export class ChildrenPage {
   //     this.updateKids();
   //   });
   // }
+=======
+  remove(id) {
+    let requestData = {
+      token: this.authService.userToken,
+    }
+    this.requestService.deleteMethod('/children/' + id, requestData).subscribe(data => {
+      if (data.error === false) {
+        console.log('Succes')
+      } else {
+        console.log('Error')
+      }
+      this.updateKids();
+    });
+  }
+>>>>>>> c53c2edbe71363a1d90df00af67950de438f37f2
 
   edition(child) {
     this.navCtrl.push(EditChildPage, {

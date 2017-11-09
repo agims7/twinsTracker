@@ -14,86 +14,69 @@
             <ion-list-header class="header">
                 <ion-row>
                     <ion-col col-12 class="data-change">
-                            <button class="data-change-button" item-end ion-button icon-left ion-datepicker (ionChanged)="setDate($event);" [value]="date"
-                            [localeStrings]="object">
-                                <span>Zmień datę</span>
-                                <ion-icon name="calendar"></ion-icon>
-                          </button>
+                        <button class="data-change-button" item-end ion-button icon-left ion-datepicker (ionChanged)="setDate($event);" [value]="date"
+                            [localeStrings]="object" [max]="today" [min]="minDate">
+                            <span>Zmień datę</span>
+                            <ion-icon name="calendar"></ion-icon>
+                        </button>
                     </ion-col>
-                    <ion-col>
+                    <ion-col class="data-selection" (tap)="getDifferentDayChildActivity('-')">
                         <ion-icon class="arrow" color="white" name="arrow-dropleft"></ion-icon>
                     </ion-col>
-                    <ion-col>
+                    <ion-col class="data-selection">
                         <p class="list-header">{{ showTime(date) }}</p>
                     </ion-col>
-                    <ion-col>
+                    <ion-col *ngIf="arrowFutureDisable" class="data-selection">
+                        <ion-icon class="arrow" color="primary" name="arrow-dropright"></ion-icon>
+                    </ion-col>
+                    <ion-col *ngIf="!arrowFutureDisable" class="data-selection" (tap)="getDifferentDayChildActivity('+')">
                         <ion-icon class="arrow" color="white" name="arrow-dropright"></ion-icon>
                     </ion-col>
                 </ion-row>
             </ion-list-header>
 
             <ion-row class="choice">
-                <ion-col *ngFor="let option of choiceArray; let i = index">
-                        <button [ngClass]="{'selected': choice === i}" ion-button (click)="makeChoice(i)">{{ option.name }}</button>
+                <ion-col class="option-block" *ngFor="let option of choiceArray; let i = index">
+                    <button [ngClass]="{'selected': choice === i}" ion-button (tap)="makeChoice(i)">{{ option.name }}</button>
                 </ion-col>
             </ion-row>
 
-            <ion-item text-wrap class="item">
-                <ion-row>
+            <ion-item text-wrap class="item" *ngFor="let activity of activityTable; let i = index">
+                <ion-row [ngStyle]="{'background-color': getCategoryColor(activity.source), 'opacity': 0.8}">
                     <ion-col col-2>
                         <ion-avatar class="avatar">
-                            <img class="child-image" src="./assets/images/emilka.png">
+                            <img class="child-image" [src]="getChildPhotoFromId(activity.child_id)">
                         </ion-avatar>
                     </ion-col>
                     <ion-col col-3 class="child-name-field">
-                        <h2 class="child-name">Emilka</h2>
+                        <h2 class="child-name">{{ getChildNameFromId(activity.child_id) }}</h2>
                     </ion-col>
                     <ion-col col-5 class="activity-description-field">
-                        <p class="activity-description">Spanie - 25min</p>
+                        <p class="activity-description-title">{{ getCategoryTitle(activity.source) }}</p>
+                        <!-- Breast -->
+                        <p *ngIf="activity.source === 'breast'" class="activity-description">Pierść: {{ getBreast(activity.side_id) }}</p>
+                        <p *ngIf="activity.source === 'breast'" class="activity-description">Czas: {{ timerService.secondConvert(activity.time) }}</p>
+                        <!-- Bottle -->
+                        <p *ngIf="activity.source === 'bottle'" class="activity-description">Wypite: {{ activity.volume }}ml</p>
+                        <p *ngIf="activity.source === 'bottle'" class="activity-description">Czas: {{ timerService.secondConvert(activity.time) }}</p>
+                        <!-- Diaper -->
+                        <p *ngIf="activity.source === 'diaper'" class="activity-description">Rodzaj: {{ getDiaper(activity.type_id) }}</p>
+                        <!-- Medicine -->
+                        <p *ngIf="activity.source === 'medicine'" class="activity-description">Lekarstwo: {{ activity.medicine }}</p>
+                        <p *ngIf="activity.source === 'medicine'" class="activity-description">Dawka: {{ activity.portion }}</p>
+                        <!-- Sleep -->
+                        <p *ngIf="activity.source === 'sleep'" class="activity-description">Czas: {{ timerService.secondConvert(activity.time) }}</p>
                     </ion-col>
                     <ion-col col-2>
-                        <ion-note class="activity-date">14:26</ion-note>
+                        <ion-note class="activity-date">{{ showDayTime(activity.date) }}</ion-note>
                     </ion-col>
                 </ion-row>
             </ion-item>
 
-            <ion-item text-wrap class="item">
-                <ion-row>
-                    <ion-col col-2>
-                        <ion-avatar class="avatar">
-                            <img class="child-image" src="./assets/images/amelka.png">
-                        </ion-avatar>
-                    </ion-col>
-                    <ion-col col-3 class="child-name-field">
-                        <h2 class="child-name">Amelka</h2>
-                    </ion-col>
-                    <ion-col col-5 class="activity-description-field">
-                        <p class="activity-description">Lekartstwo - wit B6</p>
-                    </ion-col>
-                    <ion-col col-2>
-                        <ion-note class="activity-date">16:26</ion-note>
-                    </ion-col>
-                </ion-row>
-            </ion-item>
-
-            <ion-item text-wrap class="item">
-                <ion-row>
-                    <ion-col col-2>
-                        <ion-avatar class="avatar">
-                            <img class="child-image" src="./assets/images/emilka.png">
-                        </ion-avatar>
-                    </ion-col>
-                    <ion-col col-3 class="child-name-field">
-                        <h2 class="child-name">Emilka</h2>
-                    </ion-col>
-                    <ion-col col-5 class="activity-description-field">
-                        <p class="activity-description">Pieluszka - kupka</p>
-                    </ion-col>
-                    <ion-col col-2>
-                        <ion-note class="activity-date">18:26</ion-note>
-                    </ion-col>
-                </ion-row>
-            </ion-item>
+            <div class="warning" *ngIf="emptyTable">
+                <ion-icon class="warning-icon" color="danger" name="alert"></ion-icon>
+                <h1 class="warning-first">Brak aktywności tego dnia</h1>
+            </div>
 
         </ion-list>
 

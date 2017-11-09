@@ -32,6 +32,14 @@ export class AuthService {
   //   });
   // }
 
+  clear() {
+    this.userToken = null;
+    this.userEmail = null;
+    this.userPassword = null;
+    this.userID = null;
+    console.log('clear storage data')
+  }
+
   setKeys(token, email, id) {
     this.storage.ready().then(() => {
       this.userToken = token;

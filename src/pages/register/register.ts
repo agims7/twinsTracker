@@ -9,6 +9,8 @@ import { RequestService } from '../../services/request';
   templateUrl: 'register.html',
 })
 export class RegisterPage {
+  public email: string;
+  public password: string;
 
   constructor(
     public navCtrl: NavController, 
@@ -16,11 +18,15 @@ export class RegisterPage {
     public requestService: RequestService
   ) {
   }
+  ionViewDidEnter() {
+    this.password = null;
+    this.email = null;
+  }
 
   register() {
     let body = {
-      'email': 'test@fdsfsdfs',
-      'password': 123
+      'email': this.email,
+      'password': this.password
     };
     this.requestService.postMethod('/users', body).subscribe(data => {
       console.log(data)

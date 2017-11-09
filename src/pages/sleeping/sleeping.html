@@ -36,11 +36,14 @@
               <span>{{ child.name }}</span>
               <ion-icon name="arrow-round-forward"></ion-icon>
             </button>
-            <ul>
-              <li>czas</li>
-              <li>czas2</li>
-              <li>czas3</li>
-            </ul>
+            <div class="list-container">
+                <ul>
+                    <li *ngFor="let sleep of childrenSleeps[i]">
+                       <p>{{ timerService.toTime(sleep.date) }}</p>
+                       <p>Czas: {{ timerService.secondConvert(sleep.time) }}<span *ngIf="sleep.comment"> - {{ sleep.comment }}</span></p>
+                   </li>
+                 </ul>
+            </div>
           </div>
         </ion-col>
       </ion-row>

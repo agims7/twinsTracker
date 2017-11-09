@@ -1,8 +1,20 @@
+<ion-header>
+  <ion-navbar color="background">
+    <ion-buttons start>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
 <ion-content>
   <ion-grid>
 
     <div class="blocks-container">
-      <button *ngFor="let category of categoriesService.categories; let i = index" [navParams]="[category.color]" [navPush]="category.name" [ngStyle]="{'background-color': category.color}" class="navigation-block">
+      <button *ngFor="let category of categoriesService.categories; let i = index" [navParams]="[category.color]" [navPush]="category.name"
+        [ngStyle]="{'background-color': category.color}" class="navigation-block">
         <p>{{ category.text }}</p>
         <img class="icon" [src]="category.icon" alt="">
       </button>

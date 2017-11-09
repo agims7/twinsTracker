@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { HttpClient, HttpParams } from '@angular/common/http';
-
 import { Storage } from '@ionic/storage';
 
 import { ActivityPage } from "../activity/activity";
-import { BootleFeedingPage } from "../bootle-feeding/bootle-feeding";
+import { BottleFeedingPage } from "../bottle-feeding/bottle-feeding";
 import { BreastFeedingPage } from "../breast-feeding/breast-feeding";
 import { DiaperPage } from "../diaper/diaper";
 import { GrowthPage } from "../growth/growth";
@@ -26,7 +24,7 @@ import { ChildrenService } from '../../services/children';
 })
 export class HomePage {
   activityPage = ActivityPage;
-  bootleFeedingPage = BootleFeedingPage;
+  bottleFeedingPage = BottleFeedingPage;
   breastFeedingPage = BreastFeedingPage;
   diaperPage = DiaperPage;
   growthPage = GrowthPage;
@@ -36,7 +34,6 @@ export class HomePage {
   timetablePage = TimetablePage;
 
   public token: string;
-  public parrentId: number;
 
   constructor(
     public navCtrl: NavController,
@@ -45,35 +42,28 @@ export class HomePage {
     public requestService: RequestService,
     public childrenService: ChildrenService,
     public authService: AuthService,
-    public storage: Storage,
-    private http: HttpClient
+    public storage: Storage
   ) {
-    this.timerService.setTimerObjects();
-  }
-
-  ionViewWillEnter() {
   }
 
   ionViewDidEnter() {
-    this.storage.get('userToken').then((userToken) => {
-      this.token = userToken;
-    });
-    this.storage.get('userID').then((userID) => {
-      this.parrentId = userID;
-      this.getKids();
-    });
+    this.getKids();
   }
 
   getKids() {
     this.childrenService.children = [];
-        this.requestService.getMethod('/children/parrent/' + this.parrentId, this.token).subscribe(data => {
-          console.log(data, '?????????????????????????')
-          let kids = data.data;
-          for (var child of kids) {
-            console.log(child)
-            this.childrenService.children.push(child);
-          }
-        });
-  }
+    let requestData = {
+      token: this.authService.userToken
+    }
+    this.requestService.getMethod('/children/parrent/' + this.authService.userID, requestData).subscribe(data => {
+      let kids = data.data;
+      if (data.data) {
+        for (var child of kids) {
+          this.childrenService.children.push(child);
+        }
+        this.timerService.setTimerObjects();
+      }
+    });
+  }  
 
 }
