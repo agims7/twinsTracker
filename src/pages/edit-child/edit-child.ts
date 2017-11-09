@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { NgForm } from "@angular/forms";
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
@@ -11,7 +11,7 @@ import { AuthService } from "../../services/auth";
 
 import * as moment from 'moment';
 
-@Component({
+@IonicPage() @Component({
   selector: 'page-edit-child',
   templateUrl: 'edit-child.html',
 })

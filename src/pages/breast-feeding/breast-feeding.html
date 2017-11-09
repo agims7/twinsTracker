@@ -37,7 +37,7 @@
           </button>
             <div class="list-container">
                 <ul>
-                    <li *ngFor="let breast of childrenBreasts[i]">
+                    <li *ngFor="let breast of getChildBreast(child.id)">
                        <p>{{ timerService.toTime(breast.date) }}</p>
                        <p>Czas: {{ timerService.secondConvert(breast.time) }}<span *ngIf="breast.comment"> - {{ breast.comment }}</span></p>
                    </li>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { NgForm } from "@angular/forms";
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
@@ -11,7 +11,7 @@ import { AuthService } from "../../services/auth";
 
 import * as moment from 'moment';
 
-@Component({
+@IonicPage() @Component({
   selector: 'page-add-child',
   templateUrl: 'add-child.html',
 })
@@ -46,6 +46,7 @@ export class AddChildPage {
   }
 
   setPicture() {
+    console.log('setpicture')
     const options: CameraOptions = {
       quality: 100,
       correctOrientation: true,
@@ -66,6 +67,7 @@ export class AddChildPage {
   }
 
   takePicture() {
+    console.log('takepicture')
     const options: CameraOptions = {
       quality: 100,
       correctOrientation: true,

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 
 import { NewEventPage } from '../new-event/new-event';
 
@@ -10,8 +10,7 @@ import { RequestService } from "../../services/request";
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
-
-@Component({
+@IonicPage() @Component({
   selector: 'page-timetable',
   templateUrl: 'timetable.html',
 })

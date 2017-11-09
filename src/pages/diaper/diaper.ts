@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { ModalPage } from '../modal/modal';
@@ -10,8 +10,9 @@ import { TimerService } from '../../services/timer';
 import { AuthService } from "../../services/auth";
 
 import * as moment from 'moment';
+import * as _ from 'lodash';
 
-@Component({
+@IonicPage() @Component({
   selector: 'page-diaper',
   templateUrl: 'diaper.html',
 })
@@ -19,6 +20,7 @@ export class DiaperPage {
   public together: boolean = true;
   public childrenDiapers: any = [];
   public childrenIds: any = [];
+  public allData: any = [];
   
   constructor(
     public navCtrl: NavController,
@@ -38,36 +40,31 @@ export class DiaperPage {
   ionViewDidEnter() {
     this.cleraAll();
     this.setChildrenDiapers();
-    this.iterateDiapers();
+    this.getAllDiaper();
   }
 
-  iterateDiapers() {
-    let count = 0;
-    for (var child of this.childrenService.children) {
-      let requestData = {
-        token: this.authService.userToken
-      }
-      this.getDiapers(requestData, child.id, child.name, count);
-      count++;
-    }
-  }
+
 
   cleraAll() {
     this.childrenDiapers = [];
     this.childrenIds = [];
   }
 
-  getDiapers(requestData, child, name, number) {
-    this.requestService.getMethod('/diaper/child/today/' + child, requestData).subscribe(data => {
+  getAllDiaper() {
+    let requestData = {
+      token: this.authService.userToken
+    }
+    this.requestService.getMethod('/diaper/today/' , requestData).subscribe(data => {
       if (data.data.length > 0) {
-        console.log(data.data)
-        if (data.data[0].id > this.childrenIds[0]) {
-          this.childrenDiapers.push(data.data)
-        } else {
-          this.childrenDiapers.unshift(data.data)
-        }
+        this.allData = data.data;
+      } else {
+        console.log('Brak danych')
       }
     });
+  }
+
+  getChildDiaper(id) {
+    return _.filter(this.allData, { 'child_id': id });
   }
 
   setChildrenDiapers() {
@@ -81,8 +78,7 @@ export class DiaperPage {
   }
 
   openModal(index) {
-    const modal = this.modalCtrl.create(ModalPage, {"category": "diaper", "text": "Pieluszka", "together": this.together, "child": index });
-    modal.present();
+    this.navCtrl.push(ModalPage, {"category": "diaper", "text": "Pieluszka", "together": this.together, "child": index });
   }
 
   setDiaperType(type) {

@@ -56,12 +56,15 @@
   "cordova": {
     "plugins": {
       "ionic-plugin-keyboard": {},
-      "cordova-plugin-whitelist": {},
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-webview": {},
-      "cordova-plugin-camera": {},
-      "cordova-plugin-background-mode": {}
+      "cordova-plugin-camera": {
+        "CAMERA_USAGE_DESCRIPTION": " ",
+        "PHOTOLIBRARY_USAGE_DESCRIPTION": " "
+      },
+      "cordova-plugin-background-mode": {},
+      "cordova-plugin-whitelist": {}
     },
     "platforms": [
       "android",

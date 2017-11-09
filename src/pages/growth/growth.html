@@ -38,7 +38,7 @@
             </button>
             <div class="list-container">
                 <ul>
-                    <li *ngFor="let growth of childrenGrowths[i]">
+                    <li *ngFor="let growth of getChildGrowths(child.id)">
                        <p>{{ timerService.toTime(growth.date) }}</p>
                        <p>{{ growth.weight }} g / {{ growth.length }} cm</p>
                       <p *ngIf="growth.comment"> - {{ growth.comment }}</p>

@@ -18,9 +18,9 @@
         <img *ngIf="child.photo" class="child-image" [src]="child.photo">
         <img *ngIf="!child.photo" class="child-image" src="http://via.placeholder.com/150x150">
           <h2>{{ child.name }}</h2>
-          <p>Waga <span class="birth">(urodzeniowa)</span></p>
+          <p>Waga <span class="birth">(urodz.)</span></p>
           <p class="value">{{ child.weight }} g</p>
-          <p>Długość <span class="birth">(urodzeniowa)</span></p>
+          <p>Długość <span class="birth">(urodz.)</span></p>
           <p class="value">{{ child.length }} cm</p>
           <p>Data urodzenia</p>
           <p class="value">{{ showTime(child.dateofbirth) }}</p>

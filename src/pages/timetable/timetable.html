@@ -8,18 +8,18 @@
 
 <ion-content>
   <ion-grid>
+    <div>
+      <button ion-button block class="add-button" (click)="addEvent()">
+        Nowy termin
+        <ion-icon name="add"></ion-icon>
+      </button>
 
-    <button ion-button block class="add-button" (click)="addEvent()">
-      Nowy termin
-      <ion-icon name="add"></ion-icon>
-    </button>
-
-    <ion-row class="choice">
-      <ion-col *ngFor="let option of choiceArray; let i = index">
-        <button [ngClass]="{'selected': choice === i}" ion-button (click)="makeChoice(i)">{{ option.name }}</button>
-      </ion-col>
-    </ion-row>
-
+      <ion-row class="choice">
+        <ion-col *ngFor="let option of choiceArray; let i = index">
+          <button [ngClass]="{'selected': choice === i}" ion-button (click)="makeChoice(i)">{{ option.name }}</button>
+        </ion-col>
+      </ion-row>
+    </div>
     <ion-list>
       <ion-item-group>
         <div *ngFor="let event of eventsDates; let i = index">

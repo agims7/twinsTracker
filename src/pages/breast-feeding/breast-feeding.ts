@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { ModalPage } from '../modal/modal';
@@ -9,7 +9,9 @@ import { RequestService } from "../../services/request";
 import { TimerService } from "../../services/timer";
 import { AuthService } from "../../services/auth";
 
-@Component({
+import * as _ from 'lodash';
+
+@IonicPage() @Component({
   selector: 'page-breast-feeding',
   templateUrl: 'breast-feeding.html',
 })
@@ -17,6 +19,7 @@ export class BreastFeedingPage {
   public together: boolean = true;
   public childrenBreasts: any = [];
   public childrenIds: any = [];
+  public allData: any = [];
 
   constructor(
     public navCtrl: NavController,
@@ -33,18 +36,7 @@ export class BreastFeedingPage {
   ionViewDidEnter() {
     this.cleraAll();
     this.setChildrenBreasts();
-    this.iterateBreasts();
-  }
-
-  iterateBreasts() {
-    let count = 0;
-    for (var child of this.childrenService.children) {
-      let requestData = {
-        token: this.authService.userToken
-      }
-      this.getBreasts(requestData, child.id, child.name, count);
-      count++;
-    }
+    this.getAllBreast();
   }
 
   cleraAll() {
@@ -52,17 +44,23 @@ export class BreastFeedingPage {
     this.childrenIds = [];
   }
 
-  getBreasts(requestData, child, name, number) {
-    this.requestService.getMethod('/breast/child/today/' + child, requestData).subscribe(data => {
+  getAllBreast() {
+    let requestData = {
+      token: this.authService.userToken
+    }
+    this.requestService.getMethod('/breast/today/' , requestData).subscribe(data => {
       if (data.data.length > 0) {
-        if (data.data[0].child_id > this.childrenIds[0]) {
-          this.childrenBreasts.push(data.data)
-        } else {
-          this.childrenBreasts.unshift(data.data)
-        }
+        this.allData = data.data;
+      } else {
+        console.log('Brak danych')
       }
     });
   }
+
+  getChildBreast(id) {
+    return _.filter(this.allData, { 'child_id': id });
+  }
+
 
   setChildrenBreasts() {
     for (var child of this.childrenService.children) {
@@ -75,8 +73,7 @@ export class BreastFeedingPage {
   }
 
   openModal(index) {
-    const modal = this.modalCtrl.create(ModalPage, { "category": "breastFeeding", "text": "Karmienie piersią", "together": this.together, "child": index });
-    modal.present();
+    this.navCtrl.push(ModalPage, { "category": "breastFeeding", "text": "Karmienie piersią", "together": this.together, "child": index });
   }
 
 }

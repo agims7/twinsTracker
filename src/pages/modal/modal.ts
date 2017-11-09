@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { TimerService } from "../../services/timer";
@@ -7,7 +7,7 @@ import { ChildrenService } from "../../services/children";
 import { RequestService } from "../../services/request";
 import { AuthService } from "../../services/auth";
 
-@Component({
+@IonicPage() @Component({
   selector: 'page-modal',
   templateUrl: 'modal.html',
 })

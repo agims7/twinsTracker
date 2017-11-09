@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { HomePage } from '../../pages/home/home';
 
@@ -11,7 +11,7 @@ import * as moment from 'moment';
 import * as _ from 'lodash';
 
 
-@Component({
+@IonicPage() @Component({
   selector: 'page-new-event',
   templateUrl: 'new-event.html',
 })

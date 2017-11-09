@@ -1,11 +1,11 @@
 import { Component, HostListener } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { RequestService } from "../../services/request";
 
 declare var AmCharts: any;
 
-@Component({
+@IonicPage() @Component({
   selector: 'page-statistic-modal',
   templateUrl: 'statistic-modal.html',
 })

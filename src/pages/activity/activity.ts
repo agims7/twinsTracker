@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { ChildrenService } from '../../services/children';
 import { RequestService } from "../../services/request";
@@ -10,7 +10,7 @@ import { CategoriesService } from "../../services/categories";
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
-@Component({
+@IonicPage() @Component({
   selector: 'page-activity',
   templateUrl: 'activity.html',
 })

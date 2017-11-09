@@ -38,7 +38,7 @@
             </button>
             <div class="list-container">
                 <ul>
-                    <li *ngFor="let medicine of childrenMedicines[i]">
+                    <li *ngFor="let medicine of getChildBreast(child.id)">
                        <p>{{ timerService.toTime(medicine.date) }}</p>
                        <p>{{ medicine.medicine }} / {{ medicine.portion }}<span *ngIf="medicine.comment"> - {{ medicine.comment }}</span></p>
                    </li>

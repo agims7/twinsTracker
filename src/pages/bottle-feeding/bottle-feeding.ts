@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 
 import { ModalPage } from '../modal/modal';
 
@@ -9,8 +9,9 @@ import { TimerService } from "../../services/timer";
 import { AuthService } from "../../services/auth";
 
 import * as moment from 'moment';
+import * as _ from 'lodash';
 
-@Component({
+@IonicPage() @Component({
   selector: 'page-bottle-feeding',
   templateUrl: 'bottle-feeding.html',
 })
@@ -18,6 +19,7 @@ export class BottleFeedingPage {
   public together: boolean = true;
   public childrenBottles: any = [];
   public childrenIds: any = [];
+  public allData: any = [];
 
   constructor(
     public navCtrl: NavController,
@@ -33,18 +35,7 @@ export class BottleFeedingPage {
   ionViewDidEnter() {
     this.cleraAll();
     this.setChildrenBottles();
-    this.iterateBottles();
-  }
-
-  iterateBottles() {
-    let count = 0;
-    for (var child of this.childrenService.children) {
-      let requestData = {
-        token: this.authService.userToken
-      }
-      this.getBottles(requestData, child.id, child.name, count);
-      count++;
-    }
+    this.getAllBreast();
   }
 
   cleraAll() {
@@ -52,16 +43,21 @@ export class BottleFeedingPage {
     this.childrenIds = [];
   }
 
-  getBottles(requestData, child, name, number) {
-    this.requestService.getMethod('/bottle/child/today/' + child, requestData).subscribe(data => {
+  getAllBreast() {
+    let requestData = {
+      token: this.authService.userToken
+    }
+    this.requestService.getMethod('/bottle/today/' , requestData).subscribe(data => {
       if (data.data.length > 0) {
-        if (data.data[0].child_id > this.childrenIds[0]) {
-          this.childrenBottles.push(data.data)
-        } else {
-          this.childrenBottles.unshift(data.data)
-        }
+        this.allData = data.data;
+      } else {
+        console.log('Brak danych')
       }
     });
+  }
+
+  getChildBottles(id) {
+    return _.filter(this.allData, { 'child_id': id });
   }
 
   setChildrenBottles() {
@@ -75,8 +71,7 @@ export class BottleFeedingPage {
   }
 
   openModal(index) {
-    const modal = this.modalCtrl.create(ModalPage, {"category": "bottleFeeding", "text": "Karmienie butelką", "together": this.together, "child": index });
-    modal.present();
+    this.navCtrl.push(ModalPage, {"category": "bottleFeeding", "text": "Karmienie butelką", "together": this.together, "child": index });
   }
 
   toTime(date) {

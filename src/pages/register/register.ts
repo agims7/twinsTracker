@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { RequestService } from '../../services/request';
 
 
-@Component({
+@IonicPage() @Component({
   selector: 'page-register',
   templateUrl: 'register.html',
 })

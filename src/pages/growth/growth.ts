@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { ModalPage } from '../modal/modal';
@@ -10,8 +10,9 @@ import { TimerService } from "../../services/timer";
 import { AuthService } from "../../services/auth";
 
 import * as moment from 'moment';
+import * as _ from 'lodash';
 
-@Component({
+@IonicPage() @Component({
   selector: 'page-growth',
   templateUrl: 'growth.html',
 })
@@ -19,6 +20,7 @@ export class GrowthPage {
   public together: boolean = false;
   public childrenGrowths: any = [];
   public childrenIds: any = [];
+  public allData: any = [];
   
   constructor(
     public navCtrl: NavController,
@@ -34,18 +36,7 @@ export class GrowthPage {
   ionViewDidEnter() {
     this.cleraAll();
     this.setChildrenGrowth();
-    this.iterateGrowth();
-  }
-
-  iterateGrowth() {
-    let count = 0;
-    for (var child of this.childrenService.children) {
-      let requestData = {
-        token: this.authService.userToken
-      }
-      this.getGrowth(requestData, child.id, child.name, count);
-      count++;
-    }
+    this.getAllGrowth();
   }
 
   cleraAll() {
@@ -53,18 +44,22 @@ export class GrowthPage {
     this.childrenIds = [];
   }
 
-  getGrowth(requestData, child, name, number) {
-    console.log('zapytanie')
-    this.requestService.getMethod('/growth/child/today/' + child, requestData).subscribe(data => {
+  getAllGrowth() {
+    let requestData = {
+      token: this.authService.userToken
+    }
+    this.requestService.getMethod('/growth/today/' , requestData).subscribe(data => {
       if (data.data.length > 0) {
-        console.log(data)
-        if (data.data[0].id > this.childrenIds[0]) {
-          this.childrenGrowths.push(data.data)
-        } else {
-          this.childrenGrowths.unshift(data.data)
-        }
+        this.allData = data.data;
+      } else {
+        console.log('Brak danych')
       }
     });
+  }
+
+  getChildGrowths(id) {
+    return _.filter(this.allData, { 'child_id': id });
+    
   }
 
   setChildrenGrowth() {
@@ -73,14 +68,8 @@ export class GrowthPage {
     }
   }
 
-  growthOption() {
-    // this.together  = this.together ? false : true;
-    //no action
-  }
-
   openModal(index) {
-    const modal = this.modalCtrl.create(ModalPage, {"category": "growth", "text": "Wzrost", "together": this.together, "child": index });
-    modal.present();
+    this.navCtrl.push(ModalPage, {"category": "growth", "text": "Wzrost", "together": this.together, "child": index });
   }
 
 }

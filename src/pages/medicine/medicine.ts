@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { ModalPage } from '../modal/modal';
@@ -10,8 +10,9 @@ import { TimerService } from "../../services/timer";
 import { AuthService } from "../../services/auth";
 
 import * as moment from 'moment';
+import * as _ from 'lodash';
 
-@Component({
+@IonicPage() @Component({
   selector: 'page-medicine',
   templateUrl: 'medicine.html',
 })
@@ -19,7 +20,8 @@ export class MedicinePage {
   public together: boolean = true;
   public childrenMedicines: any = [];
   public childrenIds: any = [];
-  
+  public allData: any = [];
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -34,18 +36,7 @@ export class MedicinePage {
   ionViewDidEnter() {
     this.cleraAll();
     this.setChildrenMedicines();
-    this.iterateMedicines();
-  }
-
-  iterateMedicines() {
-    let count = 0;
-    for (var child of this.childrenService.children) {
-      let requestData = {
-        token: this.authService.userToken
-      }
-      this.getMedicines(requestData, child.id, child.name, count);
-      count++;
-    }
+    this.getAllMedicine();
   }
 
   cleraAll() {
@@ -53,16 +44,21 @@ export class MedicinePage {
     this.childrenIds = [];
   }
 
-  getMedicines(requestData, child, name, number) {
-    this.requestService.getMethod('/medicine/child/today/' + child, requestData).subscribe(data => {
+  getAllMedicine() {
+    let requestData = {
+      token: this.authService.userToken
+    }
+    this.requestService.getMethod('/medicine/today/' , requestData).subscribe(data => {
       if (data.data.length > 0) {
-        if (data.data[0].id > this.childrenIds[0]) {
-          this.childrenMedicines.push(data.data)
-        } else {
-          this.childrenMedicines.unshift(data.data)
-        }
+        this.allData = data.data;
+      } else {
+        console.log('Brak danych')
       }
     });
+  }
+
+  getChildBreast(id) {
+    return _.filter(this.allData, { 'child_id': id });
   }
 
   setChildrenMedicines() {
@@ -76,8 +72,7 @@ export class MedicinePage {
   }
 
   openModal(index) {
-    const modal = this.modalCtrl.create(ModalPage, {"category": "medicine", "text": "Lekarstwa", "together": this.together, "child": index });
-    modal.present();
+    this.navCtrl.push(ModalPage, {"category": "medicine", "text": "Lekarstwa", "together": this.together, "child": index });
   }
 
 }

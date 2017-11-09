@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 
 import { StatisticModalPage } from '../statistic-modal/statistic-modal';
 
 import { ChildrenService } from '../../services/children';
 
 
-@Component({
+@IonicPage() @Component({
   selector: 'page-statistics',
   templateUrl: 'statistics.html',
 })
