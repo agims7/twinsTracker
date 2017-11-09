@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-navbar color="background">
+    <ion-title>
+      Karmienie butelką
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="header">
+      <ion-col class="logo-content">
+        <div class="logo">
+          <p>Karmienie butelką</p>
+        </div>
+      </ion-col>
+      <ion-col class="choice-content">
+        <div class="choice">
+          <p class="choice-title">Karmienie dzieci:</p>
+          <button ion-button [ngClass]="{'selected': together}" (click)="feedingOption()">
+              Razem
+            </button>
+            <button ion-button [ngClass]="{'selected': !together}" (click)="feedingOption()">
+              Osobno
+            </button>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <h1 class="select-child">Wybierz dziecko:</h1>
+    <ion-row class="content">  
+      <ion-col *ngFor="let child of childrenService.children; let i = index">
+        <div class="child-content">
+          <button ion-button (click)="openModal(i)">
+            <span>{{ child.name }}</span>
+            <ion-icon name="arrow-round-forward"></ion-icon>
+          </button>
+          <div class="list-container">
+              <ul>
+                  <li *ngFor="let bottle of childrenBottles[i]">
+                     <p>{{ timerService.toTime(bottle.date) }}</p>
+                     <p>Czas: {{ timerService.secondConvert(bottle.time) }} / Ilość: {{ bottle.volume }}ml<span *ngIf="bottle.comment"> - {{ bottle.comment }}</span></p>
+                 </li>
+               </ul>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

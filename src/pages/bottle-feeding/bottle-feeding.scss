@@ -1,0 +1,86 @@
+page-bottle-feeding {
+    ion-grid {
+        width: 100%;
+        height: 100%;
+        background-color: #3f3f3f;
+        .header {
+            height: 40%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .logo-content {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .logo {
+                    height: 150px;
+                    width: 150px;
+                    background-color: #CFF4FF;
+                    border-radius: 20px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    p {
+                        text-align: center;
+                    }
+                }
+            }
+            .choice-content {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .choice {
+                    text-align: center;
+                    .choice-title {
+                        margin: 0 0 5px;
+                        color: white;
+                    }
+                    button {
+                        margin: 5px 0;
+                        width: 110px;
+                    }
+                    .selected {
+                        background-color: #CFF4FF;
+                        color: #3f3f3f;
+                    }
+                }
+            }
+        }
+        .select-child {
+            color: white;
+            text-align: center;
+        }
+        .content {
+            height: 60%;
+            .child-content {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                span {
+                    margin-right: 10px;
+                }
+                .list-container {
+                    min-width: 60%;
+                    ul {
+                        list-style: none;
+                        padding: 0;
+                        margin: 10px 0 0 0;
+                        color: white;
+                        width: 100%;
+                        text-align: left;
+                        li {
+                            border-bottom: 1px solid #636363;
+                            margin: 5px 0;
+                            p,
+                            span {
+                                font-size: 14px;
+                                margin: 2px 0 6px 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

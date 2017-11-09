@@ -25,11 +25,11 @@ export class RequestService {
         });
     }
 
-    deleteMethod(url, body, token?): Observable<any> {
-        return this.http.delete(this.prefix + url, body, {
-            headers: new HttpHeaders().set('x-access-token', token)
-        });
-    }
+    // deleteMethod(url, body, token?): Observable<any> {
+    //     return this.http.delete(this.prefix + url, body, {
+    //         headers: new HttpHeaders().set('x-access-token', token)
+    //     });
+    // }
 
     putMethod(url, body, token?): Observable<any> {
         return this.http.put(this.prefix + url, body, {
