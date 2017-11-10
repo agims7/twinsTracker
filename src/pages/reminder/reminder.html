@@ -2,7 +2,7 @@
   <ion-grid>
     <img class="logo-image" src="./assets/images/logo.png">
     <p class="reminder">Wpisz swój adres email:</p>
-    <ion-input type="text" email></ion-input>
+    <ion-input [(ngModel)]="userEmail" type="text" email></ion-input>
 
     <div class="reminder-block">
       <button ion-button block color="white" (click)="remind()">Przypomnij hasło!</button>  

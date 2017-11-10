@@ -22,10 +22,12 @@ import { RegisterPage } from "../pages/register/register";
 import { ReminderPage } from "../pages/reminder/reminder";
 import { ModalPage } from '../pages/modal/modal';
 import { StatisticModalPage } from '../pages/statistic-modal/statistic-modal';
-import { SettingsPage } from "../pages/settings/settings";
+import { ChangePasswordPage } from "../pages/change-password/change-password";
 import { AddChildPage } from "../pages/add-child/add-child";
 import { ChildrenPage } from "../pages/children/children";
 import { EditChildPage } from "../pages/edit-child/edit-child";
+
+import { LoaderComponent } from '../components/loader/loader';
 
 import { TimerService } from '../services/timer';
 import { CategoriesService } from '../services/categories';
@@ -37,6 +39,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { DatePickerModule } from 'ionic3-datepicker';
 import { Camera } from '@ionic-native/camera';
 import { BackgroundMode } from '@ionic-native/background-mode';
+import { Device } from '@ionic-native/device';
 
 @NgModule({
   declarations: [
@@ -57,10 +60,12 @@ import { BackgroundMode } from '@ionic-native/background-mode';
     LoginPage,
     RegisterPage,
     ReminderPage,
-    SettingsPage,
+    ChangePasswordPage,
     AddChildPage,
     ChildrenPage,
-    EditChildPage
+    EditChildPage,
+    //Components:
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -88,7 +93,7 @@ import { BackgroundMode } from '@ionic-native/background-mode';
     LoginPage,
     RegisterPage,
     ReminderPage,
-    SettingsPage,
+    ChangePasswordPage,
     AddChildPage,
     ChildrenPage,
     EditChildPage
@@ -98,6 +103,7 @@ import { BackgroundMode } from '@ionic-native/background-mode';
     SplashScreen,
     Camera,
     BackgroundMode,
+    Device,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     TimerService,
     CategoriesService,

@@ -24,6 +24,12 @@ page-reminder {
     border: 1px solid white;
     color: white;
     border-radius: 4px;
+    .text-input {
+      margin: 11px 8px 11px 0;
+      padding: 0 20px;
+      width: calc(100% - 8px);
+      text-align: center;
+    }
   }
   .reminder-block {
     margin-top: 25px;
