@@ -20,6 +20,10 @@ export class RequestService {
         return this.http.post(this.prefix + url, requestData.body);
     }
 
+    postRegister(url, requestData?): Observable<any> {
+        return this.http.post(this.prefix + url, requestData.body);
+    }
+
     postMethod(url, requestData?): Observable<any> {
         return this.http.post(this.prefix + url, requestData.body, {
             headers: new HttpHeaders().set('x-access-token', requestData.token)

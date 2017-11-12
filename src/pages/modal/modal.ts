@@ -25,6 +25,7 @@ export class ModalPage {
   public portion: string;
   public weight: number;
   public length: number;
+  public comment: string = null;
   public breastSelected: boolean = false;
   public bottleSelected: boolean = false;
   public sleepingSelected: boolean = false;
@@ -300,7 +301,8 @@ export class ModalPage {
               body: {
                 'child_id': childID,
                 'side_id': sideID,
-                'time': time
+                'time': time,
+                'comment': this.comment
               }
             }
             this.requestService.postMethod('/breast', requestData).subscribe(data => {
@@ -323,7 +325,8 @@ export class ModalPage {
             body: {
               'child_id': childID,
               'side_id': sideID,
-              'time': time
+              'time': time,
+              'comment': this.comment
             }
           }
           this.requestService.postMethod('/breast', requestData).subscribe(data => {
@@ -350,7 +353,8 @@ export class ModalPage {
               body: {
                 'child_id': childID,
                 'volume': volume,
-                'time': time
+                'time': time,
+                'comment': this.comment
               }
             }
             this.requestService.postMethod('/bottle', requestData).subscribe(data => {
@@ -373,7 +377,8 @@ export class ModalPage {
             body: {
               'child_id': childID,
               'volume': volume,
-              'time': time
+              'time': time,
+              'comment': this.comment
             }
           }
           this.requestService.postMethod('/bottle', requestData).subscribe(data => {
@@ -400,7 +405,8 @@ export class ModalPage {
                 token: this.authService.userToken,
                 body: {
                   'child_id': childID,
-                  'type_id': type_id
+                  'type_id': type_id,
+                  'comment': this.comment
                 }
               }
               this.requestService.postMethod('/diaper', requestData).subscribe(data => {
@@ -417,7 +423,8 @@ export class ModalPage {
                 token: this.authService.userToken,
                 body: {
                   'child_id': childID,
-                  'type_id': type_id
+                  'type_id': type_id,
+                  'comment': this.comment
                 }
               }
               this.requestService.postMethod('/diaper', requestData).subscribe(data => {
@@ -440,7 +447,8 @@ export class ModalPage {
               token: this.authService.userToken,
               body: {
                 'child_id': childID,
-                'type_id': type_id
+                'type_id': type_id,
+                'comment': this.comment
               }
             }
             this.requestService.postMethod('/diaper', requestData).subscribe(data => {
@@ -458,7 +466,8 @@ export class ModalPage {
               token: this.authService.userToken,
               body: {
                 'child_id': childID,
-                'type_id': type_id
+                'type_id': type_id,
+                'comment': this.comment
               }
             }
             this.requestService.postMethod('/diaper', requestData).subscribe(data => {
@@ -486,7 +495,8 @@ export class ModalPage {
               body: {
                 'child_id': childID,
                 'medicine': medicine,
-                'portion': portion
+                'portion': portion,
+                'comment': this.comment
               }
             }
             this.requestService.postMethod('/medicine', requestData).subscribe(data => {
@@ -507,7 +517,8 @@ export class ModalPage {
             body: {
               'child_id': childID,
               'medicine': medicine,
-              'portion': portion
+              'portion': portion,
+              'comment': this.comment
             }
           }
           this.requestService.postMethod('/medicine', requestData).subscribe(data => {
@@ -531,7 +542,8 @@ export class ModalPage {
               token: this.authService.userToken,
               body: {
                 'child_id': childID,
-                'time': time
+                'time': time,
+                'comment': this.comment
               }
             }
             this.requestService.postMethod('/sleep', requestData).subscribe(data => {
@@ -552,7 +564,8 @@ export class ModalPage {
             token: this.authService.userToken,
             body: {
               'child_id': childID,
-              'time': time
+              'time': time,
+              'comment': this.comment
             }
           }
           this.requestService.postMethod('/sleep', requestData).subscribe(data => {
@@ -579,7 +592,8 @@ export class ModalPage {
             body: {
               'child_id': childID,
               'weight': weight,
-              'length': length
+              'length': length,
+              'comment': this.comment
             }
           }
           this.requestService.postMethod('/growth', requestData).subscribe(data => {

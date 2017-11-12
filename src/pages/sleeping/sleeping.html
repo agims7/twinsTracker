@@ -38,7 +38,7 @@
             </button>
             <div class="list-container">
                 <ul>
-                    <li *ngFor="let sleep of childrenSleeps[i]">
+                    <li *ngFor="let sleep of getChildBreast(child.id)">
                        <p>{{ timerService.toTime(sleep.date) }}</p>
                        <p>Czas: {{ timerService.secondConvert(sleep.time) }}<span *ngIf="sleep.comment"> - {{ sleep.comment }}</span></p>
                    </li>

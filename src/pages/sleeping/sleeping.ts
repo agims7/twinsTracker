@@ -55,6 +55,7 @@ export class SleepingPage {
       token: this.authService.userToken
     }
     this.requestService.getMethod('/sleep/today/' , requestData).subscribe(data => {
+      console.log(data, 'SLEEEP')
       if (data.data.length > 0) {
         this.allData = data.data;
       } else {

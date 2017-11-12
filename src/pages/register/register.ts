@@ -24,12 +24,15 @@ export class RegisterPage {
   }
 
   register() {
-    let body = {
-      'email': this.email,
-      'password': this.password
+    let requestData = {
+      body: {
+        'email': this.email,
+        'password': this.password
+      }
     };
-    this.requestService.postMethod('/users', body).subscribe(data => {
-      console.log(data)
+    console.log(requestData)
+    this.requestService.postRegister('/users', requestData).subscribe(() => {
+      console.log('Zarejestrowano')
     });
   }
 

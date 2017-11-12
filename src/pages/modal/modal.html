@@ -235,8 +235,8 @@
             </div>
             <div class="timer-controls">
               <button (click)="run(i, 'together')" class="start" [ngClass]="{'counter-start': !timerService.sleeping[i].running, 'counter-pause': timerService.sleeping[i].running}">
-                <span *ngIf="!timerService.sleeping.running">Start</span>
-                <span *ngIf="timerService.sleeping.running">Pauza</span>
+                <span *ngIf="!timerService.sleeping[i].running">Start</span>
+                <span *ngIf="timerService.sleeping[i].running">Pauza</span>
               </button>
               <button (click)="clear(i)" class="clear">
                 <span>Wyczyść</span>
@@ -312,7 +312,7 @@
       <ion-row>
         <ion-col>
           <ion-item>
-            <ion-input type="text" placeholder="Komentarz"></ion-input>
+            <ion-input [(ngModel)]="comment" type="text" placeholder="Komentarz"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col>
