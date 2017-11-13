@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { StatisticModalPage } from '../statistic-modal/statistic-modal';
 
@@ -14,13 +14,11 @@ export class StatisticsPage {
 
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams,
-    public modalCtrl: ModalController,
-  ) {
+    public navParams: NavParams
+    ) {
   }
 
   openStatisticModal(type) {
-    const modal = this.modalCtrl.create(StatisticModalPage, {"category": type });
-    modal.present();
+    this.navCtrl.push(StatisticModalPage, {"category": type });
   }
 }

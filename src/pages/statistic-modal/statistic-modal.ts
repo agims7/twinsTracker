@@ -48,7 +48,7 @@ export class StatisticModalPage {
     this.requestService.getMethod('/diaper', requestData).subscribe(data => {
       console.log(data, '?????????????????????????');
       this.setAxis(data.data)
-      this.setChart();
+      this.setStepChart();
     });
   }
 
@@ -59,7 +59,7 @@ export class StatisticModalPage {
     }
   }
 
-  setChart() {
+  setStepChart() {
     var ctx = document.getElementById("myChart");
     var myChart = new Chart(ctx, {
       type: 'line',
