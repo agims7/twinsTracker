@@ -48,7 +48,7 @@ export class AuthService {
       this.storage.set('userToken', this.userToken);
       this.storage.set('userEmail', this.userEmail);
       this.storage.set('userID', this.userID);
-      console.log('Ustawiono storage keys')      
+      console.log('Ustawiono storage keys', this.getKeys())      
     });
   }
 

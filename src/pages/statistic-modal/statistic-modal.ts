@@ -54,8 +54,18 @@ export class StatisticModalPage {
 
   setAxis(data) {
     for (let key of data) {
+
       this.xaxis.push(this.convertTime(key.date));
-      this.yaxis.push(key.type_id);
+      this.yaxis.push(this.getDiaperType(key.type_id));
+    }
+    console.log( this.yaxis)
+  }
+
+  getDiaperType(data) {
+    if (data === 1) {
+      return 'kupka';
+    } else {
+      return 'siusu';
     }
   }
 
@@ -63,8 +73,8 @@ export class StatisticModalPage {
     var ctx = document.getElementById("myChart");
     var myChart = new Chart(ctx, {
       type: 'line',
+      labels: ['kupka', 'siku'],
       data: {
-        labels: this.xaxis,
         datasets: [{
           data: this.yaxis,
           borderColor: '#e6e6e6',
@@ -75,26 +85,36 @@ export class StatisticModalPage {
       options: {
         title: {
           display: true,
-          text: 'World population per region (in millions)'
+          text: 'Wukres zmian pieluszek'
         },
         scales: {
           yAxes: [{
             ticks: {
               beginAtZero: true,
-              max: 3
+              // max: 3,
+              fontColor: '#e6e6e6'
+            },
+            gridLines: {
+              show: true,
+              color: "#8c8c8c",
             }
           }],
           xAxes: [{
             ticks: {
               autoSkip: true,
               maxRotation: 75,
-              minRotation: 75
+              minRotation: 75,
+              fontColor: '#e6e6e6'
+            },
+            gridLines: {
+              show: true,
+              color: "#8c8c8c",
             }
           }]
         },
         legend: {
           display: false
-        }
+        },
       },
     });
   }

@@ -44,7 +44,8 @@ export class LoginPage {
       if (data.error === false) {
         this.authService.userToken = data.token;
         this.authService.userID = data.user.id;
-        this.authService.setKeys(data.token, data.email, data.user.id);
+        this.authService.userEmail = data.user.email;
+        this.authService.setKeys(data.token, data.user.email, data.user.id);
         this.navCtrl.setRoot(HomePage);
       } else {
         if (data.code === 2) {
