@@ -4,8 +4,6 @@ import { HomePage } from '../../pages/home/home';
 import { RequestService } from "../../services/request";
 import { AuthService } from '../../services/auth';
 
-
-
 @IonicPage() 
 @Component({
   selector: 'page-change-password',
@@ -36,7 +34,7 @@ export class ChangePasswordPage {
           'newPassword': this.newPassword
         }
       }
-      this.requestService.postMethod('/user/password' , requestData).subscribe(data => {
+      this.requestService.postMethod('/users/password' , requestData).subscribe(data => {
           console.log(data)
       });
     } else {

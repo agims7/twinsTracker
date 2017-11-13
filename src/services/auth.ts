@@ -22,7 +22,7 @@ export class AuthService {
   //     'email': this.userEmail,
   //     'password': this.userPassword
   //   };
-  //   this.requestService.postMethod('/auth', body).subscribe(data => {
+  //   this.requestService.postMethod('/other/auth', body).subscribe(data => {
   //     console.log(data)
   //     if (data.error === false) {
   //       this.userToken = data.token;

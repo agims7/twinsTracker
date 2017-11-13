@@ -40,7 +40,7 @@ export class LoginPage {
         'password': this.authService.userPassword
       }
     }
-    this.requestService.postLogin('/auth', requestData).subscribe(data => {
+    this.requestService.postLogin('/other/auth', requestData).subscribe(data => {
       if (data.error === false) {
         this.authService.userToken = data.token;
         this.authService.userID = data.user.id;

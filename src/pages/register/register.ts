@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { RequestService } from '../../services/request';
+import { LoginPage } from '../../pages/login/login';
 
+import { RequestService } from '../../services/request';
 
 @IonicPage() @Component({
   selector: 'page-register',
@@ -31,9 +32,18 @@ export class RegisterPage {
       }
     };
     console.log(requestData)
-    this.requestService.postRegister('/users', requestData).subscribe(() => {
-      console.log('Zarejestrowano')
+    this.requestService.postRegister('/other/new', requestData).subscribe(data => {
+      console.log('Zarejestrowano', data)
+      if (data.error === false) {
+        this.goBack();
+      } else {
+        
+      }
     });
+  }
+
+  goBack() {
+    this.navCtrl.setRoot(LoginPage);
   }
 
 }

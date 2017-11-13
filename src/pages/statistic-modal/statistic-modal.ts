@@ -1,7 +1,12 @@
 import { Component, HostListener } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { AuthService } from "../../services/auth";
 import { RequestService } from "../../services/request";
+
+import * as _ from 'lodash';
+import * as moment from 'moment';
+import Chart from 'chart.js';
 
 declare var AmCharts: any;
 
@@ -12,6 +17,8 @@ declare var AmCharts: any;
 export class StatisticModalPage {
   public paramData: any;
   public chart: any;
+  public xaxis: any = [];
+  public yaxis: any = [];
 
   @HostListener('init')
   handleInit() {
@@ -27,61 +34,73 @@ export class StatisticModalPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public requestService: RequestService
+    public requestService: RequestService,
+    public authService: AuthService
   ) {
   }
 
   ionViewDidEnter() {
     console.log(this.navParams.data)
     this.paramData = this.navParams.data;
-    this.setChart();
-    // this.requestService.getMethod('users').subscribe(data => {
-    //   console.log(data, '?????????????????????????')
-    //   data.data
-    // });
+    let requestData = {
+      token: this.authService.userToken,
+    }
+    this.requestService.getMethod('/diaper', requestData).subscribe(data => {
+      console.log(data, '?????????????????????????');
+      this.setAxis(data.data)
+      this.setChart();
+    });
+  }
+
+  setAxis(data) {
+    for (let key of data) {
+      this.xaxis.push(this.convertTime(key.date));
+      this.yaxis.push(key.type_id);
+    }
   }
 
   setChart() {
-    this.chart = AmCharts.makeChart("chartdiv", {
-      "type": "pie",
-      "theme": "light",
-      "dataProvider": [{
-        "country": "Lithuania",
-        "litres": 501.9
-      }, {
-        "country": "Czech Republic",
-        "litres": 301.9
-      }, {
-        "country": "Ireland",
-        "litres": 201.1
-      }, {
-        "country": "Germany",
-        "litres": 165.8
-      }, {
-        "country": "Australia",
-        "litres": 139.9
-      }, {
-        "country": "Austria",
-        "litres": 128.3
-      }, {
-        "country": "UK",
-        "litres": 99
-      }, {
-        "country": "Belgium",
-        "litres": 60
-      }, {
-        "country": "The Netherlands",
-        "litres": 50
-      }],
-      "valueField": "litres",
-      "titleField": "country",
-      "balloon": {
-        "fixedPosition": true
+    var ctx = document.getElementById("myChart");
+    var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: this.xaxis,
+        datasets: [{
+          data: this.yaxis,
+          borderColor: '#e6e6e6',
+          steppedLine: true,
+          fill: false
+        }]
       },
-      "export": {
-        "enabled": true
-      }
+      options: {
+        title: {
+          display: true,
+          text: 'World population per region (in millions)'
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              max: 3
+            }
+          }],
+          xAxes: [{
+            ticks: {
+              autoSkip: true,
+              maxRotation: 75,
+              minRotation: 75
+            }
+          }]
+        },
+        legend: {
+          display: false
+        }
+      },
     });
+  }
+
+  convertTime(date) {
+    return moment(date).format('DD/MM/YYYY - HH:mm');
   }
 
 }

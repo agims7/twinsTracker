@@ -24,7 +24,7 @@ export class ReminderPage {
         'email': this.userEmail
       }
     }
-    this.requestService.postMethod('/reset' , requestData).subscribe(data => {
+    this.requestService.postMethod('/other/reset' , requestData).subscribe(data => {
         console.log(data)
     });
   }
