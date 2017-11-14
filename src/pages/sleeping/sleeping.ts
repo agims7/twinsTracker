@@ -18,6 +18,7 @@ import * as _ from 'lodash';
   templateUrl: 'sleeping.html',
 })
 export class SleepingPage {
+  public loader: boolean = true;
   public together: boolean = true;
   public childrenSleeps: any = [];
   public childrenIds: any = [];
@@ -48,6 +49,7 @@ export class SleepingPage {
   cleraAll() {
     this.childrenSleeps = [];
     this.childrenIds = [];
+    this.loader = true;
   }
 
   getAllSleep() {
@@ -61,6 +63,7 @@ export class SleepingPage {
       } else {
         console.log('Brak danych')
       }
+      this.loader = false;
     });
   }
 

@@ -10,6 +10,7 @@ import { AuthService } from '../../services/auth';
   templateUrl: 'change-password.html',
 })
 export class ChangePasswordPage {
+  public loader: boolean = true;
   public oldPassword: string = null;
   public newPassword: string = null;
   public newPasswordRewritten: string = null;
@@ -22,8 +23,13 @@ export class ChangePasswordPage {
     public requestService: RequestService
   ) {
   }
+
+  ionViewDidEnter() {
+    this.loader = false;
+  }
   
   change() {
+    this.loader = true;
     if (this.newPassword === this.newPasswordRewritten) {
       this.passwordMatch = true;
       let requestData = {
@@ -36,9 +42,11 @@ export class ChangePasswordPage {
       }
       this.requestService.postMethod('/users/password' , requestData).subscribe(data => {
           console.log(data)
+          this.loader = false;
       });
     } else {
       this.passwordMatch = false
+      this.loader = false;
     }
   }
 

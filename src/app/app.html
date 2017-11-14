@@ -26,7 +26,8 @@
             <p class="username">{{ authService.userName }}</p>
             <div class="version">
                 <span class="version-title">Wersja aplikacji:</span>
-                <span class="version-type">Light</span>
+                <span *ngIf="authService.premium == 0" class="version-type light">Light</span>
+                <span *ngIf="authService.premium == 1" class="version-type premium">Premium</span>
             </div>
         </ion-list>
     </ion-content>

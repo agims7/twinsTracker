@@ -15,6 +15,7 @@ import * as _ from 'lodash';
   templateUrl: 'activity.html',
 })
 export class ActivityPage {
+  public loader: boolean = true;
   public choiceArray: any = [];
   public choice: number = 0;
 
@@ -56,6 +57,7 @@ export class ActivityPage {
 
   clear() {
     this.count = 0;
+    this.loader = true;
   }
 
   createTable() {
@@ -247,6 +249,7 @@ export class ActivityPage {
   }
 
   getChildActivity() {
+    this.loader = true;
     this.date = moment()['_d'];
     this.children = [];
     for (var child of this.childrenService.children) {
@@ -270,6 +273,7 @@ export class ActivityPage {
             this.activityTable = [];
           }
         }
+        this.loader = false;
       });
     } else if (this.children.length === 1) {
       let requestData = {
@@ -286,13 +290,14 @@ export class ActivityPage {
             this.activityTable = [];
           }
         }
-        
+        this.loader = false;
       });
     }
     this.checkDates();
   }
 
   getSingleChildActivity(child_id) {
+    this.loader = true;
     let requestData = {
       token: this.authService.userToken,
     }
@@ -307,11 +312,13 @@ export class ActivityPage {
           this.activityTable = [];
         }
       }
+      this.loader = false;
     });
     this.checkDates();
   }
 
   getDifferentDayChildActivity(sign) {
+    this.loader = true;
     let diff = moment().diff(this.date, 'days');
     if (diff !== 0) {
       this.count = -(diff);
@@ -354,6 +361,7 @@ export class ActivityPage {
             this.activityTable = [];
           }
         }
+        this.loader = false;
       });
     }
     else if (this.children.length === 1) {
@@ -375,6 +383,7 @@ export class ActivityPage {
             this.activityTable = [];
           }
         }
+        this.loader = false;
       });
     } else {
       this.emptyTable = true;

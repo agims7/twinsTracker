@@ -16,6 +16,7 @@ import * as moment from 'moment';
   templateUrl: 'add-child.html',
 })
 export class AddChildPage {
+  public loader: boolean = true;
   public date: Date = moment()['_d'];
   public object = {
     monday: false,
@@ -43,6 +44,7 @@ export class AddChildPage {
       this.newChildBlock = false;
     }
     this.imageTaken = false;
+    this.loader = false;
   }
 
   setPicture() {
@@ -89,6 +91,7 @@ export class AddChildPage {
   }
 
   addChild(form: NgForm) {
+    this.loader = true;
     let date = moment(this.date).format('YYYY-MM-DD HH:mm:ss');
     let requestData = {
       token: this.authService.userToken,
@@ -101,12 +104,13 @@ export class AddChildPage {
         'photo': this.image
       }
     }
-    this.requestService.postMethod('/children', requestData).subscribe(data => {
+    this.requestService.postMethod('/children/', requestData).subscribe(data => {
       if (data.error === false) {
         console.log('Succes')
       } else {
         console.log('Error')
       }
+      this.loader = false;
       this.navCtrl.setRoot(HomePage);
     });
   }

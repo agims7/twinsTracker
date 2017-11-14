@@ -13,8 +13,10 @@
   
   
   <ion-content>
+    <loader *ngIf="loader"></loader>
+
     <ion-grid>
-      <form *ngIf="!editChildBlock" #childForm="ngForm" (ngSubmit)="editChild(childForm)">
+      <form *ngIf="editChildBlock" #childForm="ngForm" (ngSubmit)="editChild(childForm)">
         <ion-list>
           <ion-item>
             <ion-label fixed>Imię</ion-label>

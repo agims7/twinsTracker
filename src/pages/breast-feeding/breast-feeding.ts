@@ -16,6 +16,7 @@ import * as _ from 'lodash';
   templateUrl: 'breast-feeding.html',
 })
 export class BreastFeedingPage {
+  public loader: boolean = true;
   public together: boolean = true;
   public childrenBreasts: any = [];
   public childrenIds: any = [];
@@ -42,6 +43,7 @@ export class BreastFeedingPage {
   cleraAll() {
     this.childrenBreasts = [];
     this.childrenIds = [];
+    this.loader = true;
   }
 
   getAllBreast() {
@@ -54,6 +56,7 @@ export class BreastFeedingPage {
       } else {
         console.log('Brak danych')
       }
+      this.loader = false;
     });
   }
 

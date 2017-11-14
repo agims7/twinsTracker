@@ -10,6 +10,7 @@ import { RequestService } from '../../services/request';
   templateUrl: 'register.html',
 })
 export class RegisterPage {
+  public loader: boolean = true;
   public email: string;
   public password: string;
   public name: string;
@@ -24,9 +25,11 @@ export class RegisterPage {
     this.password = null;
     this.email = null;
     this.name = null;
+    this.loader = false;
   }
 
   register() {
+    this.loader = true;
     let requestData = {
       body: {
         'name': this.name,
@@ -34,7 +37,6 @@ export class RegisterPage {
         'password': this.password
       }
     };
-    console.log(requestData)
     this.requestService.postRegister('/other/new', requestData).subscribe(data => {
       console.log('Zarejestrowano', data)
       if (data.error === false) {
@@ -42,6 +44,7 @@ export class RegisterPage {
       } else {
         
       }
+      this.loader = false;
     });
   }
 

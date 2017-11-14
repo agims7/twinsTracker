@@ -6,7 +6,8 @@ import { StatisticModalPage } from '../statistic-modal/statistic-modal';
 import { ChildrenService } from '../../services/children';
 
 
-@IonicPage() @Component({
+@IonicPage()
+@Component({
   selector: 'page-statistics',
   templateUrl: 'statistics.html',
 })
@@ -16,6 +17,9 @@ export class StatisticsPage {
     public navCtrl: NavController,
     public navParams: NavParams
     ) {
+  }
+
+  ioncViewDidEnter() {
   }
 
   openStatisticModal(type) {

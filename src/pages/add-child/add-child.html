@@ -13,6 +13,8 @@
 
 
 <ion-content>
+  <loader *ngIf="loader"></loader>
+  
   <ion-grid>
     <form *ngIf="!newChildBlock" #childForm="ngForm" (ngSubmit)="addChild(childForm)">
       <ion-list>

@@ -17,6 +17,7 @@ import * as _ from 'lodash';
   templateUrl: 'medicine.html',
 })
 export class MedicinePage {
+  public loader: boolean = true;
   public together: boolean = true;
   public childrenMedicines: any = [];
   public childrenIds: any = [];
@@ -42,6 +43,7 @@ export class MedicinePage {
   cleraAll() {
     this.childrenMedicines = [];
     this.childrenIds = [];
+    this.loader = true;
   }
 
   getAllMedicine() {
@@ -54,6 +56,7 @@ export class MedicinePage {
       } else {
         console.log('Brak danych')
       }
+      this.loader = false;
     });
   }
 

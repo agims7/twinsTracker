@@ -13,6 +13,8 @@
 
 
 <ion-content>
+  <loader *ngIf="loader"></loader>
+
   <ion-grid>
       <div class="child-container" *ngFor="let child of childrenService.children; let i = index">
         <img *ngIf="child.photo" class="child-image" [src]="child.photo">

@@ -42,12 +42,12 @@ export class LoginPage {
     }
     this.requestService.postLogin('/other/auth', requestData).subscribe(data => {
       if (data.error === false) {
-        console.log(data)
+        this.authService.premium = data.user.premium;
         this.authService.userName = data.user.name;
         this.authService.userToken = data.token;
         this.authService.userID = data.user.id;
         this.authService.userEmail = data.user.email;
-        this.authService.setKeys(data.user.name, data.token, data.user.email, data.user.id);
+        this.authService.setKeys(data.user.premium, data.user.name, data.token, data.user.email, data.user.id);
         this.navCtrl.setRoot(HomePage);
       } else {
         if (data.code === 2) {

@@ -17,6 +17,7 @@ import * as _ from 'lodash';
   templateUrl: 'diaper.html',
 })
 export class DiaperPage {
+  public loader: boolean = true;
   public together: boolean = true;
   public childrenDiapers: any = [];
   public childrenIds: any = [];
@@ -43,11 +44,11 @@ export class DiaperPage {
     this.getAllDiaper();
   }
 
-
-
   cleraAll() {
     this.childrenDiapers = [];
     this.childrenIds = [];
+    this.loader = true;
+    
   }
 
   getAllDiaper() {
@@ -60,6 +61,7 @@ export class DiaperPage {
       } else {
         console.log('Brak danych')
       }
+      this.loader = false;
     });
   }
 

@@ -15,6 +15,7 @@ import * as _ from 'lodash';
   templateUrl: 'timetable.html',
 })
 export class TimetablePage {
+  public loader: boolean = true;
   public dates: any;
   public kid: string;
   public choiceArray: any = [];
@@ -53,13 +54,14 @@ export class TimetablePage {
     let requestData = {
       token: this.authService.userToken,
     }
-    this.requestService.getMethod('/timetable', requestData).subscribe(data => {
+    this.requestService.getMethod('/timetable/', requestData).subscribe(data => {
       if (data.error === false) {
         this.mainData = data.data;
         this.events = _.clone(this.mainData);
         this.eventsDates = this.events.map(item => item.date.slice(0, -14)).filter((value, index, self) => self.indexOf(value) === index);
         this.eventsFullDates = this.events.map(item => item.date).filter((value, index, self) => self.indexOf(value) === index);
       }
+      this.loader = false;
     });
   }
 
@@ -94,6 +96,7 @@ export class TimetablePage {
   }
 
   makeChoice(id) {
+    this.loader = true;
     let requestData = {
       token: this.authService.userToken,
     }
@@ -106,9 +109,10 @@ export class TimetablePage {
           this.eventsDates = this.events.map(item => item.date.slice(0, -14)).filter((value, index, self) => self.indexOf(value) === index);
           this.eventsFullDates = this.events.map(item => item.date).filter((value, index, self) => self.indexOf(value) === index);
         }
+        this.loader = false;
       });
     } else {
-      this.requestService.getMethod('/timetable', requestData).subscribe(data => {
+      this.requestService.getMethod('/timetable/', requestData).subscribe(data => {
         if (data.error === false) {
           this.mainData = data.data;
           this.events = _.clone(this.mainData);
@@ -116,6 +120,7 @@ export class TimetablePage {
 
           this.eventsFullDates = this.events.map(item => item.date).filter((value, index, self) => self.indexOf(value) === index);
         }
+        this.loader = false;
       });
     }
   }

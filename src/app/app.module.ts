@@ -40,6 +40,7 @@ import { DatePickerModule } from 'ionic3-datepicker';
 import { Camera } from '@ionic-native/camera';
 import { BackgroundMode } from '@ionic-native/background-mode';
 import { Device } from '@ionic-native/device';
+import { Network } from '@ionic-native/network';
 
 @NgModule({
   declarations: [
@@ -104,6 +105,7 @@ import { Device } from '@ionic-native/device';
     Camera,
     BackgroundMode,
     Device,
+    Network,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     TimerService,
     CategoriesService,

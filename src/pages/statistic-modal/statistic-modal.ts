@@ -16,6 +16,7 @@ declare var AmCharts: any;
   templateUrl: 'statistic-modal.html',
 })
 export class StatisticModalPage {
+  public loader: boolean = true;
   public paramData: any;
   public chart: any;
   public xaxis: any = [];
@@ -47,10 +48,11 @@ export class StatisticModalPage {
     let requestData = {
       token: this.authService.userToken,
     }
-    this.requestService.getMethod('/breast', requestData).subscribe(data => {
+    this.requestService.getMethod('/breast/', requestData).subscribe(data => {
       console.log(data, '?????????????????????????');
       this.setAxis(data.data)
       this.setBarChart();
+      this.loader = false;
     });
   }
 

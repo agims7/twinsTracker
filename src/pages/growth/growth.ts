@@ -17,6 +17,7 @@ import * as _ from 'lodash';
   templateUrl: 'growth.html',
 })
 export class GrowthPage {
+  public loader: boolean = true;
   public together: boolean = false;
   public childrenGrowths: any = [];
   public childrenIds: any = [];
@@ -42,6 +43,7 @@ export class GrowthPage {
   cleraAll() {
     this.childrenGrowths = [];
     this.childrenIds = [];
+    this.loader = true;
   }
 
   getAllGrowth() {
@@ -54,6 +56,7 @@ export class GrowthPage {
       } else {
         console.log('Brak danych')
       }
+      this.loader = false;
     });
   }
 

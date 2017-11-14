@@ -10,8 +10,9 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid>
+  <loader *ngIf="loader"></loader>
 
+  <ion-grid>
     <div class="blocks-container">
       <button *ngFor="let category of categoriesService.categories; let i = index" [navParams]="[category.color]" [navPush]="category.name"
         [ngStyle]="{'background-color': category.color}" class="navigation-block">

@@ -16,6 +16,7 @@ import * as moment from 'moment';
   templateUrl: 'edit-child.html',
 })
 export class EditChildPage {
+  public loader: boolean = true;
   public object = {
     monday: false,
     weekdays: ['Niedz', 'Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob'],
@@ -54,6 +55,7 @@ export class EditChildPage {
     } else {
       this.imageTaken = false;
     }
+    this.loader = false;
   }
 
   getProperties() {
@@ -108,6 +110,7 @@ export class EditChildPage {
   }
 
   editChild(form: NgForm) {
+    this.loader = true;
     let requestData = {
       token: this.authService.userToken,
       body: {
@@ -119,12 +122,13 @@ export class EditChildPage {
         'id': this.id
       }
     }
-    this.requestService.putMethod('/children', requestData).subscribe(data => {
+    this.requestService.putMethod('/children/', requestData).subscribe(data => {
       if (data.error === false) {
         console.log('Succes')
       } else {
         console.log('Error')
       }
+      this.loader = false;
       this.navCtrl.setRoot(HomePage);
     });
   }

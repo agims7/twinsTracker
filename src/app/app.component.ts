@@ -5,9 +5,11 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
 import { BackgroundMode } from '@ionic-native/background-mode';
 import { Device } from '@ionic-native/device';
+import { Network } from '@ionic-native/network';
 
 import { NavController } from "ionic-angular";
 import { MenuController } from "ionic-angular";
+import { ToastController } from 'ionic-angular';
 
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
@@ -23,6 +25,8 @@ import { RequestService } from "../services/request";
   templateUrl: 'app.html'
 })
 export class MyApp {
+  private toastConnection: any;
+  private toastDisconnection: any;
   homePage = HomePage;
   childrenPage = ChildrenPage;
   changePasswordPage = ChangePasswordPage;
@@ -36,6 +40,8 @@ export class MyApp {
     public splashScreen: SplashScreen,
     public backgroundMode: BackgroundMode,
     public device: Device,
+    public network: Network,
+    public toastCtrl: ToastController,
     public timerService: TimerService,
     public menuCtrl: MenuController,
     public storage: Storage,
@@ -43,6 +49,12 @@ export class MyApp {
     public requestService: RequestService
   ) {
     platform.ready().then(() => {
+      let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
+        this.openDesconnectionToast();
+      });
+      let connectSubscription = this.network.onConnect().subscribe(() => {
+        this.openConnectionToast();
+      });
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
@@ -51,6 +63,17 @@ export class MyApp {
       console.log('Device OS is: ' + this.device.platform + ' with version: ' + this.device.version + ' and with brand: ' + this.device.manufacturer);
     });
   }
+
+  // checkNetworkConnection() {
+  //   let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
+  //     alert('network was disconnected :-(');
+  //     alert(this.network.type)
+  //   });
+  //   let connectSubscription = this.network.onConnect().subscribe(() => {
+  //     alert('network connected!');
+  //     alert(this.network.type)
+  //   });
+  // }
 
   onLoad(page: any) {
     this.nav.setRoot(page);
@@ -86,6 +109,7 @@ export class MyApp {
             this.authService.userToken = userToken;
             this.authService.userID = data.id;
             this.authService.userEmail = data.email;
+            this.authService.premium = data.premium;
             this.splashScreen.hide();
             this.nav.setRoot(HomePage);
           } else {
@@ -95,6 +119,28 @@ export class MyApp {
         });
       }
     });
+  }
+
+  openDesconnectionToast() {
+    this.toastDisconnection = this.toastCtrl.create({
+      message: 'Brak połączenia z internetem',
+      duration: 3500,
+      showCloseButton: true,
+      closeButtonText: 'Ok',
+      cssClass: 'disconnect'
+    });
+    this.toastDisconnection.present();
+  }
+
+  openConnectionToast() {
+    this.toastConnection = this.toastCtrl.create({
+      message: 'Połączono z internetem',
+      duration: 2500,
+      showCloseButton: true,
+      closeButtonText: 'Ok',
+      cssClass: 'connect'
+    });
+    this.toastConnection.present();
   }
 
 }

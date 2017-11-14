@@ -32,8 +32,13 @@
         margin-right: 15px;
     }
     .version-type {
-        background-color: #7df5fe;
         border-radius: 15px;
         padding: 2px 20px;
+    }
+    .light {
+        background-color: #7df5fe;
+    }
+    .premium {
+        background-color: #ffd600;
     }
 }

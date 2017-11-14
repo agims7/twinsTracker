@@ -8,6 +8,7 @@ import { RequestService } from "../../services/request";
   templateUrl: 'reminder.html',
 })
 export class ReminderPage {
+  public loader: boolean = true;
   public userEmail: string = null;
 
   constructor(
@@ -17,7 +18,12 @@ export class ReminderPage {
   ) {
   }
 
+  ionViewDidEnter() {
+    this.loader = false;
+  }
+
   remind() {
+    this.loader = true;
     let requestData = {
       token: {},
       body: {
@@ -25,7 +31,8 @@ export class ReminderPage {
       }
     }
     this.requestService.postMethod('/other/reset' , requestData).subscribe(data => {
-        console.log(data)
+        console.log(data);
+        this.loader = false;
     });
   }
 

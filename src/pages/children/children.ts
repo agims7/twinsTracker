@@ -16,6 +16,7 @@ import * as moment from 'moment';
   templateUrl: 'children.html',
 })
 export class ChildrenPage {
+  public loader: boolean = true;
 
   constructor(
     public navCtrl: NavController, 
@@ -27,7 +28,8 @@ export class ChildrenPage {
   ) {
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
+    this.loader = false;
     console.log(this.childrenService.children);
   }
 
@@ -36,6 +38,7 @@ export class ChildrenPage {
   }
 
   remove(id) {
+    this.loader = true;
     let requestData = {
       token: this.authService.userToken,
     }
@@ -45,6 +48,7 @@ export class ChildrenPage {
       } else {
         console.log('Error')
       }
+      this.loader = false;
       this.updateKids();
     });
   }
@@ -56,6 +60,7 @@ export class ChildrenPage {
   }
 
   updateKids() {
+    this.loader = true;
     this.childrenService.children = [];
     let requestData = {
       token: this.authService.userToken
@@ -68,6 +73,7 @@ export class ChildrenPage {
         }
         this.timerService.setTimerObjects();
       }
+      this.loader = false;
     });
   }
 

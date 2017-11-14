@@ -12,6 +12,7 @@ import { AuthService } from "../../services/auth";
   templateUrl: 'modal.html',
 })
 export class ModalPage {
+  public loader: boolean = true;
   public title: string = '';
   public timeStopped: boolean = false;
   public paramData: any;
@@ -56,6 +57,7 @@ export class ModalPage {
     this.setNameLocation();
     this.isTogether();
     this.setBottleVolumes();
+    this.loader = false;
     console.log(this.navParams.data)
   }
 
@@ -75,6 +77,7 @@ export class ModalPage {
     this.portion = null;
     this.weight = null;
     this.length = null;
+    this.loader = true;
   }
 
   isTogether() {
@@ -288,6 +291,7 @@ export class ModalPage {
   }
 
   save() {
+    this.loader = true;
     switch (this.selection) {
       case (0): {
         if (this.paramData.together) {
@@ -305,12 +309,13 @@ export class ModalPage {
                 'comment': this.comment
               }
             }
-            this.requestService.postMethod('/breast', requestData).subscribe(data => {
+            this.requestService.postMethod('/breast/', requestData).subscribe(data => {
               if (data.error === false) {
                 console.log('Succes')
               } else {
                 console.log('Error')
               }
+              this.loader = false;
               this.clear(this.childSelectedIndex);
             });
             count++;
@@ -329,12 +334,13 @@ export class ModalPage {
               'comment': this.comment
             }
           }
-          this.requestService.postMethod('/breast', requestData).subscribe(data => {
+          this.requestService.postMethod('/breast/', requestData).subscribe(data => {
             if (data.error === false) {
               console.log('Succes')
             } else {
               console.log('Error')
             }
+            this.loader = false;
             this.clear(this.childSelectedIndex);
             this.navCtrl.pop();
           });
@@ -357,12 +363,13 @@ export class ModalPage {
                 'comment': this.comment
               }
             }
-            this.requestService.postMethod('/bottle', requestData).subscribe(data => {
+            this.requestService.postMethod('/bottle/', requestData).subscribe(data => {
               if (data.error === false) {
                 console.log('Succes')
               } else {
                 console.log('Error')
               }
+              this.loader = false;
               this.clear(this.childSelectedIndex);
             });
             count++;
@@ -387,6 +394,7 @@ export class ModalPage {
             } else {
               console.log('Error')
             }
+            this.loader = false;
             this.clear(this.childSelectedIndex);
             this.navCtrl.pop();
           });
@@ -409,12 +417,13 @@ export class ModalPage {
                   'comment': this.comment
                 }
               }
-              this.requestService.postMethod('/diaper', requestData).subscribe(data => {
+              this.requestService.postMethod('/diaper/', requestData).subscribe(data => {
                 if (data.error === false) {
                   console.log('Succes')
                 } else {
                   console.log('Error')
                 }
+                this.loader = false;
               });
             }
             if (this.timerService.urineDone[count]) {
@@ -427,12 +436,13 @@ export class ModalPage {
                   'comment': this.comment
                 }
               }
-              this.requestService.postMethod('/diaper', requestData).subscribe(data => {
+              this.requestService.postMethod('/diaper/', requestData).subscribe(data => {
                 if (data.error === false) {
                   console.log('Succes')
                 } else {
                   console.log('Error')
                 }
+                this.loader = false;
               });
             }
             count++;
@@ -451,12 +461,13 @@ export class ModalPage {
                 'comment': this.comment
               }
             }
-            this.requestService.postMethod('/diaper', requestData).subscribe(data => {
+            this.requestService.postMethod('/diaper/', requestData).subscribe(data => {
               if (data.error === false) {
                 console.log('Succes')
               } else {
                 console.log('Error')
               }
+              this.loader = false;
               this.clear(this.childSelectedIndex);
             });
           }
@@ -470,12 +481,13 @@ export class ModalPage {
                 'comment': this.comment
               }
             }
-            this.requestService.postMethod('/diaper', requestData).subscribe(data => {
+            this.requestService.postMethod('/diaper/', requestData).subscribe(data => {
               if (data.error === false) {
                 console.log('Succes')
               } else {
                 console.log('Error')
               }
+              this.loader = false;
               this.clear(this.childSelectedIndex);
             });
           }
@@ -499,12 +511,13 @@ export class ModalPage {
                 'comment': this.comment
               }
             }
-            this.requestService.postMethod('/medicine', requestData).subscribe(data => {
+            this.requestService.postMethod('/medicine/', requestData).subscribe(data => {
               if (data.error === false) {
                 console.log('Succes')
               } else {
                 console.log('Error')
               }
+              this.loader = false;
             });
           }
           this.navCtrl.pop();
@@ -521,12 +534,13 @@ export class ModalPage {
               'comment': this.comment
             }
           }
-          this.requestService.postMethod('/medicine', requestData).subscribe(data => {
+          this.requestService.postMethod('/medicine/', requestData).subscribe(data => {
             if (data.error === false) {
               console.log('Succes')
             } else {
               console.log('Error')
             }
+            this.loader = false;
           });
           this.navCtrl.pop();
         }
@@ -546,12 +560,13 @@ export class ModalPage {
                 'comment': this.comment
               }
             }
-            this.requestService.postMethod('/sleep', requestData).subscribe(data => {
+            this.requestService.postMethod('/sleep/', requestData).subscribe(data => {
               if (data.error === false) {
                 console.log('Succes')
               } else {
                 console.log('Error')
               }
+              this.loader = false;
               this.clear(this.childSelectedIndex);
             });
             count++;
@@ -568,12 +583,13 @@ export class ModalPage {
               'comment': this.comment
             }
           }
-          this.requestService.postMethod('/sleep', requestData).subscribe(data => {
+          this.requestService.postMethod('/sleep/', requestData).subscribe(data => {
             if (data.error === false) {
               console.log('Succes')
             } else {
               console.log('Error')
             }
+            this.loader = false;
             this.clear(this.childSelectedIndex);
             this.navCtrl.pop();
           });
@@ -596,12 +612,13 @@ export class ModalPage {
               'comment': this.comment
             }
           }
-          this.requestService.postMethod('/growth', requestData).subscribe(data => {
+          this.requestService.postMethod('/growth/', requestData).subscribe(data => {
             if (data.error === false) {
               console.log('Succes')
             } else {
               console.log('Error')
             }
+            this.loader = false;
             this.clear(this.childSelectedIndex);
             this.navCtrl.pop();
           });

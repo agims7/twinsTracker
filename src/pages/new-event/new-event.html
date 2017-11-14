@@ -7,8 +7,9 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid>
+  <loader *ngIf="loader"></loader>
 
+  <ion-grid>
     <div class="timetable-content">
       <h3>Wprowadź dane:</h3>
       <ion-row>

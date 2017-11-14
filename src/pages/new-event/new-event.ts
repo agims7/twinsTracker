@@ -16,6 +16,7 @@ import * as _ from 'lodash';
   templateUrl: 'new-event.html',
 })
 export class NewEventPage {
+  public loader: boolean = true;
   public choiceArray: any = [];
   public choice: number = 0;
   public kid: string = 'Razem';
@@ -42,6 +43,7 @@ export class NewEventPage {
 
   ionViewDidEnter() {
     this.time = moment().format('HH:mm:ss');
+    this.loader = false;
   }
 
   createTable() {
@@ -58,6 +60,8 @@ export class NewEventPage {
   }
 
   addEvent() {
+    console.log('kliknieto')
+    this.loader = true;
       let date = moment(this.date).format('YYYY-MM-DD');
       if (this.kid == 'Razem') {
         for (var child of this.childrenService.children) {
@@ -70,12 +74,13 @@ export class NewEventPage {
               'description': this.description
             }
           }
-          this.requestService.postMethod('/timetable', requestData).subscribe(data => {
+          this.requestService.postMethod('/timetable/', requestData).subscribe(data => {
             if (data.error === false) {
               console.log('Succes')
             } else {
               console.log('Error')
             }
+            this.loader = false;
             this.navCtrl.setRoot(HomePage);
           });
         }
@@ -89,12 +94,13 @@ export class NewEventPage {
             'description': this.description
           }
         }
-        this.requestService.postMethod('/timetable', requestData).subscribe(data => {
+        this.requestService.postMethod('/timetable/', requestData).subscribe(data => {
           if (data.error === false) {
             console.log('Succes')
           } else {
             console.log('Error')
           }
+          this.loader = false;
           this.navCtrl.setRoot(HomePage);
         });
       }

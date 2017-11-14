@@ -18,11 +18,14 @@ import { RequestService } from "../../services/request";
 import { AuthService } from '../../services/auth';
 import { ChildrenService } from '../../services/children';
 
+import { Network } from '@ionic-native/network';
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
+  public loader: boolean = true;
   activityPage = ActivityPage;
   bottleFeedingPage = BottleFeedingPage;
   breastFeedingPage = BreastFeedingPage;
@@ -42,11 +45,13 @@ export class HomePage {
     public requestService: RequestService,
     public childrenService: ChildrenService,
     public authService: AuthService,
-    public storage: Storage
+    public storage: Storage,
+    public network: Network
   ) {
   }
 
   ionViewDidEnter() {
+    // this.checkNetworkConnection();
     this.getKids();
   }
 
@@ -63,7 +68,18 @@ export class HomePage {
         }
         this.timerService.setTimerObjects();
       }
+      this.loader = false;
     });
   }  
+
+  // checkNetworkConnection() {
+  //   alert(this.network.type)
+  //   let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
+  //     alert('network was disconnected :-(');
+  //   });
+  //   let connectSubscription = this.network.onConnect().subscribe(() => {
+  //     alert('network connected!');
+  //   });
+  // }
 
 }
