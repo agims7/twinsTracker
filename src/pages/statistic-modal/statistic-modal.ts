@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { AuthService } from "../../services/auth";
 import { RequestService } from "../../services/request";
+import { ChildrenService } from "../../services/children";
 
 import * as _ from 'lodash';
 import * as moment from 'moment';
@@ -35,7 +36,8 @@ export class StatisticModalPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public requestService: RequestService,
-    public authService: AuthService
+    public authService: AuthService,
+    public childrenService: ChildrenService
   ) {
   }
 
@@ -45,35 +47,30 @@ export class StatisticModalPage {
     let requestData = {
       token: this.authService.userToken,
     }
-    this.requestService.getMethod('/diaper', requestData).subscribe(data => {
+    this.requestService.getMethod('/breast', requestData).subscribe(data => {
       console.log(data, '?????????????????????????');
       this.setAxis(data.data)
-      this.setStepChart();
+      this.setBarChart();
     });
   }
 
   setAxis(data) {
     for (let key of data) {
 
-      this.xaxis.push(this.convertTime(key.date));
-      this.yaxis.push(this.getDiaperType(key.type_id));
+      this.xaxis.push(this.convertToDateTime(key.date));
+      let childIndex = _.findIndex(this.childrenService.children, ['id', key.child_id]);
+      console.log(childIndex, this.childrenService.children)
+      this.yaxis.push(this.childrenService.children[childIndex].name);
     }
-    console.log( this.yaxis)
+    console.log(this.xaxis, this.yaxis)
   }
 
-  getDiaperType(data) {
-    if (data === 1) {
-      return 'kupka';
-    } else {
-      return 'siusu';
-    }
-  }
 
   setStepChart() {
     var ctx = document.getElementById("myChart");
     var myChart = new Chart(ctx, {
       type: 'line',
-      labels: ['kupka', 'siku'],
+      labels: this.xaxis,
       data: {
         datasets: [{
           data: this.yaxis,
@@ -119,8 +116,62 @@ export class StatisticModalPage {
     });
   }
 
-  convertTime(date) {
+  setBarChart() {
+    var ctx = document.getElementById("myChart");
+    var myChart = new Chart(ctx, {
+      type: 'bar',
+      labels: this.xaxis,
+      data: {
+        datasets: [{
+          data: this.yaxis,
+          borderColor: '#e6e6e6',
+          steppedLine: true,
+          fill: false
+        }]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'Wukres zmian pieluszek'
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              // max: 3,
+              fontColor: '#e6e6e6'
+            },
+            gridLines: {
+              show: true,
+              color: "#8c8c8c",
+            }
+          }],
+          xAxes: [{
+            ticks: {
+              autoSkip: true,
+              maxRotation: 75,
+              minRotation: 75,
+              fontColor: '#e6e6e6'
+            },
+            gridLines: {
+              show: true,
+              color: "#8c8c8c",
+            }
+          }]
+        },
+        legend: {
+          display: false
+        },
+      },
+    });
+  }
+
+  convertToFullTime(date) {
     return moment(date).format('DD/MM/YYYY - HH:mm');
+  }
+
+  convertToDateTime(date) {
+    return moment(date).format('DD/MM/YYYY');
   }
 
 }

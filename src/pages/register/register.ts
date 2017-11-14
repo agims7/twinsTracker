@@ -12,6 +12,7 @@ import { RequestService } from '../../services/request';
 export class RegisterPage {
   public email: string;
   public password: string;
+  public name: string;
 
   constructor(
     public navCtrl: NavController, 
@@ -22,11 +23,13 @@ export class RegisterPage {
   ionViewDidEnter() {
     this.password = null;
     this.email = null;
+    this.name = null;
   }
 
   register() {
     let requestData = {
       body: {
+        'name': this.name,
         'email': this.email,
         'password': this.password
       }

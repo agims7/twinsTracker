@@ -3,12 +3,16 @@
     <img class="logo-image" src="./assets/images/logo.png">
     <p class="register">Rejestracja</p>
     <ion-item>
+      <ion-label fixed>Imię</ion-label>
+      <ion-input [(ngModel)]="name" type="text" required></ion-input>
+    </ion-item>
+    <ion-item>
       <ion-label fixed>Email</ion-label>
-      <ion-input [(ngModel)]="email" type="text" email></ion-input>
+      <ion-input [(ngModel)]="email" type="text" email required></ion-input>
     </ion-item>
     <ion-item>
       <ion-label fixed>Hasło</ion-label>
-      <ion-input [(ngModel)]="password" type="password"></ion-input>
+      <ion-input [(ngModel)]="password" type="password" required></ion-input>
     </ion-item>
 
     <div class="registration">

@@ -14,3 +14,26 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.username {
+    color: white;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 10px;
+    font-size: 25px;
+}
+.version {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .version-title {
+        color: white;
+        font-size: 18px;
+        margin-right: 15px;
+    }
+    .version-type {
+        background-color: #7df5fe;
+        border-radius: 15px;
+        padding: 2px 20px;
+    }
+}

@@ -17,6 +17,7 @@ import { ChangePasswordPage } from '../pages/change-password/change-password';
 
 import { TimerService } from "../services/timer";
 import { AuthService } from "../services/auth";
+import { RequestService } from "../services/request";
 
 @Component({
   templateUrl: 'app.html'
@@ -38,14 +39,15 @@ export class MyApp {
     public timerService: TimerService,
     public menuCtrl: MenuController,
     public storage: Storage,
-    public authService: AuthService
+    public authService: AuthService,
+    public requestService: RequestService
   ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
-      splashScreen.hide();
       this.backgroundMode.enable();
+      this.authentication();
       console.log('Device OS is: ' + this.device.platform + ' with version: ' + this.device.version + ' and with brand: ' + this.device.manufacturer);
     });
   }
@@ -68,5 +70,31 @@ export class MyApp {
     this.nav.setRoot(LoginPage);
   }
 
-}
+  authentication() {
+    this.storage.get('userToken').then((userToken) => {
+      if (userToken == null || userToken == undefined) {
+        return;
+      } else {
+        let requestData = {
+          body: {
+            'token': userToken
+          }
+        };
+        this.requestService.postLogin('/other/authcheck', requestData).subscribe(data => {
+          if (data.error === false) {
+            this.authService.userName = data.name;
+            this.authService.userToken = userToken;
+            this.authService.userID = data.id;
+            this.authService.userEmail = data.email;
+            this.splashScreen.hide();
+            this.nav.setRoot(HomePage);
+          } else {
+            this.splashScreen.hide();
+            this.nav.setRoot(LoginPage);
+          }
+        });
+      }
+    });
+  }
 
+}
