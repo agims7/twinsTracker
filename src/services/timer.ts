@@ -144,7 +144,6 @@ export class TimerService {
                 }
             }, 10);
         } else {
-
             console.log('index runnin = true wiec trzeba zatrzymac')
             clearInterval(this.sleepingInterval[index]);
             this.sleeping[index].running = false;

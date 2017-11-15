@@ -26,7 +26,7 @@ export class ModalPage {
   public portion: string;
   public weight: number;
   public length: number;
-  public comment: string = null;
+  public comment: string = '';
   public breastSelected: boolean = false;
   public bottleSelected: boolean = false;
   public sleepingSelected: boolean = false;
@@ -267,24 +267,36 @@ export class ModalPage {
   getTime(childindex) {
     switch (this.selection) {
       case (0): {
-        let timeInSeconds: 0;
+        let timeInSeconds = 0;
+        let miliSeconds = this.timerService.breastFeeding[childindex].miliseconds;
         timeInSeconds = this.timerService.breastFeeding[childindex].seconds;
         timeInSeconds += this.timerService.breastFeeding[childindex].minutes * 60;
         timeInSeconds += this.timerService.breastFeeding[childindex].hours * 60 * 60;
+        if (timeInSeconds < 1 && miliSeconds > 0) {
+          timeInSeconds = 1;
+        }
         return timeInSeconds;
       }
       case (1): {
-        let timeInSeconds: 0;
+        let timeInSeconds = 0;
+        let miliSeconds = this.timerService.bottleFeeding[childindex].miliseconds;        
         timeInSeconds = this.timerService.bottleFeeding[childindex].seconds;
         timeInSeconds += this.timerService.bottleFeeding[childindex].minutes * 60;
         timeInSeconds += this.timerService.bottleFeeding[childindex].hours * 60 * 60;
+        if (timeInSeconds < 1 && miliSeconds > 0) {
+          timeInSeconds = 1;
+        }
         return timeInSeconds;
       }
       case (4): {
-        let timeInSeconds: 0;
+        let timeInSeconds = 0;
+        let miliSeconds = this.timerService.sleeping[childindex].miliseconds;        
         timeInSeconds = this.timerService.sleeping[childindex].seconds;
         timeInSeconds += this.timerService.sleeping[childindex].minutes * 60;
         timeInSeconds += this.timerService.sleeping[childindex].hours * 60 * 60;
+        if (timeInSeconds < 1 && miliSeconds > 0) {
+          timeInSeconds = 1;
+        }
         return timeInSeconds;
       }
     }
@@ -297,6 +309,7 @@ export class ModalPage {
         if (this.paramData.together) {
           let count = 0;
           for (var child of this.childrenService.children) {
+            console.log('petla start ', count)
             let childID = child.id;
             let sideID = this.getBreastSide(this.breastSide[count]);
             let time = this.getTime(count);
@@ -316,8 +329,9 @@ export class ModalPage {
                 console.log('Error')
               }
               this.loader = false;
-              this.clear(this.childSelectedIndex);
+              console.log('przed clearem ', count)
             });
+            this.clear(count);
             count++;
           }
           this.navCtrl.pop();
@@ -370,8 +384,8 @@ export class ModalPage {
                 console.log('Error')
               }
               this.loader = false;
-              this.clear(this.childSelectedIndex);
             });
+            this.clear(count);
             count++;
           }
           this.navCtrl.pop();
@@ -567,8 +581,8 @@ export class ModalPage {
                 console.log('Error')
               }
               this.loader = false;
-              this.clear(this.childSelectedIndex);
             });
+            this.clear(count);
             count++;
           }
           this.navCtrl.pop();

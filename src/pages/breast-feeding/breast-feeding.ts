@@ -53,6 +53,7 @@ export class BreastFeedingPage {
     this.requestService.getMethod('/breast/today/' , requestData).subscribe(data => {
       if (data.data.length > 0) {
         this.allData = data.data;
+        console.log(data.data)
       } else {
         console.log('Brak danych')
       }

@@ -35,12 +35,8 @@ export class SleepingPage {
   ) {
   }
 
-  ionViewWillEnter() {
-    console.log('willenter')
-  }
 
   ionViewDidEnter() {
-    console.log('didenter')
     this.cleraAll();
     this.setChildrenSleeps();
     this.getAllSleep();
