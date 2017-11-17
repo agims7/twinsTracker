@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angu
 import { Storage } from '@ionic/storage';
 
 import { ModalPage } from '../modal/modal';
+import { EditActivityPage } from '../edit-activity/edit-activity';
 
 import { ChildrenService } from "../../services/children";
 import { RequestService } from "../../services/request";
@@ -78,4 +79,10 @@ export class MedicinePage {
     this.navCtrl.push(ModalPage, {"category": "medicine", "text": "Lekarstwa", "together": this.together, "child": index });
   }
 
+  moreActions(type, data) {
+    this.navCtrl.push(EditActivityPage, {
+      'type': type,
+      'data': data
+    });
+  }
 }

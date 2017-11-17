@@ -37,14 +37,17 @@
             <span>{{ child.name }}</span>
             <ion-icon name="arrow-round-forward"></ion-icon>
           </button>
-            <div class="list-container">
-                <ul>
-                    <li *ngFor="let breast of getChildBreast(child.id)">
-                       <p>{{ timerService.toTime(breast.date) }}</p>
-                       <p>Czas: {{ timerService.secondConvert(breast.time) }}<span *ngIf="breast.comment"> - {{ breast.comment }}</span></p>
-                   </li>
-                 </ul>
-            </div>
+          <div class="list-container">
+            <ul>
+              <li *ngFor="let breast of getChildBreast(child.id)">
+                <p>{{ timerService.toTime(breast.date) }}</p>
+                <p>Czas: {{ timerService.secondConvert(breast.time) }}
+                  <span *ngIf="breast.comment"> - {{ breast.comment }}</span>
+                </p>
+                <ion-icon class="more" name="more" (tap)="moreActions('breast', breast)"></ion-icon>
+              </li>
+            </ul>
+          </div>
         </div>
       </ion-col>
     </ion-row>

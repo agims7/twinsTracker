@@ -40,7 +40,7 @@ export class LoginPage {
         'password': this.authService.userPassword
       }
     }
-    this.requestService.postLogin('/other/auth', requestData).subscribe(data => {
+    this.requestService.authMethod('/other/auth', requestData).subscribe(data => {
       if (data.error === false) {
         this.authService.premium = data.user.premium;
         this.authService.userName = data.user.name;

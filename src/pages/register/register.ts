@@ -37,7 +37,7 @@ export class RegisterPage {
         'password': this.password
       }
     };
-    this.requestService.postRegister('/other/new', requestData).subscribe(data => {
+    this.requestService.authMethod('/other/new', requestData).subscribe(data => {
       console.log('Zarejestrowano', data)
       if (data.error === false) {
         this.goBack();

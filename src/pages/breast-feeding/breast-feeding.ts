@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angu
 import { Storage } from '@ionic/storage';
 
 import { ModalPage } from '../modal/modal';
+import { EditActivityPage } from '../edit-activity/edit-activity';
 
 import { ChildrenService } from "../../services/children";
 import { RequestService } from "../../services/request";
@@ -50,7 +51,7 @@ export class BreastFeedingPage {
     let requestData = {
       token: this.authService.userToken
     }
-    this.requestService.getMethod('/breast/today/' , requestData).subscribe(data => {
+    this.requestService.getMethod('/breast/today/', requestData).subscribe(data => {
       if (data.data.length > 0) {
         this.allData = data.data;
         console.log(data.data)
@@ -78,6 +79,13 @@ export class BreastFeedingPage {
 
   openModal(index) {
     this.navCtrl.push(ModalPage, { "category": "breastFeeding", "text": "Karmienie piersią", "together": this.together, "child": index });
+  }
+
+  moreActions(type, data) {
+    this.navCtrl.push(EditActivityPage, {
+      'type': type,
+      'data': data
+    });
   }
 
 }

@@ -60,7 +60,7 @@ page-sleeping {
                     margin-right: 10px;
                 }
                 .list-container {
-                    min-width: 60%;
+                    width: 85%;
                     ul {
                         list-style: none;
                         padding: 0;
@@ -69,12 +69,19 @@ page-sleeping {
                         width: 100%;
                         text-align: left;
                         li {
+                            position: relative;
                             border-bottom: 1px solid #636363;
                             margin: 5px 0;
                             p,
                             span {
                                 font-size: 14px;
                                 margin: 2px 0 6px 0;
+                            }
+                            .more {
+                                position: absolute;
+                                top: -5px;
+                                right: 15px;
+                                font-size: 35px;
                             }
                         }
                     }

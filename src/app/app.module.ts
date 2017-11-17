@@ -26,6 +26,7 @@ import { ChangePasswordPage } from "../pages/change-password/change-password";
 import { AddChildPage } from "../pages/add-child/add-child";
 import { ChildrenPage } from "../pages/children/children";
 import { EditChildPage } from "../pages/edit-child/edit-child";
+import { EditActivityPage } from "../pages/edit-activity/edit-activity";
 
 import { LoaderComponent } from '../components/loader/loader';
 
@@ -65,6 +66,7 @@ import { Network } from '@ionic-native/network';
     AddChildPage,
     ChildrenPage,
     EditChildPage,
+    EditActivityPage,
     //Components:
     LoaderComponent
   ],
@@ -97,7 +99,8 @@ import { Network } from '@ionic-native/network';
     ChangePasswordPage,
     AddChildPage,
     ChildrenPage,
-    EditChildPage
+    EditChildPage,
+    EditActivityPage
   ],
   providers: [
     StatusBar,

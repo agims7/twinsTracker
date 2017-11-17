@@ -44,6 +44,7 @@
                        <p>{{ timerService.toTime(growth.date) }}</p>
                        <p>{{ growth.weight }} g / {{ growth.length }} cm</p>
                       <p *ngIf="growth.comment"> - {{ growth.comment }}</p>
+                      <ion-icon class="more" name="more" (tap)="moreActions('growth', growth)"></ion-icon>                      
                    </li>
                  </ul>
             </div>

@@ -32,11 +32,11 @@
             <ion-row>
               <ion-col col-2>
                 <ion-avatar class="avatar">
-                  <img class="child-image" [src]="getChildPhotoFromId(event.child_id)">
+                  <img class="child-image" [src]="childrenService.getChildPhotoFromId(event.child_id)">
                 </ion-avatar>
               </ion-col>
               <ion-col col-3 class="child-name-field">
-                <h2 class="child-name">{{ getChildNameFromId(event.child_id) }}</h2>
+                <h2 class="child-name">{{ childrenService.getChildNameFromId(event.child_id) }}</h2>
               </ion-col>
               <ion-col col-5 class="event-description-field">
                 <p class="event-description">{{ event.description }}</p>

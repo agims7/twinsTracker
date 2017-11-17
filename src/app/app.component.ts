@@ -103,7 +103,7 @@ export class MyApp {
             'token': userToken
           }
         };
-        this.requestService.postLogin('/other/authcheck', requestData).subscribe(data => {
+        this.requestService.authMethod('/other/authcheck', requestData).subscribe(data => {
           if (data.error === false) {
             this.authService.userName = data.name;
             this.authService.userToken = userToken;

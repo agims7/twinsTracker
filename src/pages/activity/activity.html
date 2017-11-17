@@ -47,11 +47,11 @@
                 <ion-row [ngStyle]="{'background-color': getCategoryColor(activity.source), 'opacity': 0.8}">
                     <ion-col col-2>
                         <ion-avatar class="avatar">
-                            <img class="child-image" [src]="getChildPhotoFromId(activity.child_id)">
+                            <img class="child-image" [src]="childrenService.getChildPhotoFromId(activity.child_id)">
                         </ion-avatar>
                     </ion-col>
                     <ion-col col-3 class="child-name-field">
-                        <h2 class="child-name">{{ getChildNameFromId(activity.child_id) }}</h2>
+                        <h2 class="child-name">{{ childrenService.getChildNameFromId(activity.child_id) }}</h2>
                     </ion-col>
                     <ion-col col-5 class="activity-description-field">
                         <p class="activity-description-title">{{ getCategoryTitle(activity.source) }}</p>

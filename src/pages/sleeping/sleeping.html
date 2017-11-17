@@ -1,54 +1,57 @@
 <ion-header>
-    <ion-navbar color="background">
-      <ion-title>
-        Spanie
-      </ion-title>
-    </ion-navbar>
-  </ion-header>
-  
-  
-  <ion-content>
-    <loader *ngIf="loader"></loader>
+  <ion-navbar color="background">
+    <ion-title>
+      Spanie
+    </ion-title>
+  </ion-navbar>
+</ion-header>
 
-    <ion-grid>
-      <ion-row class="header">
-        <ion-col class="logo-content">
-          <div class="logo">
-            <p>Spanie</p>
+
+<ion-content>
+  <loader *ngIf="loader"></loader>
+
+  <ion-grid>
+    <ion-row class="header">
+      <ion-col class="logo-content">
+        <div class="logo">
+          <p>Spanie</p>
+        </div>
+      </ion-col>
+      <ion-col class="choice-content">
+        <div class="choice">
+          <p class="choice-title">Spanie dzieci:</p>
+          <button ion-button [ngClass]="{'selected': together}" (click)="slippingOption()">
+            Razem
+          </button>
+          <button ion-button [ngClass]="{'selected': !together}" (click)="slippingOption()">
+            Osobno
+          </button>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <h1 class="select-child">Wybierz dziecko:</h1>
+    <ion-row class="content">
+      <ion-col *ngFor="let child of childrenService.children; let i = index">
+        <div class="child-content">
+          <button ion-button (click)="openModal(i)">
+            <span>{{ child.name }}</span>
+            <ion-icon name="arrow-round-forward"></ion-icon>
+          </button>
+          <div class="list-container">
+            <ul>
+              <li *ngFor="let sleep of getChildBreast(child.id)">
+                <p>{{ timerService.toTime(sleep.date) }}</p>
+                <p>Czas: {{ timerService.secondConvert(sleep.time) }}
+                  <span *ngIf="sleep.comment"> - {{ sleep.comment }}</span>
+                </p>
+                <ion-icon class="more" name="more" (tap)="moreActions('sleep', sleep)"></ion-icon>
+              </li>
+            </ul>
           </div>
-        </ion-col>
-        <ion-col class="choice-content">
-          <div class="choice">
-            <p class="choice-title">Spanie dzieci:</p>
-            <button ion-button [ngClass]="{'selected': together}" (click)="slippingOption()">
-                Razem
-              </button>
-              <button ion-button [ngClass]="{'selected': !together}" (click)="slippingOption()">
-                Osobno
-              </button>
-          </div>
-        </ion-col>
-      </ion-row>
-  
-      <h1 class="select-child">Wybierz dziecko:</h1>
-      <ion-row class="content">
-        <ion-col *ngFor="let child of childrenService.children; let i = index">
-          <div class="child-content">
-            <button ion-button (click)="openModal(i)">
-              <span>{{ child.name }}</span>
-              <ion-icon name="arrow-round-forward"></ion-icon>
-            </button>
-            <div class="list-container">
-                <ul>
-                    <li *ngFor="let sleep of getChildBreast(child.id)">
-                       <p>{{ timerService.toTime(sleep.date) }}</p>
-                       <p>Czas: {{ timerService.secondConvert(sleep.time) }}<span *ngIf="sleep.comment"> - {{ sleep.comment }}</span></p>
-                   </li>
-                 </ul>
-            </div>
-          </div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  
-  </ion-content>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

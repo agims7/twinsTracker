@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-toolbar color="background">
+    <ion-buttons start>
+      <button ion-button icon-only (tap)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      Edutyj aktywność
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <loader *ngIf="loader"></loader>
+
+  <ion-grid>
+    
+    <img *ngIf="childPhoto" class="child-image" [src]="childrenService.getChildPhotoFromId(activity.child_id)">
+    <img *ngIf="!childPhoto" class="child-image" src="http://via.placeholder.com/150x150">
+
+      <ion-list>
+        <ion-item>
+          <ion-label fixed>Dziecko</ion-label>
+          <ion-input (tap)="changeName()" type="text" [(ngModel)]="childName" name="childName" placeholder="Imię" required></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="type == 'breast' || type == 'bottle' || type == 'sleep'">
+          <ion-label fixed>Czas (s)</ion-label>
+          <ion-input type="number" [(ngModel)]="time" name="time" placeholder="Czas (s)" required></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="type == 'bottle'">
+          <ion-label fixed>Wypite (ml)</ion-label>
+          <ion-input type="number" [(ngModel)]="volume" name="volume" placeholder="Wypite (ml)" required></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="type == 'breast'">
+          <ion-label fixed>Pierś</ion-label>
+          <ion-input (tap)="changeBreast()" type="text" [(ngModel)]="breastSide" name="breastSide" placeholder="Pierś" required></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="type == 'medicine'">
+          <ion-label fixed>Nazwa lekarstwa</ion-label>
+          <ion-input type="text" [(ngModel)]="medicine" name="medicine" placeholder="Nazwa lekarstwa" required></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="type == 'medicine'">
+          <ion-label fixed>Dawka</ion-label>
+          <ion-input type="text" [(ngModel)]="portion" name="portion" placeholder="Dawka" required></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="type == 'diaper'">
+          <ion-label fixed>Rodzaj</ion-label>
+          <ion-input (tap)="changeDiaper()" type="text" [(ngModel)]="diaperType" name="diaperType" placeholder="Rodzaj" required></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="type == 'growth'">
+          <ion-label fixed>Waga (g)</ion-label>
+          <ion-input type="number" [(ngModel)]="weight" name="weight" placeholder="Waga (g)" required></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="type == 'growth'">
+          <ion-label fixed>Długość (cm)</ion-label>
+          <ion-input type="number" [(ngModel)]="length" name="length" placeholder="Długość (cm)" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label fixed>Komentarz</ion-label>
+            <ion-input type="text" [(ngModel)]="comment" name="comment" placeholder="Komentarz" required></ion-input>
+          </ion-item>
+        <!-- 
+        <ion-item>
+          <p fixed>Data</p>
+          <button class="datepicker-button" item-end ion-button icon-left ion-datepicker (ionChanged)="setDate($event);" [value]="date"
+          [localeStrings]="object">
+          <span>{{ showTime(date) }}</span>
+          <ion-icon class="date-icon" name="calendar"></ion-icon>
+        </button>
+        </ion-item> -->
+      </ion-list>
+      <button ion-button block color="danger" (tap)="remove()">Usuń</button>
+      <button ion-button block color="white" (tap)="save()">Zapisz</button>
+  </ion-grid>
+</ion-content>

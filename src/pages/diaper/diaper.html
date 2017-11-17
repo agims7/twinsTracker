@@ -43,6 +43,8 @@
                     <li *ngFor="let diaper of getChildDiaper(child.id)">
                        <p>{{ timerService.toTime(diaper.date) }}</p>
                        <p>{{ setDiaperType(diaper.type_id) }}<span *ngIf="diaper.comment"> / {{ diaper.comment }}</span></p>
+                       <ion-icon class="more" name="more" (tap)="moreActions('diaper', diaper)"></ion-icon>
+                       
                    </li>
                  </ul>
             </div>

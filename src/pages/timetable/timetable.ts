@@ -70,21 +70,6 @@ export class TimetablePage {
     return _.filter(this.events, ['date', text]);
   }
 
-  getChildNameFromId(id) {
-    let childIndex = _.findIndex(this.childrenService.children, { 'id': id });
-    return this.childrenService.children[childIndex].name;
-  }
-
-  getChildPhotoFromId(id) {
-    let childIndex = _.findIndex(this.childrenService.children, { 'id': id });
-    let photo = this.childrenService.children[childIndex].photo;
-    if (!photo || photo == null) {
-      return "http://via.placeholder.com/150x150";
-    } else {
-      return photo;
-    }
-  }
-
   addEvent() {
     const modal = this.modalCtrl.create(NewEventPage);
     modal.present();
