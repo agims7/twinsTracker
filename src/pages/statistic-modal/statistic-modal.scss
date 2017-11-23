@@ -1,6 +1,17 @@
 page-statistic-modal {
     #chartdiv {
         width: 100%;
-        height: 350px;
-      }
+        height: auto;
+        max-height: 100vh;
+    }
+    .category-buttons {
+        .chart-categories {
+            color: white;
+            text-align: center;
+            margin: 15px 0 0 0;
+        }
+        button {
+            width: 48% !important;
+        }
+    }
 }

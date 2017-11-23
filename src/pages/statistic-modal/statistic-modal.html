@@ -1,15 +1,15 @@
 <ion-header>
-    <ion-toolbar color="background">
-      <ion-buttons start>
-        <button ion-button navPop>
-          <ion-icon name="arrow-back" class="icon-back"></ion-icon>
-        </button>
-      </ion-buttons>
-      <ion-title>
-          Statystyki szczegolowe
-        </ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-toolbar color="background">
+    <ion-buttons start>
+      <button ion-button navPop>
+        <ion-icon name="arrow-back" class="icon-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      Statystyki szczegolowe
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
 
 
 <ion-content padding>
@@ -17,5 +17,130 @@
 
   <ion-grid>
     <canvas id="myChart" width="400" height="400"></canvas>
+
+
+    <div class="category-buttons" *ngIf="selectedCategory === 'breast'">
+        <p class="chart-categories">Średniego ilości wypitego mleka (zakresy)</p>
+        <button ion-button small (click)="selectBreastChart('weekcount')">
+          <span>Tydzień</span>
+        </button>
+        <button ion-button small (click)="selectBreastChart('monthcount')">
+          <span>Miesiąc</span>
+        </button>
+        <button ion-button small (click)="selectBreastChart('yearcount')">
+          <span>Rok</span>
+        </button>
+        <button ion-button small (click)="selectBreastChart('allcount')">
+          <span>Wszystko</span>
+        </button>
+        <p class="chart-categories">Średni czas karmienia (zakresy)</p>
+  
+        <button ion-button small (click)="selectBreastChart('weektime')">
+          <span>Tydzień</span>
+        </button>
+        <button ion-button small (click)="selectBreastChart('monthtime')">
+          <span>Miesiąc</span>
+        </button>
+        <button ion-button small (click)="selectBreastChart('yeartime')">
+          <span>Rok</span>
+        </button>
+        <button ion-button small (click)="selectBreastChart('alltime')">
+          <span>Wszystko</span>
+        </button>
+      </div>
+
+    <div class="category-buttons" *ngIf="selectedCategory === 'bottle'">
+      <p class="chart-categories">Średniego ilości wypitego mleka (zakresy)</p>
+      <button ion-button small (click)="selectBottleChart('weekvolume')">
+        <span>Tydzień</span>
+      </button>
+      <button ion-button small (click)="selectBottleChart('monthvolume')">
+        <span>Miesiąc</span>
+      </button>
+      <button ion-button small (click)="selectBottleChart('yearvolume')">
+        <span>Rok</span>
+      </button>
+      <button ion-button small (click)="selectBottleChart('allvolume')">
+        <span>Wszystko</span>
+      </button>
+      <p class="chart-categories">Średni czas karmienia (zakresy)</p>
+
+      <button ion-button small (click)="selectBottleChart('weektime')">
+        <span>Tydzień</span>
+      </button>
+      <button ion-button small (click)="selectBottleChart('monthtime')">
+        <span>Miesiąc</span>
+      </button>
+      <button ion-button small (click)="selectBottleChart('yeartime')">
+        <span>Rok</span>
+      </button>
+      <button ion-button small (click)="selectBottleChart('alltime')">
+        <span>Wszystko</span>
+      </button>
+    </div>
+
+    <div class="category-buttons" *ngIf="selectedCategory === 'diaper'">
+      <p class="chart-categories">Ilość zrobionych kupek (zakresy)</p>
+      <button ion-button small (click)="selectDiaperChart('week')">
+        <span>Tydzień</span>
+      </button>
+      <button ion-button small (click)="selectDiaperChart('month')">
+        <span>Miesiąc</span>
+      </button>
+      <button ion-button small (click)="selectDiaperChart('year')">
+        <span>Rok</span>
+      </button>
+      <button ion-button small (click)="selectDiaperChart('all')">
+        <span>Wszystko</span>
+      </button>
+    </div>
+
+    <div class="category-buttons" *ngIf="selectedCategory === 'sleep'">
+      <p class="chart-categories">Średni czas spania (zakresy)</p>
+      <button ion-button small (click)="selectSleepChart('week')">
+        <span>Tydzień</span>
+      </button>
+      <button ion-button small (click)="selectSleepChart('month')">
+        <span>Miesiąc</span>
+      </button>
+      <button ion-button small (click)="selectSleepChart('year')">
+        <span>Rok</span>
+      </button>
+      <button ion-button small (click)="selectSleepChart('all')">
+        <span>Wszystko</span>
+      </button>
+    </div>
+
+    <div class="category-buttons" *ngIf="selectedCategory === 'growth'">
+      <p class="chart-categories">Zmiany wzrostu (zakresy)</p>
+      <button ion-button small (click)="selectWeightChart('week')">
+        <span>Tydzień</span>
+      </button>
+      <button ion-button small (click)="selectWeightChart('month')">
+        <span>Miesiąc</span>
+      </button>
+      <button ion-button small (click)="selectWeightChart('year')">
+        <span>Rok</span>
+      </button>
+      <button ion-button small (click)="selectWeightChart('all')">
+        <span>Wszystko</span>
+      </button>
+    </div>
+
+    <div class="category-buttons" *ngIf="selectedCategory === 'weight'">
+      <p class="chart-categories">Zmiany wagi (zakresy)</p>
+      <button ion-button small (click)="selectGrowthChart('week')">
+        <span>Tydzień</span>
+      </button>
+      <button ion-button small (click)="selectGrowthChart('month')">
+        <span>Miesiąc</span>
+      </button>
+      <button ion-button small (click)="selectGrowthChart('year')">
+        <span>Rok</span>
+      </button>
+      <button ion-button small (click)="selectGrowthChart('all')">
+        <span>Wszystko</span>
+      </button>
+    </div>
   </ion-grid>
 </ion-content>

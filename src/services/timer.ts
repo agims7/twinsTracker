@@ -181,4 +181,8 @@ export class TimerService {
         }
     }
 
+    secondConvertToMinutes(date) {
+        return Math.ceil(date / 60);
+    }
+
 }
