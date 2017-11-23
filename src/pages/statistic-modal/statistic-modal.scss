@@ -9,9 +9,12 @@ page-statistic-modal {
             color: white;
             text-align: center;
             margin: 15px 0 0 0;
+            width: 100%;
         }
-        button {
-            width: 48% !important;
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     }
 }
