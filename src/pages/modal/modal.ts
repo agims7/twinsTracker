@@ -157,7 +157,6 @@ export class ModalPage {
     for (let child in this.childrenService.children) {
       this.volume.push(null);
     }
-    console.log(this.volume)
   }
 
   setNameLocation() {

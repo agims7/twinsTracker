@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { BackgroundMode } from '@ionic-native/background-mode';
+
 import { ChildrenService } from './children';
 
 import * as moment from 'moment';
@@ -16,7 +18,8 @@ export class TimerService {
     public urineDone = [];
 
     constructor(
-        public childrenService: ChildrenService
+        public childrenService: ChildrenService,
+        private backgroundMode: BackgroundMode
     ) { }
 
     setTimerObjects() {
@@ -55,6 +58,8 @@ export class TimerService {
     }
 
     runBreastFeeding(index) {
+        this.backgroundMode.enable();
+        this.backgroundMode.isEnabled();
         console.log('breast timer run ', this.breastFeeding[index].running);
         if (this.breastFeeding[index].running === false) {
             this.breastFeeding[index].running = true;
@@ -88,6 +93,8 @@ export class TimerService {
     }
 
     runBottleFeeding(index) {
+        this.backgroundMode.enable();
+        this.backgroundMode.isEnabled();
         console.log('bottle timer run ', this.bottleFeeding[index].running, 'index: ', index);
         if (this.bottleFeeding[index].running === false) {
             console.log('index runnin = false wiec trzeba uruchomic')
@@ -124,6 +131,8 @@ export class TimerService {
     }
 
     runSleeping(index) {
+        this.backgroundMode.enable();
+        this.backgroundMode.isEnabled();
         console.log('sleeping timer run ', this.sleeping[index].running, 'index: ', index);
         if (this.sleeping[index].running === false) {
             console.log('index runnin = false wiec trzeba uruchomic')

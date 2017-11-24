@@ -58,8 +58,22 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
-      this.backgroundMode.enable();
+      this.backgroundMode.isEnabled();
+      
+      console.log(this.backgroundMode.isEnabled(), 'is enable??')
       this.authentication();
+      this.platform.pause.subscribe(
+        ()=> {
+          // this.backgroundMode.enable();
+          // console.log('Pause');
+          // console.log(this.backgroundMode.isEnabled(), 'is enable??')
+          // setInterval(() => (console.log('testttttt', new Date())), 1000);
+          
+        }
+      );
+      this.platform.resume.subscribe( ()=>{
+        console.log('Resume');
+      })
       console.log('Device OS is: ' + this.device.platform + ' with version: ' + this.device.version + ' and with brand: ' + this.device.manufacturer);
     });
   }
