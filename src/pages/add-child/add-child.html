@@ -6,7 +6,7 @@
           </button>
     </ion-buttons>
     <ion-title>
-      Dodaj dziecko
+      {{ 'addChild.addChild' | translate }}
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -19,27 +19,27 @@
     <form *ngIf="!newChildBlock" #childForm="ngForm" (ngSubmit)="addChild(childForm)">
       <ion-list>
         <ion-item>
-          <ion-label fixed>Imię</ion-label>
+          <ion-label fixed>{{ 'addChild.name' | translate }}</ion-label>
           <ion-input type="text" ngModel name="name" placeholder="imię dziecka" required></ion-input>
         </ion-item>
         <ion-item>
             <ion-label fixed>
-              <p>Waga</p>
-              <p class="footer">(urodzeniowa)</p>
+              <p>{{ 'addChild.weight' | translate }}</p>
+              <p class="footer">({{ 'addChild.date' | translate }})</p>
             </ion-label>
             <ion-input type="number" ngModel name="weight" placeholder="g" required></ion-input>
           </ion-item>
           <ion-item>
               <ion-label fixed>
-                <p>Długość</p>
-                <p class="footer">(urodzeniowa)</p>
+                <p>{{ 'addChild.length' | translate }}</p>
+                <p class="footer">({{ 'addChild.date' | translate }})</p>
               </ion-label>
               <ion-input type="number" ngModel name="length" placeholder="cm" required></ion-input>
             </ion-item>
         <ion-item>
           <p fixed>
-            <p>Data</p>
-            <p class="footer">(urodzenia)</p>
+            <p>{{ 'addChild.dateMain' | translate }}</p>
+            <p class="footer">({{ 'addChild.date' | translate }})</p>
           <button class="datepicker-button" item-end ion-button icon-left ion-datepicker (ionChanged)="setDate($event);" [value]="date"
           [localeStrings]="object">
           <span>{{ showTime(date) }}</span>
@@ -48,10 +48,10 @@
         </ion-item>
         <ion-row>
             <ion-col>
-              <div class="button" (tap)="takePicture()">Zrób zdjęcie</div>
+              <div class="button" (tap)="takePicture()">{{ 'addChild.takeImage' | translate }}</div>
             </ion-col>
             <ion-col>
-              <div class="button" (tap)="setPicture()">Załaduj zdjęcie</div>
+              <div class="button" (tap)="setPicture()">{{ 'addChild.loadImage' | translate }}</div>
             </ion-col>
           </ion-row>
       </ion-list>
@@ -60,8 +60,8 @@
 
     <div class="warning" *ngIf="newChildBlock">
       <ion-icon class="warning-icon" color="danger" name="alert"></ion-icon>
-      <h1 class="warning-first">Brak możliwości dodania więcej dzieci.</h1>
-      <h4 class="warning-second">Maksymalna ilość to 2 dzieci</h4>
+      <h1 class="warning-first">{{ 'addChild.error' | translate }}</h1>
+      <h4 class="warning-second">{{ 'addChild.errorInfo' | translate }}</h4>
     </div>
   </ion-grid>
 </ion-content>

@@ -4,6 +4,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LoginPage } from '../../pages/login/login';
 
 import { RequestService } from '../../services/request';
+import { AppService } from '../../services/app';
+
+import { Subscription } from 'rxjs/Subscription';
 
 @IonicPage() @Component({
   selector: 'page-register',
@@ -15,12 +18,20 @@ export class RegisterPage {
   public password: string;
   public name: string;
 
+  public subscriptionOne: Subscription;
+
   constructor(
+    private appService: AppService,
     public navCtrl: NavController, 
     public navParams: NavParams,
     public requestService: RequestService
   ) {
   }
+
+  ionViewDidLeave() {
+    this.appService.safeUnsubscribe(this.subscriptionOne);
+  }
+
   ionViewDidEnter() {
     this.password = null;
     this.email = null;
@@ -37,7 +48,7 @@ export class RegisterPage {
         'password': this.password
       }
     };
-    this.requestService.authMethod('/other/new', requestData).subscribe(data => {
+    this.subscriptionOne = this.requestService.authMethod('/other/new', requestData).subscribe(data => {
       console.log('Zarejestrowano', data)
       if (data.error === false) {
         this.goBack();

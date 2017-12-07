@@ -8,7 +8,9 @@ import { HomePage } from '../../pages/home/home';
 import { RequestService } from "../../services/request";
 import { ChildrenService } from '../../services/children';
 import { AuthService } from "../../services/auth";
+import { AppService } from '../../services/app';
 
+import { Subscription } from 'rxjs/Subscription';
 import * as moment from 'moment';
 
 @IonicPage() @Component({
@@ -32,7 +34,10 @@ export class EditChildPage {
   public photo: string;
   public date: any;
 
+  public subscriptionOne: Subscription;
+
   constructor(
+    private appService: AppService,
     public navCtrl: NavController,
     public navParams: NavParams,
     public childrenService: ChildrenService,
@@ -40,6 +45,10 @@ export class EditChildPage {
     public authService: AuthService,
     public camera: Camera
   ) {
+  }
+
+  ionViewDidLeave() {
+    this.appService.safeUnsubscribe(this.subscriptionOne);
   }
 
   ionViewWillEnter() {
@@ -122,7 +131,7 @@ export class EditChildPage {
         'id': this.id
       }
     }
-    this.requestService.putMethod('/children/', requestData).subscribe(data => {
+    this.subscriptionOne = this.requestService.putMethod('/children/', requestData).subscribe(data => {
       if (data.error === false) {
         console.log('Succes')
       } else {

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar color="background">
     <ion-title>
-      Spanie
+      {{ 'sleeping.sleeping' | translate }}
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -14,23 +14,23 @@
     <ion-row class="header">
       <ion-col class="logo-content">
         <div class="logo">
-          <p>Spanie</p>
+          <p>{{ 'sleeping.sleeping' | translate }}</p>
         </div>
       </ion-col>
       <ion-col class="choice-content">
         <div class="choice">
-          <p class="choice-title">Spanie dzieci:</p>
+          <p class="choice-title">{{ 'sleeping.childrenSleeping' | translate }}:</p>
           <button ion-button [ngClass]="{'selected': together}" (click)="slippingOption()">
-            Razem
+            {{ 'sleeping.together' | translate }}
           </button>
           <button ion-button [ngClass]="{'selected': !together}" (click)="slippingOption()">
-            Osobno
+            {{ 'sleeping.separately' | translate }}
           </button>
         </div>
       </ion-col>
     </ion-row>
 
-    <h1 class="select-child">Wybierz dziecko:</h1>
+    <h1 class="select-child">{{ 'sleeping.chooseChild' | translate }}:</h1>
     <ion-row class="content">
       <ion-col *ngFor="let child of childrenService.children; let i = index">
         <div class="child-content">
@@ -42,10 +42,10 @@
             <ul>
               <li *ngFor="let sleep of getChildBreast(child.id)">
                 <p>{{ timerService.toTime(sleep.date) }}</p>
-                <p>Czas: {{ timerService.secondConvert(sleep.time) }}
+                <p>{{ 'sleeping.time' | translate }}: {{ timerService.secondConvert(sleep.time) }}
                   <span *ngIf="sleep.comment"> - {{ sleep.comment }}</span>
                 </p>
-                <ion-icon class="more" name="more" (tap)="moreActions('sleep', sleep)"></ion-icon>
+                <ion-icon class="settings" name="settings" (tap)="moreActions('sleep', sleep)"></ion-icon>
               </li>
             </ul>
           </div>

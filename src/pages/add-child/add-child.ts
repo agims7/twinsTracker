@@ -8,7 +8,10 @@ import { HomePage } from '../../pages/home/home';
 import { RequestService } from "../../services/request";
 import { ChildrenService } from '../../services/children';
 import { AuthService } from "../../services/auth";
+import { TimerService } from "../../services/timer";
+import { AppService } from '../../services/app';
 
+import { Subscription } from 'rxjs/Subscription';
 import * as moment from 'moment';
 
 @IonicPage() @Component({
@@ -27,14 +30,22 @@ export class AddChildPage {
   public image: string = '';
   public imageTaken: boolean = false;
 
+  public subscriptionOne: Subscription;
+
   constructor(
+    private appService: AppService,
     public navCtrl: NavController,
     public navParams: NavParams,
     public childrenService: ChildrenService,
     public requestService: RequestService,
     public authService: AuthService,
-    public camera: Camera
+    public camera: Camera,
+    public timerService: TimerService
   ) {
+  }
+
+  ionViewDidLeave() {
+    this.appService.safeUnsubscribe(this.subscriptionOne);
   }
 
   ionViewWillEnter() {
@@ -104,9 +115,21 @@ export class AddChildPage {
         'photo': this.image
       }
     }
-    this.requestService.postMethod('/children/', requestData).subscribe(data => {
+    this.subscriptionOne = this.requestService.postMethod('/children/', requestData).subscribe(data => {
       if (data.error === false) {
         console.log('Succes')
+        this.timerService.breastFeeding.push({
+          running: false,
+          time: 0,
+        });
+        this.timerService.bottleFeeding.push({
+          running: false,
+          time: 0,
+        });
+        this.timerService.sleeping.push({
+          running: false,
+          time: 0
+        });
       } else {
         console.log('Error')
       }

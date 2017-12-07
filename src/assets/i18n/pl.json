@@ -1,5 +1,160 @@
 {
+    "categories": {
+        "breast": "Karmienie piersią",
+        "bottle": "Karmienie butelką",
+        "diaper": "Pieluszka",
+        "medicines": "Lekarstwa",
+        "sleeping": "Spanie",
+        "growth": "Wzrost",
+        "activity": "Aktywność",
+        "statistics": "Statystyki",
+        "timetable": "Terminarz"
+    },
+    "settings": {
+        "children": "Dzieci",
+        "addChild": "Dodaj dziecko",
+        "changePassword": "Zmień hasło",
+        "logout": "Wyloguj",
+        "language": "Język",
+        "version": "Wersja"
+    },
+    "changePassword": {
+        "title": "Zmiana hasła",
+        "old": "Stare hasło",
+        "new": "Nowe hasło",
+        "newRepeat": "Powtórz nowe hasło",
+        "notTheSame": "Podane hasło nie są takie same",
+        "change": "Zmień",
+        "back": "Wróc"
+    },
+    "children": {
+        "children": "Dzieci",
+        "weight": "Waga",
+        "length": "Długość",
+        "birth": "urodz.",
+        "dateOfBirth": "Data urodzenia",
+        "edition": "Edycja",
+        "remove": "Usuń"
+    },
+    "editChild": {
+        "edit": "Edytuj dziecko",
+        "name": "Imię",
+        "weight": "Waga",
+        "length": "Długość",
+        "dateMain": "Data",
+        "date": "Data",
+        "takeImage": "Zrób zdjęcie",
+        "loadImage": "Załaduj zdjęcie",
+        "add": "Dodaj"
+    },
+    "addChild": {
+        "addChild": "Dodaj dziecko",
+        "name": "Imię",
+        "weight": "Waga",
+        "length": "Długość",
+        "dateMain": "Data",
+        "date": "urodzeniowa",
+        "takeImage": "Zrób zdjęcie",
+        "loadImage": "Załaduj zdjęcie",
+        "error": "Brak możliwości dodania więcej dzieci",
+        "errorInfo": "Maksymalna ilośc to 2 dzieci"
+    },
     "home": {
-        "name": "Nazwa"
+        "title": "Kategorie"
+    },
+    "breast": {
+        "breast": "Karmienie piersią",
+        "childrenFeeding": "Karmienie dzieci",
+        "together": "Razem",
+        "separately": "Osobno",
+        "chooseChild": "Wybierz dziecko",
+        "time": "Czas"
+    },
+    "bottle": {
+        "bottle": "Karmienie butelką",
+        "childrenFeeding": "Karmienie dzieci",
+        "together": "Razem",
+        "separately": "Osobno",
+        "chooseChild": "Wybierz dziecko",
+        "time": "Czas",
+        "volume": "Ilość"
+    },
+    "diaper": {
+        "diaper": "Pieluszka",
+        "diaperChange": "Przebieranie dzieci",
+        "together": "Razem",
+        "separately": "Osobno",
+        "chooseChild": "Wybierz dziecko"
+    },
+    "medicines": {
+        "medicines": "Lekarstwa",
+        "childrenMedicines": "Lekarstwa dzieci",
+        "together": "Razem",
+        "separately": "Osobno",
+        "chooseChild": "Wybierz dziecko"
+    },
+    "sleeping": {
+        "sleeping": "Spanie",
+        "childrenSleeping": "Spanie dzieci",
+        "together": "Razem",
+        "separately": "Osobno",
+        "chooseChild": "Wybierz dziecko",
+        "time": "Czas"
+    },
+    "growth": {
+        "growth": "Wzrost",
+        "childrenGrowth": "Wzrost dzieci",
+        "together": "Razem",
+        "separately": "Osobno",
+        "chooseChild": "Wybierz dziecko"
+    },
+    "activity": {
+        "activity": "Aktywność",
+        "changeDate": "Zmień date",
+        "noActivity": "Brak aktywnośći tego dnia"
+    },
+    "statistics": {
+        "statistics": "Statystyki",
+        "chooseOptions": "Wybierz opcje",
+        "together": "Razem",
+        "breast": "Karmienie piersią",
+        "bottle": "Karmienie butelką",
+        "diaper": "Pieluszka",
+        "sleeping": "Spanie",
+        "growth": "Wzrost",
+        "weight": "Waga",
+        "breastSide": "Pierś",
+        "time": "Czas",
+        "drunk": "Wypite",
+        "type": "Rodzaj",
+        "medicine": "Lekarstwo",
+        "portion": "Dawka"
+    },
+    "timetable": {
+        "timetable": "Terminarz",
+        "newTerm": "Nowy termin"
+    },
+    "editActivity": {
+        "editActivity": "Terminarz",
+        "child": "Dziecko",
+        "time": "Czas",
+        "drunk": "Wypite",
+        "breast": "Pierś",
+        "medicineName": "Nazwa lekarstwa",
+        "portion": "Porcja",
+        "type": "rodzaj",
+        "weight": "Waga",
+        "length": "Długość",
+        "comment": "Komentarz"
+    },
+    "newEvent": {
+        "newEvent": "Nowy element",
+        "enterData": "Wprowadź dane",
+        "child": "Dziecko",
+        "description": "Opis",
+        "date": "Data",
+        "time": "Godzina",
+        "add": "Dodaj",
+        "back": "Wróc"
     }
 }

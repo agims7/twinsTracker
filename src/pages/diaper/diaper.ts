@@ -1,16 +1,14 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
-
 import { ModalPage } from '../modal/modal';
 import { EditActivityPage } from '../edit-activity/edit-activity';
-
-
 import { ChildrenService } from '../../services/children';
 import { RequestService } from "../../services/request";
 import { TimerService } from '../../services/timer';
 import { AuthService } from "../../services/auth";
+import { AppService } from '../../services/app';
 
+import { Subscription } from 'rxjs/Subscription';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
@@ -24,8 +22,11 @@ export class DiaperPage {
   public childrenDiapers: any = [];
   public childrenIds: any = [];
   public allData: any = [];
+
+  public subscriptionOne: Subscription;
   
   constructor(
+    private appService: AppService,
     public navCtrl: NavController,
     public navParams: NavParams,
     public modalCtrl: ModalController,
@@ -34,6 +35,10 @@ export class DiaperPage {
     public requestService: RequestService,
     public authService: AuthService
   ) {
+  }
+
+  ionViewDidLeave() {
+    this.appService.safeUnsubscribe(this.subscriptionOne);
   }
 
   ionViewWillEnter() {
@@ -57,7 +62,7 @@ export class DiaperPage {
     let requestData = {
       token: this.authService.userToken
     }
-    this.requestService.getMethod('/diaper/today/' , requestData).subscribe(data => {
+    this.subscriptionOne = this.requestService.getMethod('/diaper/today/' , requestData).subscribe(data => {
       if (data.data.length > 0) {
         this.allData = data.data;
       } else {

@@ -16,11 +16,15 @@ export class ChildrenService {
 
     getChildPhotoFromId(id) {
         let childIndex = _.findIndex(this.children, { 'id': id });
-        let photo = this.children[childIndex].photo;
-        if (!photo || photo == null) {
-            return "http://via.placeholder.com/150x150";
+        if (this.children[childIndex].photo) {
+            let photo = this.children[childIndex].photo;
+            if (!photo || photo == null) {
+                return "http://via.placeholder.com/150x150";
+            } else {
+                return photo;
+            }
         } else {
-            return photo;
+            return "http://via.placeholder.com/150x150";
         }
     }
 

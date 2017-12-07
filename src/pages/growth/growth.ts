@@ -1,16 +1,14 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
-
 import { ModalPage } from '../modal/modal';
 import { EditActivityPage } from '../edit-activity/edit-activity';
-
 import { ChildrenService } from '../../services/children';
 import { RequestService } from "../../services/request";
 import { TimerService } from "../../services/timer";
 import { AuthService } from "../../services/auth";
+import { AppService } from '../../services/app';
 
-import * as moment from 'moment';
+import { Subscription } from 'rxjs/Subscription';
 import * as _ from 'lodash';
 
 @IonicPage() @Component({
@@ -23,8 +21,11 @@ export class GrowthPage {
   public childrenGrowths: any = [];
   public childrenIds: any = [];
   public allData: any = [];
+
+  public subscriptionOne: Subscription;
   
   constructor(
+    private appService: AppService,
     public navCtrl: NavController,
     public navParams: NavParams,
     public modalCtrl: ModalController,
@@ -33,6 +34,10 @@ export class GrowthPage {
     public timerService: TimerService,
     public authService: AuthService
   ) {
+  }
+
+  ionViewDidLeave() {
+    this.appService.safeUnsubscribe(this.subscriptionOne);
   }
 
   ionViewDidEnter() {
@@ -51,7 +56,7 @@ export class GrowthPage {
     let requestData = {
       token: this.authService.userToken
     }
-    this.requestService.getMethod('/growth/today/' , requestData).subscribe(data => {
+    this.subscriptionOne = this.requestService.getMethod('/growth/today/' , requestData).subscribe(data => {
       if (data.data.length > 0) {
         this.allData = data.data;
       } else {

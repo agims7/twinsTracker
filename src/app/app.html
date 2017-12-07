@@ -8,24 +8,27 @@
         <ion-list>
             <button ion-item (tap)="onLoad(childrenPage)">
                 <ion-icon name="people" color="white" item-left></ion-icon>
-                Dzieci
+                {{ 'settings.children' | translate }}
             </button>
             <button ion-item (tap)="onLoad(addChildPage)">
                 <ion-icon name="person-add" color="white" item-left></ion-icon>
-                Dodaj dziecko
+                {{ 'settings.addChild' | translate }}
             </button>
             <button ion-item (tap)="onLoad(changePasswordPage)">
                 <ion-icon name="settings" color="white" item-left></ion-icon>
-                Zmień hasło
+                {{ 'settings.changePassword' | translate }}
             </button>
             <button ion-item icon-left (click)="onLogout()">
                 <ion-icon name="log-out" color="white" item-left></ion-icon>
-                Wyloguj
+                {{ 'settings.logout' | translate }}
+            </button>
+            <button ion-item icon-left (click)="switchLanguage()">
+                <img class="flag" [src]="flag" item-left> {{ 'settings.language' | translate }}
             </button>
 
             <p class="username">{{ authService.userName }}</p>
             <div class="version">
-                <span class="version-title">Wersja aplikacji:</span>
+                <span class="version-title">{{ 'settings.version' | translate }}:</span>
                 <span *ngIf="authService.premium == 0" class="version-type light">Light</span>
                 <span *ngIf="authService.premium == 1" class="version-type premium">Premium</span>
             </div>

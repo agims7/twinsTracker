@@ -9,7 +9,9 @@ import { ChildrenService } from '../../services/children';
 import { RequestService } from "../../services/request";
 import { TimerService } from "../../services/timer";
 import { AuthService } from "../../services/auth";
+import { AppService } from '../../services/app';
 
+import { Subscription } from 'rxjs/Subscription';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
@@ -24,7 +26,10 @@ export class BottleFeedingPage {
   public childrenIds: any = [];
   public allData: any = [];
 
+  public subscriptionOne: Subscription;
+
   constructor(
+    private appService: AppService,
     public navCtrl: NavController,
     public navParams: NavParams,
     public modalCtrl: ModalController,
@@ -33,6 +38,10 @@ export class BottleFeedingPage {
     public timerService: TimerService,
     public authService: AuthService
   ) {
+  }
+
+  ionViewDidLeave() {
+    this.appService.safeUnsubscribe(this.subscriptionOne);
   }
 
   ionViewDidEnter() {
@@ -51,7 +60,7 @@ export class BottleFeedingPage {
     let requestData = {
       token: this.authService.userToken
     }
-    this.requestService.getMethod('/bottle/today/' , requestData).subscribe(data => {
+    this.subscriptionOne = this.requestService.getMethod('/bottle/today/' , requestData).subscribe(data => {
       if (data.data.length > 0) {
         this.allData = data.data;
       } else {

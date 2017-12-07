@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-
-import { BackgroundMode } from '@ionic-native/background-mode';
+import { Storage } from '@ionic/storage';
 
 import { ChildrenService } from './children';
 
@@ -19,32 +18,31 @@ export class TimerService {
 
     constructor(
         public childrenService: ChildrenService,
-        private backgroundMode: BackgroundMode
+        public storage: Storage
     ) { }
 
+
     setTimerObjects() {
+        let size = this.childrenService.children.length;
         for (let key in this.childrenService.children) {
-            this.breastFeeding.push({
-                running: false,
-                miliseconds: 0,
-                seconds: 0,
-                minutes: 0,
-                hours: 0,
-            });
-            this.bottleFeeding.push({
-                running: false,
-                miliseconds: 0,
-                seconds: 0,
-                minutes: 0,
-                hours: 0,
-            });
-            this.sleeping.push({
-                running: false,
-                miliseconds: 0,
-                seconds: 0,
-                minutes: 0,
-                hours: 0,
-            });
+            if (this.breastFeeding.length !== size) {
+                this.breastFeeding.push({
+                    running: false,
+                    time: 0,
+                });
+            }
+            if (this.bottleFeeding.length !== size) {
+                this.bottleFeeding.push({
+                    running: false,
+                    time: 0,
+                });
+            }
+            if (this.sleeping.length !== size) {
+                this.sleeping.push({
+                    running: false,
+                    time: 0
+                });
+            }
         }
     }
 
@@ -58,27 +56,39 @@ export class TimerService {
     }
 
     runBreastFeeding(index) {
-        this.backgroundMode.enable();
-        this.backgroundMode.isEnabled();
-        console.log('breast timer run ', this.breastFeeding[index].running);
+        let stopTime = null;
+        let startTime = null;
+        let sumTime = null;
         if (this.breastFeeding[index].running === false) {
-            this.breastFeeding[index].running = true;
-            this.breastFeedingInterval[index] = setInterval(() => {
-                this.breastFeeding[index].miliseconds++;
-                if (this.breastFeeding[index].miliseconds > 99) {
-                    this.breastFeeding[index].miliseconds = 0;
-                    this.breastFeeding[index].seconds++;
-                    if (this.breastFeeding[index].seconds > 59) {
-                        this.breastFeeding[index].seconds = 0;
-                        this.breastFeeding[index].minutes++;
-                        if (this.breastFeeding[index].minutes > 59) {
-                            this.breastFeeding[index].minutes = 0;
-                            this.breastFeeding[index].hours++;
-                        }
-                    }
+            this.storage.get(`breastFeedingTime[${index}]`).then((breastFeedingTime) => {
+                if (breastFeedingTime !== null) {
+                    console.log('breastFeedingTime ma wartość', breastFeedingTime)
+                } else {
+                    console.log('breastFeedingTime w bazie jest puste', breastFeedingTime)
                 }
-            }, 10);
+                startTime = new Date().getTime()
+                this.storage.set(`breastFeedingStart[${index}]`, Number(startTime));
+                this.breastFeeding[index].running = true;
+                this.breastFeedingInterval[index] = setInterval(() => {
+                    let time = (new Date().getTime() - startTime) / 1000;
+                    this.breastFeeding[index].time = (time + breastFeedingTime).toFixed(2);
+                }, 10);
+            });
         } else {
+            stopTime = new Date().getTime();
+            this.storage.ready().then(() => {
+                this.storage.get(`breastFeedingStart[${index}]`).then((breastFeedingStart) => {
+                    let difference = ((new Date().getTime() - new Date(breastFeedingStart).getTime()) / 1000).toFixed(0);
+                    this.storage.get(`breastFeedingTime[${index}]`).then((breastFeedingTime) => {
+                        if (breastFeedingTime !== null) {
+                            sumTime = Number(breastFeedingTime.toFixed(0)) + Number(difference);
+                        } else {
+                            sumTime = Number(difference);
+                        }
+                        this.storage.set(`breastFeedingTime[${index}]`, sumTime);
+                    });
+                });
+            });
             clearInterval(this.breastFeedingInterval[index]);
             this.breastFeeding[index].running = false;
         }
@@ -86,37 +96,45 @@ export class TimerService {
 
     clearBreastFeeding(index) {
         clearInterval(this.breastFeedingInterval[index]);
-        this.breastFeeding[index].miliseconds = 0;
-        this.breastFeeding[index].seconds = 0;
-        this.breastFeeding[index].minutes = 0;
-        this.breastFeeding[index].hours = 0;
+        this.breastFeeding[index].time = 0;
+        this.storage.remove(`breastFeedingStart[${index}]`);
+        this.storage.remove(`breastFeedingTime[${index}]`);
     }
 
     runBottleFeeding(index) {
-        this.backgroundMode.enable();
-        this.backgroundMode.isEnabled();
-        console.log('bottle timer run ', this.bottleFeeding[index].running, 'index: ', index);
+        let stopTime = null;
+        let startTime = null;
+        let sumTime = null;
         if (this.bottleFeeding[index].running === false) {
-            console.log('index runnin = false wiec trzeba uruchomic')
-            this.bottleFeeding[index].running = true;
-            this.bottleFeedingInterval[index] = setInterval(() => {
-                this.bottleFeeding[index].miliseconds++;
-                if (this.bottleFeeding[index].miliseconds > 99) {
-                    this.bottleFeeding[index].miliseconds = 0;
-                    this.bottleFeeding[index].seconds++;
-                    if (this.bottleFeeding[index].seconds > 59) {
-                        this.bottleFeeding[index].seconds = 0;
-                        this.bottleFeeding[index].minutes++;
-                        if (this.bottleFeeding[index].minutes > 59) {
-                            this.bottleFeeding[index].minutes = 0;
-                            this.bottleFeeding[index].hours++;
-                        }
-                    }
+            this.storage.get(`bottleFeedingTime[${index}]`).then((bottleFeedingTime) => {
+                if (bottleFeedingTime !== null) {
+                    console.log('bottleFeedingTime ma wartość', bottleFeedingTime)
+                } else {
+                    console.log('bottleFeedingTime w bazie jest puste', bottleFeedingTime)
                 }
-            }, 10);
+                startTime = new Date().getTime()
+                this.storage.set(`bottleFeedingStart[${index}]`, Number(startTime));
+                this.bottleFeeding[index].running = true;
+                this.bottleFeedingInterval[index] = setInterval(() => {
+                    let time = (new Date().getTime() - startTime) / 1000;
+                    this.bottleFeeding[index].time = (time + bottleFeedingTime).toFixed(2);
+                }, 10);
+            });
         } else {
-
-            console.log('index runnin = true wiec trzeba zatrzymac')
+            stopTime = new Date().getTime();
+            this.storage.ready().then(() => {
+                this.storage.get(`bottleFeedingStart[${index}]`).then((bottleFeedingStart) => {
+                    let difference = ((new Date().getTime() - new Date(bottleFeedingStart).getTime()) / 1000).toFixed(0);
+                    this.storage.get(`bottleFeedingTime[${index}]`).then((bottleFeedingTime) => {
+                        if (bottleFeedingTime !== null) {
+                            sumTime = Number(bottleFeedingTime.toFixed(0)) + Number(difference);
+                        } else {
+                            sumTime = Number(difference);
+                        }
+                        this.storage.set(`bottleFeedingTime[${index}]`, sumTime);
+                    });
+                });
+            });
             clearInterval(this.bottleFeedingInterval[index]);
             this.bottleFeeding[index].running = false;
         }
@@ -124,36 +142,45 @@ export class TimerService {
 
     clearBottleFeeding(index) {
         clearInterval(this.bottleFeedingInterval[index]);
-        this.bottleFeeding[index].miliseconds = 0;
-        this.bottleFeeding[index].seconds = 0;
-        this.bottleFeeding[index].minutes = 0;
-        this.bottleFeeding[index].hours = 0;
+        this.bottleFeeding[index].time = 0;
+        this.storage.remove(`bottleFeedingStart[${index}]`);
+        this.storage.remove(`bottleFeedingTime[${index}]`);
     }
 
     runSleeping(index) {
-        this.backgroundMode.enable();
-        this.backgroundMode.isEnabled();
-        console.log('sleeping timer run ', this.sleeping[index].running, 'index: ', index);
+        let stopTime = null;
+        let startTime = null;
+        let sumTime = null;
         if (this.sleeping[index].running === false) {
-            console.log('index runnin = false wiec trzeba uruchomic')
-            this.sleeping[index].running = true;
-            this.sleepingInterval[index] = setInterval(() => {
-                this.sleeping[index].miliseconds++;
-                if (this.sleeping[index].miliseconds > 99) {
-                    this.sleeping[index].miliseconds = 0;
-                    this.sleeping[index].seconds++;
-                    if (this.sleeping[index].seconds > 59) {
-                        this.sleeping[index].seconds = 0;
-                        this.sleeping[index].minutes++;
-                        if (this.sleeping[index].minutes > 59) {
-                            this.sleeping[index].minutes = 0;
-                            this.sleeping[index].hours++;
-                        }
-                    }
+            this.storage.get(`sleepingTime[${index}]`).then((sleepingTime) => {
+                if (sleepingTime !== null) {
+                    console.log('sleepingTime ma wartość', sleepingTime)
+                } else {
+                    console.log('sleepingTime w bazie jest puste', sleepingTime)
                 }
-            }, 10);
+                startTime = new Date().getTime()
+                this.storage.set(`sleepingStart[${index}]`, Number(startTime));
+                this.sleeping[index].running = true;
+                this.sleepingInterval[index] = setInterval(() => {
+                    let time = (new Date().getTime() - startTime) / 1000;
+                    this.sleeping[index].time = (time + sleepingTime).toFixed(2);
+                }, 10);
+            });
         } else {
-            console.log('index runnin = true wiec trzeba zatrzymac')
+            stopTime = new Date().getTime();
+            this.storage.ready().then(() => {
+                this.storage.get(`sleepingStart[${index}]`).then((sleepingStart) => {
+                    let difference = ((new Date().getTime() - new Date(sleepingStart).getTime()) / 1000).toFixed(2);
+                    this.storage.get(`sleepingTime[${index}]`).then((sleepingTime) => {
+                        if (sleepingTime !== null) {
+                            sumTime = Number(sleepingTime.toFixed(2)) + Number(difference);
+                        } else {
+                            sumTime = Number(difference);
+                        }
+                        this.storage.set(`sleepingTime[${index}]`, sumTime);
+                    });
+                });
+            });
             clearInterval(this.sleepingInterval[index]);
             this.sleeping[index].running = false;
         }
@@ -161,10 +188,9 @@ export class TimerService {
 
     clearSleeping(index) {
         clearInterval(this.sleepingInterval[index]);
-        this.sleeping[index].miliseconds = 0;
-        this.sleeping[index].seconds = 0;
-        this.sleeping[index].minutes = 0;
-        this.sleeping[index].hours = 0;
+        this.sleeping[index].time = 0;
+        this.storage.remove(`sleepingStart[${index}]`);
+        this.storage.remove(`sleepingTime[${index}]`);
     }
 
     toTime(date) {
@@ -185,8 +211,32 @@ export class TimerService {
             return this.pad(hours) + "h " + this.pad(minutes) + "m " + this.pad(date) + "s";
         } else if (minutes > 0) {
             return this.pad(minutes) + "m " + this.pad(date) + "s";
-        } else {
+        } else if (date > 0) {
             return this.pad(date) + "s";
+        } else {
+            return "----";
+        }
+    }
+
+    miliSecondConvert(date) {
+        let miliseconds = Number(((date % 1) * 10).toFixed(0));
+        if (miliseconds == 10) {
+            miliseconds = 0;
+        }
+        let seconds = Math.floor(date % 60);
+        let minutes = Math.floor(date / 60);
+        let hours = Math.floor(minutes / 60)
+        minutes = minutes % 60;
+        if (hours > 0) {
+            return this.pad(hours) + ":" + this.pad(minutes) + ":" + this.pad(seconds) + ":" + this.pad(miliseconds);
+        } else if (minutes > 0) {
+            return this.pad(minutes) + ":" + this.pad(seconds) + ":" + this.pad(miliseconds);
+        } else if (seconds > 0) {
+            return this.pad(seconds) + ":" + miliseconds;
+        } else if (miliseconds > 0) {
+            return miliseconds;
+        } else {
+            return "----";
         }
     }
 

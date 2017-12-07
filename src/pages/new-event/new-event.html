@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar color="background">
     <ion-title>
-      Nowe element
+      {{ 'newEvent.newEvent' | translate }}
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -11,10 +11,10 @@
 
   <ion-grid>
     <div class="timetable-content">
-      <h3>Wprowadź dane:</h3>
+      <h3>{{ 'newEvent.enterData' | translate }}:</h3>
       <ion-row>
         <ion-item>
-          <ion-label>Dziecko:</ion-label>
+          <ion-label>{{ 'newEvent.child' | translate }}:</ion-label>
           <ion-select [(ngModel)]="kid">
             <ion-option *ngFor="let child of choiceArray; let i = index" [value]="child.id">{{ child.name }}</ion-option>
           </ion-select>
@@ -22,13 +22,13 @@
       </ion-row>
       <ion-row>
         <ion-item>
-          <ion-label>Opis:</ion-label>
-          <ion-input [(ngModel)]="description" type="text" placeholder="Opis wydarzenia" value="" class="textarea"></ion-input>
+          <ion-label>{{ 'newEvent.description' | translate }}:</ion-label>
+          <ion-input [(ngModel)]="description" type="text" value="" class="textarea"></ion-input>
         </ion-item>
       </ion-row>
       <ion-row>
         <ion-item>
-          <span class="datepicker">Data:</span>
+          <span class="datepicker">{{ 'newEvent.date' | translate }}:</span>
           <button class="datepicker-button" item-end ion-button icon-left ion-datepicker (ionChanged)="setDate($event);" [value]="date"
             [localeStrings]="object">
             <span>{{ showTime(date) }}</span>
@@ -36,17 +36,17 @@
           </button>
         </ion-item>
         <ion-item>
-            <ion-label>Godzina</ion-label>
-            <ion-datetime displayFormat="HH:mm:ss" pickerFormat="HH mm ss" [(ngModel)]="time"></ion-datetime>
+            <ion-label>{{ 'newEvent.time' | translate }}</ion-label>
+            <ion-datetime displayFormat="HH:mm:ss" [(ngModel)]="time"></ion-datetime>
           </ion-item>
       </ion-row>
       
       <ion-row>
         <ion-col >
-            <button ion-button block class="add-button" (tap)="addEvent()">Dodaj</button>           
+            <button ion-button block class="add-button" (tap)="addEvent()">{{ 'newEvent.add' | translate }}</button>           
         </ion-col>
         <ion-col >
-            <button navPop ion-button block class="add-button">Wroć</button>            
+            <button navPop ion-button block class="add-button">{{ 'newEvent.back' | translate }}</button>            
         </ion-col>
       </ion-row>
     </div>

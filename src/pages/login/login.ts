@@ -9,6 +9,9 @@ import { HomePage } from "../home/home";
 
 import { AuthService } from '../../services/auth';
 import { RequestService } from '../../services/request';
+import { AppService } from '../../services/app';
+
+import { Subscription } from 'rxjs/Subscription';
 
 @IonicPage() @Component({
   selector: 'page-login',
@@ -19,8 +22,11 @@ export class LoginPage {
   reminderPage = ReminderPage;
   public wrongPassword: boolean = false;
   public wrongEmail: boolean = false;
+
+  public subscriptionOne: Subscription;
   
   constructor(
+    private appService: AppService,
     public navCtrl: NavController, 
     public navParams: NavParams,
     public authService: AuthService,
@@ -28,10 +34,13 @@ export class LoginPage {
   ) {
   }
 
+  ionViewDidLeave() {
+    this.appService.safeUnsubscribe(this.subscriptionOne);
+  }
+
   ionViewDidEnter() {
     this.authService.getKeys();
   }
-
 
   loginUser() {
     let requestData = {
@@ -40,7 +49,7 @@ export class LoginPage {
         'password': this.authService.userPassword
       }
     }
-    this.requestService.authMethod('/other/auth', requestData).subscribe(data => {
+    this.subscriptionOne = this.requestService.authMethod('/other/auth', requestData).subscribe(data => {
       if (data.error === false) {
         this.authService.premium = data.user.premium;
         this.authService.userName = data.user.name;

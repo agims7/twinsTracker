@@ -1,0 +1,160 @@
+{
+    "categories": {
+        "breast": "Breast feeding",
+        "bottle": "Bottle feeding",
+        "diaper": "Diaper",
+        "medicines": "Medicines",
+        "sleeping": "Sleeping",
+        "growth": "Growth",
+        "activity": "Activity",
+        "statistics": "Statistics",
+        "timetable": "Timetable"
+    },
+    "settings": {
+        "children": "Children",
+        "addChild": "Add child",
+        "changePassword": "Change password",
+        "logout": "Logout",
+        "language": "Language",
+        "version": "Version"
+    },
+    "changePassword": {
+        "title": "Password change",
+        "old": "Old password",
+        "new": "New password",
+        "newRepeat": "Repeat new password",
+        "notTheSame": "Passwords are not the same",
+        "change": "Change",
+        "back": "Go back"
+    },
+    "children": {
+        "children": "Children",
+        "weight": "Weight",
+        "length": "Length",
+        "birth": "birth",
+        "dateOfBirth": "Date of birth",
+        "edition": "Edition",
+        "remove": "Remove"
+    },
+    "editChild": {
+        "edit": "Edit child",
+        "name": "Children",
+        "weight": "Weight",
+        "length": "Length",
+        "dateMain": "Date",
+        "date": "birth",
+        "takeImage": "Take a photo",
+        "loadImage": "Load a photo",
+        "add": "Add"
+    },
+    "addChild": {
+        "addChild": "Add child",
+        "name": "Children",
+        "weight": "Weight",
+        "length": "Length",
+        "dateMain": "Date",
+        "date": "birth",
+        "takeImage": "Take a photo",
+        "loadImage": "Load a photo",
+        "error": "No more children can be added",
+        "errorInfo": "The maximum number of children is 2"
+    },
+    "home": {
+        "title": "Categories"
+    },
+    "breast": {
+        "breast": "Breast feeding",
+        "childrenFeeding": "Children feeding",
+        "together": "Together",
+        "separately": "Separately",
+        "chooseChild": "Choose a child",
+        "time": "Time"
+    },
+    "bottle": {
+        "bottle": "Bottle feeding",
+        "childrenFeeding": "Children feeding",
+        "together": "Together",
+        "separately": "Separately",
+        "chooseChild": "Choose a child",
+        "time": "Time",
+        "volume": "Volume"
+    },
+    "diaper": {
+        "diaper": "Diaper",
+        "diaperChange": "Diaper change",
+        "together": "Together",
+        "separately": "Separately",
+        "chooseChild": "Choose a child"
+    },
+    "medicines": {
+        "medicines": "Medicines",
+        "childrenMedicines": "Children medicines",
+        "together": "Together",
+        "separately": "Separately",
+        "chooseChild": "Choose a child"
+    },
+    "sleeping": {
+        "sleeping": "Sleeping",
+        "childrenSleeping": "Children sleeping",
+        "together": "Together",
+        "separately": "Separately",
+        "chooseChild": "Choose a child",
+        "time": "Time"
+    },
+    "growth": {
+        "growth": "Growth",
+        "childrenGrowth": "Children growth",
+        "together": "Together",
+        "separately": "Separately",
+        "chooseChild": "Choose a child"
+    },
+    "activity": {
+        "activity": "Activity",
+        "changeDate": "Change date",
+        "noActivity": "No activity on this day"
+    },
+    "statistics": {
+        "statistics": "Statistics",
+        "chooseOptions": "Choose options",
+        "together": "Together",
+        "breast": "Breast feeding",
+        "bottle": "Bottle feeding",
+        "diaper": "Diaper",
+        "sleeping": "Sleeping",
+        "growth": "Growth",
+        "weight": "Weight",
+        "breastSide": "Breast",
+        "time": "Time",
+        "drunk": "Drunk",
+        "type": "Type",
+        "medicine": "Medicine",
+        "portion": "Portion"
+    },
+    "timetable": {
+        "timetable": "Timetable",
+        "newTerm": "New term"
+    },
+    "editActivity": {
+        "editActivity": "Edit actiity",
+        "child": "Child",
+        "time": "Time",
+        "drunk": "Drunk",
+        "breast": "Breast",
+        "medicineName": "Medicine name",
+        "portion": "Portion",
+        "type": "Type",
+        "weight": "Weight",
+        "length": "Length",
+        "comment": "Comment"
+    },
+    "newEvent": {
+        "newEvent": "New event",
+        "enterData": "Enter data",
+        "child": "Child",
+        "description": "Description",
+        "date": "Date",
+        "time": "Time",
+        "add": "Add",
+        "back": "Back"
+    }
+}

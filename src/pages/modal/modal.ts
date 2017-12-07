@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Platform, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { TimerService } from "../../services/timer";
 import { ChildrenService } from "../../services/children";
 import { RequestService } from "../../services/request";
 import { AuthService } from "../../services/auth";
+import { AppService } from '../../services/app';
+
+import { Subscription } from 'rxjs/Subscription';
 
 @IonicPage() @Component({
   selector: 'page-modal',
@@ -37,7 +40,24 @@ export class ModalPage {
   public running: boolean;
   public selection: number;
 
+  public subscriptionOne: Subscription;
+  public subscriptionTwo: Subscription;
+  public subscriptionThree: Subscription;
+  public subscriptionFour: Subscription;
+  public subscriptionFive: Subscription;
+  public subscriptionSix: Subscription;
+  public subscriptionSeven: Subscription;
+  public subscriptionEight: Subscription;
+  public subscriptionNine: Subscription;
+  public subscriptionTen: Subscription;
+  public subscriptionEleven: Subscription;
+  public subscriptionTwelve: Subscription;
+  public subscriptionThirteen: Subscription;
+
   constructor(
+    private appService: AppService,
+    public platform: Platform,
+    public storage: Storage,
     public navCtrl: NavController,
     public navParams: NavParams,
     public timerService: TimerService,
@@ -45,6 +65,22 @@ export class ModalPage {
     public requestService: RequestService,
     public authService: AuthService
   ) {
+  }
+
+  ionViewDidLeave() {
+    this.appService.safeUnsubscribe(this.subscriptionOne);
+    this.appService.safeUnsubscribe(this.subscriptionTwo);
+    this.appService.safeUnsubscribe(this.subscriptionThree);
+    this.appService.safeUnsubscribe(this.subscriptionFour);
+    this.appService.safeUnsubscribe(this.subscriptionFive);
+    this.appService.safeUnsubscribe(this.subscriptionSix);
+    this.appService.safeUnsubscribe(this.subscriptionSeven);
+    this.appService.safeUnsubscribe(this.subscriptionEight);
+    this.appService.safeUnsubscribe(this.subscriptionNine);
+    this.appService.safeUnsubscribe(this.subscriptionTen);
+    this.appService.safeUnsubscribe(this.subscriptionEleven);
+    this.appService.safeUnsubscribe(this.subscriptionTwelve);
+    this.appService.safeUnsubscribe(this.subscriptionThirteen);
   }
 
   ionViewDidEnter() {
@@ -58,7 +94,7 @@ export class ModalPage {
     this.isTogether();
     this.setBottleVolumes();
     this.loader = false;
-    console.log(this.navParams.data)
+    // console.log(this.navParams.data)
   }
 
   clearOption() {
@@ -173,13 +209,15 @@ export class ModalPage {
       if (this.breastSelected === true) {
         this.running = this.timerService.breastFeeding[index].running;
         this.timerService.runBreastFeeding(index);
+        console.log('breast together')
       } else if (this.bottleSelected === true) {
         this.running = this.timerService.bottleFeeding[index].running;
+        console.log('bottle together')
         this.timerService.runBottleFeeding(index);
       } else if (this.sleepingSelected === true) {
-        console.log('sleeping together')
         this.running = this.timerService.sleeping[index].running;
         this.timerService.runSleeping(index);
+        console.log('sleeping together')
       }
     } else {
       if (this.breastSelected === true) {
@@ -194,7 +232,7 @@ export class ModalPage {
         this.timerService.runSleeping(index);
       }
     }
-    console.log('this.running', this.running)
+    // console.log('this.running', this.running)
     if (this.running === true) {
       this.timeStopped = true;
     } else {
@@ -266,37 +304,13 @@ export class ModalPage {
   getTime(childindex) {
     switch (this.selection) {
       case (0): {
-        let timeInSeconds = 0;
-        let miliSeconds = this.timerService.breastFeeding[childindex].miliseconds;
-        timeInSeconds = this.timerService.breastFeeding[childindex].seconds;
-        timeInSeconds += this.timerService.breastFeeding[childindex].minutes * 60;
-        timeInSeconds += this.timerService.breastFeeding[childindex].hours * 60 * 60;
-        if (timeInSeconds < 1 && miliSeconds > 0) {
-          timeInSeconds = 1;
-        }
-        return timeInSeconds;
+        return this.timerService.breastFeeding[childindex].time;
       }
       case (1): {
-        let timeInSeconds = 0;
-        let miliSeconds = this.timerService.bottleFeeding[childindex].miliseconds;        
-        timeInSeconds = this.timerService.bottleFeeding[childindex].seconds;
-        timeInSeconds += this.timerService.bottleFeeding[childindex].minutes * 60;
-        timeInSeconds += this.timerService.bottleFeeding[childindex].hours * 60 * 60;
-        if (timeInSeconds < 1 && miliSeconds > 0) {
-          timeInSeconds = 1;
-        }
-        return timeInSeconds;
+        return this.timerService.bottleFeeding[childindex].time;
       }
       case (4): {
-        let timeInSeconds = 0;
-        let miliSeconds = this.timerService.sleeping[childindex].miliseconds;        
-        timeInSeconds = this.timerService.sleeping[childindex].seconds;
-        timeInSeconds += this.timerService.sleeping[childindex].minutes * 60;
-        timeInSeconds += this.timerService.sleeping[childindex].hours * 60 * 60;
-        if (timeInSeconds < 1 && miliSeconds > 0) {
-          timeInSeconds = 1;
-        }
-        return timeInSeconds;
+        return this.timerService.sleeping[childindex].time;
       }
     }
   }
@@ -321,7 +335,7 @@ export class ModalPage {
                 'comment': this.comment
               }
             }
-            this.requestService.postMethod('/breast/', requestData).subscribe(data => {
+            this.subscriptionOne = this.requestService.postMethod('/breast/', requestData).subscribe(data => {
               if (data.error === false) {
                 console.log('Succes')
               } else {
@@ -347,7 +361,7 @@ export class ModalPage {
               'comment': this.comment
             }
           }
-          this.requestService.postMethod('/breast/', requestData).subscribe(data => {
+          this.subscriptionTwo = this.requestService.postMethod('/breast/', requestData).subscribe(data => {
             if (data.error === false) {
               console.log('Succes')
             } else {
@@ -376,7 +390,7 @@ export class ModalPage {
                 'comment': this.comment
               }
             }
-            this.requestService.postMethod('/bottle/', requestData).subscribe(data => {
+            this.subscriptionThree = this.requestService.postMethod('/bottle/', requestData).subscribe(data => {
               if (data.error === false) {
                 console.log('Succes')
               } else {
@@ -401,7 +415,7 @@ export class ModalPage {
               'comment': this.comment
             }
           }
-          this.requestService.postMethod('/bottle', requestData).subscribe(data => {
+          this.subscriptionFour = this.requestService.postMethod('/bottle', requestData).subscribe(data => {
             if (data.error === false) {
               console.log('Succes')
             } else {
@@ -421,7 +435,7 @@ export class ModalPage {
             let childID = child.id;
             let type_id;
             if (this.timerService.fecesDone[count]) {
-              let type_id = 1;
+              type_id = 1;
               let requestData = {
                 token: this.authService.userToken,
                 body: {
@@ -430,7 +444,7 @@ export class ModalPage {
                   'comment': this.comment
                 }
               }
-              this.requestService.postMethod('/diaper/', requestData).subscribe(data => {
+              this.subscriptionFive = this.requestService.postMethod('/diaper/', requestData).subscribe(data => {
                 if (data.error === false) {
                   console.log('Succes')
                 } else {
@@ -440,7 +454,7 @@ export class ModalPage {
               });
             }
             if (this.timerService.urineDone[count]) {
-              let type_id = 2;
+              type_id = 2;
               let requestData = {
                 token: this.authService.userToken,
                 body: {
@@ -449,7 +463,7 @@ export class ModalPage {
                   'comment': this.comment
                 }
               }
-              this.requestService.postMethod('/diaper/', requestData).subscribe(data => {
+              this.subscriptionSix = this.requestService.postMethod('/diaper/', requestData).subscribe(data => {
                 if (data.error === false) {
                   console.log('Succes')
                 } else {
@@ -474,7 +488,7 @@ export class ModalPage {
                 'comment': this.comment
               }
             }
-            this.requestService.postMethod('/diaper/', requestData).subscribe(data => {
+            this.subscriptionSeven = this.requestService.postMethod('/diaper/', requestData).subscribe(data => {
               if (data.error === false) {
                 console.log('Succes')
               } else {
@@ -494,7 +508,7 @@ export class ModalPage {
                 'comment': this.comment
               }
             }
-            this.requestService.postMethod('/diaper/', requestData).subscribe(data => {
+            this.subscriptionEight = this.requestService.postMethod('/diaper/', requestData).subscribe(data => {
               if (data.error === false) {
                 console.log('Succes')
               } else {
@@ -510,7 +524,6 @@ export class ModalPage {
       }
       case (3): {
         if (this.paramData.together) {
-          let count = 0;
           for (var child of this.childrenService.children) {
             let childID = child.id;
             let medicine = this.medicine;
@@ -524,7 +537,7 @@ export class ModalPage {
                 'comment': this.comment
               }
             }
-            this.requestService.postMethod('/medicine/', requestData).subscribe(data => {
+            this.subscriptionNine = this.requestService.postMethod('/medicine/', requestData).subscribe(data => {
               if (data.error === false) {
                 console.log('Succes')
               } else {
@@ -547,7 +560,7 @@ export class ModalPage {
               'comment': this.comment
             }
           }
-          this.requestService.postMethod('/medicine/', requestData).subscribe(data => {
+          this.subscriptionTen = this.requestService.postMethod('/medicine/', requestData).subscribe(data => {
             if (data.error === false) {
               console.log('Succes')
             } else {
@@ -573,7 +586,7 @@ export class ModalPage {
                 'comment': this.comment
               }
             }
-            this.requestService.postMethod('/sleep/', requestData).subscribe(data => {
+            this.subscriptionEleven = this.requestService.postMethod('/sleep/', requestData).subscribe(data => {
               if (data.error === false) {
                 console.log('Succes')
               } else {
@@ -596,7 +609,7 @@ export class ModalPage {
               'comment': this.comment
             }
           }
-          this.requestService.postMethod('/sleep/', requestData).subscribe(data => {
+          this.subscriptionTwelve = this.requestService.postMethod('/sleep/', requestData).subscribe(data => {
             if (data.error === false) {
               console.log('Succes')
             } else {
@@ -625,7 +638,7 @@ export class ModalPage {
               'comment': this.comment
             }
           }
-          this.requestService.postMethod('/growth/', requestData).subscribe(data => {
+          this.subscriptionThirteen = this.requestService.postMethod('/growth/', requestData).subscribe(data => {
             if (data.error === false) {
               console.log('Succes')
             } else {

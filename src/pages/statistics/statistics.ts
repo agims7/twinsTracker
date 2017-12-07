@@ -4,7 +4,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { StatisticModalPage } from '../statistic-modal/statistic-modal';
 
 import { ChildrenService } from '../../services/children';
+import { AppService } from '../../services/app';
 
+import { Subscription } from 'rxjs/Subscription';
 
 @IonicPage()
 @Component({
@@ -14,6 +16,7 @@ import { ChildrenService } from '../../services/children';
 export class StatisticsPage {
 
   constructor(
+    private appService: AppService,
     public navCtrl: NavController,
     public navParams: NavParams
     ) {

@@ -1,45 +1,17 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
-<g>
-	<g>
-		<path d="M496.986,481.993h-44.999V151.002h44.999c13.303,0,20.017-16.117,10.65-25.562L387.639,4.443
-			c-5.865-5.914-15.435-5.914-21.3,0L246.342,125.44c-9.368,9.446-2.652,25.562,10.65,25.562h44.999V241H194.995
-			c-8.284,0-15,6.716-15,15v74.998H74.998c-8.284,0-15,6.716-15,15v135.996H15c-8.284,0-15,6.716-15,15c0,8.284,6.716,15,15,15
-			h481.987c8.284,0,15-6.716,15-15C511.986,488.709,505.27,481.993,496.986,481.993z M179.995,481.993H89.998V360.996h89.997
-			V481.993z M301.992,481.993h-91.997V270.999h91.997V481.993z M421.988,136.002v345.991h-89.997V136.002c0-8.284-6.716-15-15-15
-			h-23.997l83.996-84.696l83.996,84.696h-23.997C428.704,121.003,421.988,127.719,421.988,136.002z"/>
-	</g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
+<svg version="1.1" id="Warstwa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 2700 2700" style="enable-background:new 0 0 2700 2700;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;stroke:#3F403F;stroke-miterlimit:10;}
+</style>
+<g id="XMLID_1_">
+	<polygon id="XMLID_99_" class="st0" points="1056.3,939.9 1899.6,1150.5 2191.2,664.3 2455.5,823.1 2469.5,0 1749.8,399.6 
+		2014,558.4 1801.1,913.5 993.2,711.4 126,1578.3 271.9,1724.1 	"/>
+	<polygon id="XMLID_98_" class="st0" points="818.3,2683 1231,2683 1231,1196.1 1119.7,1168.4 818.3,1469.8 	"/>
+	<polygon id="XMLID_97_" class="st0" points="199.1,1942.9 199.1,2683 611.9,2683 611.9,1676.3 271.9,2016 	"/>
+	<polygon id="XMLID_96_" class="st0" points="2056.7,1289.8 2056.7,2683 2469.5,2683 2469.5,1072.1 2262,947.6 	"/>
+	<polygon id="XMLID_95_" class="st0" points="1850.2,2683 1850.2,1351 1437.4,1248 1437.4,2683 	"/>
+	<path id="XMLID_76_" class="st0" d="M1850.2,2683"/>
 </g>
 </svg>

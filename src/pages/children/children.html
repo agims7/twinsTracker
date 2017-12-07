@@ -6,7 +6,7 @@
             </button>
         </ion-buttons>
       <ion-title>
-        Dzieci
+        {{ 'children.children' | translate }}
       </ion-title>
     </ion-navbar>
   </ion-header>
@@ -20,15 +20,15 @@
         <img *ngIf="child.photo" class="child-image" [src]="child.photo">
         <img *ngIf="!child.photo" class="child-image" src="http://via.placeholder.com/150x150">
           <h2>{{ child.name }}</h2>
-          <p>Waga <span class="birth">(urodz.)</span></p>
+          <p>{{ 'children.weight' | translate }} <span class="birth">({{ 'children.birth' | translate }})</span></p>
           <p class="value">{{ child.weight }} g</p>
-          <p>Długość <span class="birth">(urodz.)</span></p>
+          <p>{{ 'children.length' | translate }} <span class="birth">({{ 'children.birth' | translate }})</span></p>
           <p class="value">{{ child.length }} cm</p>
-          <p>Data urodzenia</p>
+          <p>{{ 'children.dateOfBirth' | translate }}</p>
           <p class="value">{{ showTime(child.dateofbirth) }}</p>
           <div class="buttons-container">
-              <button ion-button block color="" (tap)="edition(child)">Edycja</button>
-              <button ion-button block color="danger" (tap)="remove(child.id)">Usuń</button>
+              <button ion-button block color="" (tap)="edition(child)">{{ 'children.edition' | translate }}</button>
+              <button ion-button block color="danger" (tap)="remove(child.id, i)">{{ 'children.remove' | translate }}</button>
           </div>
         </div>
   </ion-grid>

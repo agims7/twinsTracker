@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
+import { TranslateService } from '@ngx-translate/core';
+
 import { ActivityPage } from "../activity/activity";
 import { BottleFeedingPage } from "../bottle-feeding/bottle-feeding";
 import { BreastFeedingPage } from "../breast-feeding/breast-feeding";
@@ -17,7 +19,9 @@ import { TimerService } from "../../services/timer";
 import { RequestService } from "../../services/request";
 import { AuthService } from '../../services/auth';
 import { ChildrenService } from '../../services/children';
+import { AppService } from '../../services/app';
 
+import { Subscription } from 'rxjs/Subscription';
 import { Network } from '@ionic-native/network';
 
 @Component({
@@ -38,7 +42,11 @@ export class HomePage {
 
   public token: string;
 
+  public subscriptionOne: Subscription;
+
   constructor(
+    private translate: TranslateService,
+    private appService: AppService,
     public navCtrl: NavController,
     public categoriesService: CategoriesService,
     public timerService: TimerService,
@@ -50,8 +58,11 @@ export class HomePage {
   ) {
   }
 
+  ionViewDidLeave() {
+    this.appService.safeUnsubscribe(this.subscriptionOne);
+  }
+
   ionViewDidEnter() {
-    // this.checkNetworkConnection();
     this.getKids();
   }
 
@@ -60,26 +71,18 @@ export class HomePage {
     let requestData = {
       token: this.authService.userToken
     }
-    this.requestService.getMethod('/children/parrent/' + this.authService.userID, requestData).subscribe(data => {
+    this.subscriptionOne = this.requestService.getMethod('/children/parrent/' + this.authService.userID, requestData).subscribe(data => {
       let kids = data.data;
       if (data.data) {
         for (var child of kids) {
           this.childrenService.children.push(child);
         }
-        this.timerService.setTimerObjects();
+        this.loader = false;
+      } else {
+        this.loader = false;
       }
-      this.loader = false;
+      this.timerService.setTimerObjects();
     });
   }  
-
-  // checkNetworkConnection() {
-  //   alert(this.network.type)
-  //   let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
-  //     alert('network was disconnected :-(');
-  //   });
-  //   let connectSubscription = this.network.onConnect().subscribe(() => {
-  //     alert('network connected!');
-  //   });
-  // }
 
 }

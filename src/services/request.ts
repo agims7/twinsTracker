@@ -32,8 +32,14 @@ export class RequestService {
         });
     }
 
-    deleteMethod(url, options?): Observable<any> {
-        return this.http.delete(this.prefix + url, options);
+    // deleteMethod(url, options?): Observable<any> {
+    //     return this.http.delete(this.prefix + url, options);
+    // }
+
+    deleteMethod(url, requestData?): Observable<any> {
+        return this.http.delete(this.prefix + url, {
+            headers: new HttpHeaders().set('x-access-token', requestData.token)
+        });
     }
 
     putMethod(url, requestData?): Observable<any> {

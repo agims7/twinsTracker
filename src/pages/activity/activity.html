@@ -1,7 +1,7 @@
 <ion-header>
     <ion-navbar color="background">
         <ion-title>
-            Aktywność
+            {{ 'activity.activity' | translate }}
         </ion-title>
     </ion-navbar>
 </ion-header>
@@ -17,8 +17,8 @@
                 <ion-row>
                     <ion-col col-12 class="data-change">
                         <button class="data-change-button" item-end ion-button icon-left ion-datepicker (ionChanged)="setDate($event);" [value]="date"
-                            [localeStrings]="object" [max]="today" [min]="minDate">
-                            <span>Zmień datę</span>
+                            [localeStrings]="appService.object[translate.getDefaultLang()]" [max]="today" [min]="minDate" [cancelText]="cancelText[translate.getDefaultLang()]">
+                            <span>{{ 'activity.changeDate' | translate }}</span>
                             <ion-icon name="calendar"></ion-icon>
                         </button>
                     </ion-col>
@@ -56,18 +56,18 @@
                     <ion-col col-5 class="activity-description-field">
                         <p class="activity-description-title">{{ getCategoryTitle(activity.source) }}</p>
                         <!-- Breast -->
-                        <p *ngIf="activity.source === 'breast'" class="activity-description">Pierść: {{ getBreast(activity.side_id) }}</p>
-                        <p *ngIf="activity.source === 'breast'" class="activity-description">Czas: {{ timerService.secondConvert(activity.time) }}</p>
+                        <p *ngIf="activity.source === 'breast'" class="activity-description">{{ 'statistics.breastSide' | translate }}: {{ getBreast(activity.side_id) }}</p>
+                        <p *ngIf="activity.source === 'breast'" class="activity-description">{{ 'statistics.time' | translate }}: {{ timerService.secondConvert(activity.time) }}</p>
                         <!-- Bottle -->
-                        <p *ngIf="activity.source === 'bottle'" class="activity-description">Wypite: {{ activity.volume }}ml</p>
-                        <p *ngIf="activity.source === 'bottle'" class="activity-description">Czas: {{ timerService.secondConvert(activity.time) }}</p>
+                        <p *ngIf="activity.source === 'bottle'" class="activity-description">{{ 'statistics.drunk' | translate }}: {{ activity.volume }}ml</p>
+                        <p *ngIf="activity.source === 'bottle'" class="activity-description">{{ 'statistics.time' | translate }}: {{ timerService.secondConvert(activity.time) }}</p>
                         <!-- Diaper -->
-                        <p *ngIf="activity.source === 'diaper'" class="activity-description">Rodzaj: {{ getDiaper(activity.type_id) }}</p>
+                        <p *ngIf="activity.source === 'diaper'" class="activity-description">{{ 'statistics.type' | translate }}: {{ getDiaper(activity.type_id) }}</p>
                         <!-- Medicine -->
-                        <p *ngIf="activity.source === 'medicine'" class="activity-description">Lekarstwo: {{ activity.medicine }}</p>
-                        <p *ngIf="activity.source === 'medicine'" class="activity-description">Dawka: {{ activity.portion }}</p>
+                        <p *ngIf="activity.source === 'medicine'" class="activity-description">{{ 'statistics.medicine' | translate }}: {{ activity.medicine }}</p>
+                        <p *ngIf="activity.source === 'medicine'" class="activity-description">{{ 'statistics.portion' | translate }}: {{ activity.portion }}</p>
                         <!-- Sleep -->
-                        <p *ngIf="activity.source === 'sleep'" class="activity-description">Czas: {{ timerService.secondConvert(activity.time) }}</p>
+                        <p *ngIf="activity.source === 'sleep'" class="activity-description">{{ 'statistics.time' | translate }}: {{ timerService.secondConvert(activity.time) }}</p>
                     </ion-col>
                     <ion-col col-2>
                         <ion-note class="activity-date">{{ showDayTime(activity.date) }}</ion-note>
@@ -77,7 +77,7 @@
 
             <div class="warning" *ngIf="emptyTable">
                 <ion-icon class="warning-icon" color="danger" name="alert"></ion-icon>
-                <h1 class="warning-first">Brak aktywności tego dnia</h1>
+                <h1 class="warning-first">{{ 'activity.noActivity' | translate }}</h1>
             </div>
 
         </ion-list>

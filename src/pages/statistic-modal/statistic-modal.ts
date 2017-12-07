@@ -1,12 +1,14 @@
 import { Component, HostListener } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { TranslateService } from '@ngx-translate/core';
 
 import { AuthService } from "../../services/auth";
 import { RequestService } from "../../services/request";
 import { ChildrenService } from "../../services/children";
 import { TimerService } from "../../services/timer";
+import { AppService } from '../../services/app';
 
-import * as _ from 'lodash';
+import { Subscription } from 'rxjs/Subscription';
 import * as moment from 'moment';
 import Chart from 'chart.js';
 
@@ -37,6 +39,13 @@ export class StatisticModalPage {
   public chartTogether: any;
   public isTime: boolean = false;
 
+  public subscriptionOne: Subscription;
+  public subscriptionTwo: Subscription;
+  public subscriptionThree: Subscription;
+  public subscriptionFour: Subscription;
+  public subscriptionFive: Subscription;
+  public subscriptionSix: Subscription;
+
   @HostListener('init')
   handleInit() {
     this.chart.legend.addListener("rollOverItem", this.handleRollOver);
@@ -49,6 +58,8 @@ export class StatisticModalPage {
   }
 
   constructor(
+    private translate: TranslateService,
+    private appService: AppService,
     public navCtrl: NavController,
     public navParams: NavParams,
     public requestService: RequestService,
@@ -56,7 +67,16 @@ export class StatisticModalPage {
     public childrenService: ChildrenService,
     public timerService: TimerService,
   ) {
-    moment.locale('pl');
+    moment.locale(this.translate.getDefaultLang());
+  }
+
+  ionViewDidLeave() {
+    this.appService.safeUnsubscribe(this.subscriptionOne);
+    this.appService.safeUnsubscribe(this.subscriptionTwo);
+    this.appService.safeUnsubscribe(this.subscriptionThree);
+    this.appService.safeUnsubscribe(this.subscriptionFour);
+    this.appService.safeUnsubscribe(this.subscriptionFive);
+    this.appService.safeUnsubscribe(this.subscriptionSix);
   }
 
   ionViewWillEnter() {
@@ -257,62 +277,10 @@ export class StatisticModalPage {
     }
   }
 
-
-  // setStepChart() {
-  //   var ctx = document.getElementById("myChart");
-  //   var myChart = new Chart(ctx, {
-  //     type: 'line',
-  //     labels: this.xaxis,
-  //     data: {
-  //       datasets: [{
-  //         data: this.yaxis,
-  //         borderColor: '#e6e6e6',
-  //         steppedLine: true,
-  //         fill: false
-  //       }]
-  //     },
-  //     options: {
-  //       title: {
-  //         display: true,
-  //         text: 'Wukres zmian pieluszek'
-  //       },
-  //       scales: {
-  //         yAxes: [{
-  //           ticks: {
-  //             beginAtZero: true,
-  //             // max: 3,
-  //             fontColor: '#e6e6e6'
-  //           },
-  //           gridLines: {
-  //             show: true,
-  //             color: "#8c8c8c",
-  //           }
-  //         }],
-  //         xAxes: [{
-  //           ticks: {
-  //             autoSkip: true,
-  //             maxRotation: 75,
-  //             minRotation: 75,
-  //             fontColor: '#e6e6e6'
-  //           },
-  //           gridLines: {
-  //             show: true,
-  //             color: "#8c8c8c",
-  //           }
-  //         }]
-  //       },
-  //       legend: {
-  //         display: false
-  //       },
-  //     },
-  //   });
-  // }
-
-
   //BAR CHART
   setBarChartExample() {
-    var ctx = document.getElementById("myChart");
-    var myChart = new Chart(ctx, {
+    const ctx = document.getElementById("myChart");
+    const myChart = new Chart(ctx, {
       responsive: true,
       type: 'bar',
       data: {
@@ -343,9 +311,10 @@ export class StatisticModalPage {
           }],
           xAxes: [{
             ticks: {
-              autoSkip: false,
+              autoSkip: true,
+              autoSkipPadding: 5,
               maxRotation: 90,
-              minRotation: 0
+              minRotation: 90
             }
           }]
         }
@@ -355,8 +324,8 @@ export class StatisticModalPage {
 
   // LINE
   setLineChartExample() {
-    var ctx = document.getElementById("myChart");
-    var myChart = new Chart(ctx, {
+    const ctx = document.getElementById("myChart");
+    const myChart = new Chart(ctx, {
       responsive: true,
       type: 'line',
       data: {
@@ -391,9 +360,10 @@ export class StatisticModalPage {
           }],
           xAxes: [{
             ticks: {
-              autoSkip: false,
+              autoSkip: true,
+              autoSkipPadding: 5,
               maxRotation: 90,
-              minRotation: 0
+              minRotation: 90
             }
           }]
         }
@@ -403,8 +373,8 @@ export class StatisticModalPage {
 
 
   setPolarChartExample() {
-    var ctx = document.getElementById("myChart");
-    var myChart = new Chart(ctx, {
+    const ctx = document.getElementById("myChart");
+    const myChart = new Chart(ctx, {
       responsive: true,
       type: 'polarArea',
       data: {
@@ -434,8 +404,8 @@ export class StatisticModalPage {
 
 
   setPieChartExample() {
-    var ctx = document.getElementById("myChart");
-    var myChart = new Chart(ctx, {
+    const ctx = document.getElementById("myChart");
+    const myChart = new Chart(ctx, {
       responsive: true,
       type: 'pie',
       data: {
@@ -565,7 +535,7 @@ export class StatisticModalPage {
       }
     }
     /////// UNIWERSALNE
-    this.requestService.postMethod(this.requestUrl + this.selectedTyped + this.chartTogether, this.requestData).subscribe(data => {
+    this.subscriptionOne = this.requestService.postMethod(this.requestUrl + this.selectedTyped + this.chartTogether, this.requestData).subscribe(data => {
       console.log(data, '?????');
       if (this.isTogether === true) {
         this.setMutliAxis(data.data, this.isTime)
@@ -641,7 +611,7 @@ export class StatisticModalPage {
       }
     }
     /////// UNIWERSALNE
-    this.requestService.postMethod(this.requestUrl + this.selectedTyped + this.chartTogether, this.requestData).subscribe(data => {
+    this.subscriptionTwo = this.requestService.postMethod(this.requestUrl + this.selectedTyped + this.chartTogether, this.requestData).subscribe(data => {
       console.log(data, '?????');
       if (this.isTogether === true) {
         this.setMutliAxis(data.data, this.isTime)
@@ -684,7 +654,7 @@ export class StatisticModalPage {
       }
     }
     /////// UNIWERSALNE
-    this.requestService.postMethod(this.requestUrl + this.selectedTyped + this.chartTogether, this.requestData).subscribe(data => {
+    this.subscriptionThree = this.requestService.postMethod(this.requestUrl + this.selectedTyped + this.chartTogether, this.requestData).subscribe(data => {
       console.log(data, '?????');
       if (this.isTogether === true) {
         this.setMutliAxis(data.data, this.isTime)
@@ -727,7 +697,7 @@ export class StatisticModalPage {
       }
     }
     /////// UNIWERSALNE
-    this.requestService.postMethod(this.requestUrl + this.selectedTyped + this.chartTogether, this.requestData).subscribe(data => {
+    this.subscriptionFour = this.requestService.postMethod(this.requestUrl + this.selectedTyped + this.chartTogether, this.requestData).subscribe(data => {
       console.log(data, '?????');
       if (this.isTogether === true) {
         this.setMutliAxis(data.data, this.isTime)
@@ -770,7 +740,7 @@ export class StatisticModalPage {
       }
     }
     /////// UNIWERSALNE
-    this.requestService.postMethod(this.requestUrl + this.selectedTyped + this.chartTogether, this.requestData).subscribe(data => {
+    this.subscriptionFive = this.requestService.postMethod(this.requestUrl + this.selectedTyped + this.chartTogether, this.requestData).subscribe(data => {
       console.log(data, '?????');
       if (this.isTogether === true) {
         this.setMutliAxis(data.data, this.isTime)
@@ -814,7 +784,7 @@ export class StatisticModalPage {
       }
     }
     /////// UNIWERSALNE
-    this.requestService.postMethod(this.requestUrl + this.selectedTyped + this.chartTogether, this.requestData).subscribe(data => {
+    this.subscriptionSix = this.requestService.postMethod(this.requestUrl + this.selectedTyped + this.chartTogether, this.requestData).subscribe(data => {
       console.log(data, '?????');
       if (this.isTogether === true) {
         this.setMutliAxis(data.data, this.isTime)

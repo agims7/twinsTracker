@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar color="background">
     <ion-title>
-      Karmienie piersią
+      {{ 'breast.breast' | translate }}
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -13,23 +13,23 @@
     <ion-row class="header">
       <ion-col class="logo-content">
         <div class="logo">
-          <p>Karmienie piersią</p>
+          <p>{{ 'breast.breast' | translate }}</p>
         </div>
       </ion-col>
       <ion-col class="choice-content">
         <div class="choice">
-          <p class="choice-title">Karmienie dzieci:</p>
+          <p class="choice-title">{{ 'breast.childrenFeeding' | translate }}:</p>
           <button ion-button [ngClass]="{'selected': together}" (click)="feedingOption()">
-            Razem
+            {{ 'breast.together' | translate }}
           </button>
           <button ion-button [ngClass]="{'selected': !together}" (click)="feedingOption()">
-            Osobno
+            {{ 'breast.separately' | translate }}
           </button>
         </div>
       </ion-col>
     </ion-row>
 
-    <h1 class="select-child">Wybierz dziecko:</h1>
+    <h1 class="select-child">{{ 'breast.chooseChild' | translate }}:</h1>
     <ion-row class="content">
       <ion-col *ngFor="let child of childrenService.children; let i = index">
         <div class="child-content">
@@ -41,10 +41,10 @@
             <ul>
               <li *ngFor="let breast of getChildBreast(child.id)">
                 <p>{{ timerService.toTime(breast.date) }}</p>
-                <p>Czas: {{ timerService.secondConvert(breast.time) }}
+                <p>{{ 'breast.time' | translate }}: {{ timerService.secondConvert(breast.time) }}
                   <span *ngIf="breast.comment"> - {{ breast.comment }}</span>
                 </p>
-                <ion-icon class="more" name="more" (tap)="moreActions('breast', breast)"></ion-icon>
+                <ion-icon class="settings" name="settings" (tap)="moreActions('breast', breast)"></ion-icon>
               </li>
             </ul>
           </div>

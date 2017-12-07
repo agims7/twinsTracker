@@ -3,9 +3,9 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
-import { BackgroundMode } from '@ionic-native/background-mode';
 import { Device } from '@ionic-native/device';
 import { Network } from '@ionic-native/network';
+import { TranslateService } from '@ngx-translate/core';
 
 import { NavController } from "ionic-angular";
 import { MenuController } from "ionic-angular";
@@ -21,6 +21,8 @@ import { TimerService } from "../services/timer";
 import { AuthService } from "../services/auth";
 import { RequestService } from "../services/request";
 
+import "rxjs/add/operator/share";
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -32,13 +34,16 @@ export class MyApp {
   changePasswordPage = ChangePasswordPage;
   addChildPage = AddChildPage;
   rootPage: any = LoginPage;
+  public languages: any = ['pl', 'en'];
+  public polishLanguages: boolean = true;
+  public flag: string = "assets/images/english.png";
   @ViewChild('nav') nav: NavController;
 
   constructor(
+    private translate: TranslateService,
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
-    public backgroundMode: BackgroundMode,
     public device: Device,
     public network: Network,
     public toastCtrl: ToastController,
@@ -55,39 +60,29 @@ export class MyApp {
       let connectSubscription = this.network.onConnect().subscribe(() => {
         this.openConnectionToast();
       });
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
-      this.backgroundMode.isEnabled();
-      
-      console.log(this.backgroundMode.isEnabled(), 'is enable??')
+      translate.setDefaultLang('pl');
       this.authentication();
-      this.platform.pause.subscribe(
-        ()=> {
-          // this.backgroundMode.enable();
-          // console.log('Pause');
-          // console.log(this.backgroundMode.isEnabled(), 'is enable??')
-          // setInterval(() => (console.log('testttttt', new Date())), 1000);
-          
-        }
-      );
-      this.platform.resume.subscribe( ()=>{
-        console.log('Resume');
-      })
+      this.clearLocalStorage();
       console.log('Device OS is: ' + this.device.platform + ' with version: ' + this.device.version + ' and with brand: ' + this.device.manufacturer);
+      console.log('Platform READY')
     });
   }
 
-  // checkNetworkConnection() {
-  //   let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
-  //     alert('network was disconnected :-(');
-  //     alert(this.network.type)
-  //   });
-  //   let connectSubscription = this.network.onConnect().subscribe(() => {
-  //     alert('network connected!');
-  //     alert(this.network.type)
-  //   });
-  // }
+  switchLanguage() {
+    this.polishLanguages = !this.polishLanguages;
+    let language;
+    if (this.polishLanguages) {
+      language = this.languages[0];
+      this.flag = "assets/images/english.png";
+    } else {
+      language = this.languages[1];
+      this.flag = "assets/images/polish.png";
+    }
+    this.translate.use(language);
+    this.translate.setDefaultLang(language);
+    console.log(this.translate.getDefaultLang())
+  }
 
   onLoad(page: any) {
     this.nav.setRoot(page);
@@ -157,4 +152,24 @@ export class MyApp {
     this.toastConnection.present();
   }
 
+  clearLocalStorage() {
+    this.storage.ready().then(() => {
+      for (let index = 0; index <= 1; index++) {
+        this.storage.remove(`sleepingTime[${index}]`).then(() => {
+          this.storage.remove(`sleepingStart[${index}]`).then(() => {
+          });
+        });
+        this.storage.remove(`breastFeedingTime[${index}]`).then(() => {
+          this.storage.remove(`breastFeedingStart[${index}]`).then(() => {
+          });
+        });
+        this.storage.remove(`bottleFeedingTime[${index}]`).then(() => {
+          this.storage.remove(`bottleFeedingStart[${index}]`).then(() => {
+          });
+        });
+      }
+    });
+  }
+
 }
+

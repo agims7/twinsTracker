@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { TranslateService } from '@ngx-translate/core';
 
 import { HomePage } from '../../pages/home/home';
 
 import { RequestService } from "../../services/request";
 import { ChildrenService } from '../../services/children';
 import { AuthService } from "../../services/auth";
+import { AppService } from '../../services/app';
 
+import { Subscription } from 'rxjs/Subscription';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
@@ -29,16 +32,26 @@ export class NewEventPage {
     months: ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień']
   };
   public time: string;
+
+  public subscriptionOne: Subscription;
+  public subscriptionTwo: Subscription;
   
   constructor(
+    private translate: TranslateService,
+    private appService: AppService,
     public navCtrl: NavController,
     public navParams: NavParams,
     public childrenService: ChildrenService,
     public requestService: RequestService,
     public authService: AuthService
   ) {
-    moment.locale('pl');
+    moment.locale(this.translate.getDefaultLang());
     this.createTable();
+  }
+
+  ionViewDidLeave() {
+    this.appService.safeUnsubscribe(this.subscriptionOne);
+    this.appService.safeUnsubscribe(this.subscriptionTwo);
   }
 
   ionViewDidEnter() {
@@ -74,7 +87,7 @@ export class NewEventPage {
               'description': this.description
             }
           }
-          this.requestService.postMethod('/timetable/', requestData).subscribe(data => {
+          this.subscriptionOne = this.requestService.postMethod('/timetable/', requestData).subscribe(data => {
             if (data.error === false) {
               console.log('Succes')
             } else {
@@ -94,7 +107,7 @@ export class NewEventPage {
             'description': this.description
           }
         }
-        this.requestService.postMethod('/timetable/', requestData).subscribe(data => {
+        this.subscriptionTwo = this.requestService.postMethod('/timetable/', requestData).subscribe(data => {
           if (data.error === false) {
             console.log('Succes')
           } else {

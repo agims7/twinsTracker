@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import { IonicPageModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ActivityPage } from "../pages/activity/activity";
@@ -30,6 +31,8 @@ import { EditActivityPage } from "../pages/edit-activity/edit-activity";
 
 import { LoaderComponent } from '../components/loader/loader';
 
+
+import { AppService } from '../services/app';
 import { TimerService } from '../services/timer';
 import { CategoriesService } from '../services/categories';
 import { ChildrenService } from '../services/children';
@@ -42,6 +45,10 @@ import { Camera } from '@ionic-native/camera';
 import { BackgroundMode } from '@ionic-native/background-mode';
 import { Device } from '@ionic-native/device';
 import { Network } from '@ionic-native/network';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -75,7 +82,14 @@ import { Network } from '@ionic-native/network';
     IonicModule.forRoot(MyApp),
     DatePickerModule,
     HttpClientModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -110,6 +124,7 @@ import { Network } from '@ionic-native/network';
     Device,
     Network,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
+    AppService,
     TimerService,
     CategoriesService,
     ChildrenService,

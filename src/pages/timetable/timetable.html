@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar color="background">
     <ion-title>
-      Terminarz
+      {{ 'timetable.timetable' | translate }}
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -12,7 +12,7 @@
   <ion-grid>
     <div>
       <button ion-button block class="add-button" (click)="addEvent()">
-        Nowy termin
+        {{ 'timetable.newTerm' | translate }}
         <ion-icon name="add"></ion-icon>
       </button>
 

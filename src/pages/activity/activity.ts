@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { TranslateService } from '@ngx-translate/core';
 
 import { ChildrenService } from '../../services/children';
 import { RequestService } from "../../services/request";
 import { AuthService } from '../../services/auth';
 import { TimerService } from "../../services/timer";
 import { CategoriesService } from "../../services/categories";
+import { AppService } from '../../services/app';
 
+import { Subscription } from 'rxjs/Subscription';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
@@ -20,11 +23,6 @@ export class ActivityPage {
   public choice: number = 0;
 
   public date: Date = moment()['_d'];
-  public object = {
-    monday: false,
-    weekdays: ['Niedz', 'Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob'],
-    months: ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień']
-  };
   public today: Date = moment()['_d'];
   public minDate: Date = moment().subtract(30, 'day')['_d'];
   public children = [];
@@ -33,8 +31,29 @@ export class ActivityPage {
   public emptyTable: boolean = false;
   public arrowFutureDisable: boolean = true;
   public diffDay: boolean = true;
+  public togetherText : any = {
+    pl: "Razem",
+    en: "Together"
+  };
+  public cancelText : any = {
+    pl: "Wróc",
+    en: "Cancel"
+  };
+
+  public subscriptionOne: Subscription;
+  public subscriptionTwo: Subscription;
+  public subscriptionThree: Subscription;
+  public subscriptionFour: Subscription;
+  public subscriptionFive: Subscription;
+  public subscriptionSix: Subscription;
+  public subscriptionSeven: Subscription;
+  public subscriptionEight: Subscription;
+  public subscriptionNine: Subscription;
+  public subscriptionTen: Subscription;
 
   constructor(
+    private translate: TranslateService,
+    private appService: AppService,
     public navCtrl: NavController,
     public navParams: NavParams,
     public requestService: RequestService,
@@ -43,8 +62,21 @@ export class ActivityPage {
     public timerService: TimerService,
     public categoriesService: CategoriesService
   ) {
-    moment.locale('pl');
+    moment.locale(this.translate.getDefaultLang());
     this.createTable();
+  }
+
+  ionViewDidLeave() {
+    this.appService.safeUnsubscribe(this.subscriptionOne);
+    this.appService.safeUnsubscribe(this.subscriptionTwo);
+    this.appService.safeUnsubscribe(this.subscriptionThree);
+    this.appService.safeUnsubscribe(this.subscriptionFour);
+    this.appService.safeUnsubscribe(this.subscriptionFive);
+    this.appService.safeUnsubscribe(this.subscriptionSix);
+    this.appService.safeUnsubscribe(this.subscriptionSeven);
+    this.appService.safeUnsubscribe(this.subscriptionEight);
+    this.appService.safeUnsubscribe(this.subscriptionNine);
+    this.appService.safeUnsubscribe(this.subscriptionTen);
   }
 
   ionViewDidEnter() {
@@ -62,7 +94,7 @@ export class ActivityPage {
 
   createTable() {
     this.choiceArray = _.clone(this.childrenService.children);
-    this.choiceArray.unshift({ name: "Razem" });
+    this.choiceArray.unshift({ name: this.togetherText[this.translate.getDefaultLang()] });
   }
 
   makeChoice(index) {
@@ -83,7 +115,7 @@ export class ActivityPage {
             'count': -(diff)
           }
         }
-        this.requestService.postMethod('/activity/child/day', requestData).subscribe(data => {
+        this.subscriptionOne = this.requestService.postMethod('/activity/child/day', requestData).subscribe(data => {
           if (data.error === false) {
             if (data.data.length > 0) {
               this.activityTable = data.data;
@@ -111,7 +143,7 @@ export class ActivityPage {
               'count': -(diff)
             }
           }
-          this.requestService.postMethod('/activity/childs/day', requestData).subscribe(data => {
+          this.subscriptionTwo = this.requestService.postMethod('/activity/childs/day', requestData).subscribe(data => {
             if (data.error === false) {
               if (data.data.length > 0) {
                 this.activityTable = data.data;
@@ -132,7 +164,7 @@ export class ActivityPage {
               'count': -(diff)
             }
           }
-          this.requestService.postMethod('/activity/child/day', requestData).subscribe(data => {
+          this.subscriptionThree = this.requestService.postMethod('/activity/child/day', requestData).subscribe(data => {
             if (data.error === false) {
               if (data.data.length > 0) {
                 this.activityTable = data.data;
@@ -187,7 +219,7 @@ export class ActivityPage {
           'count': -(diff)
         }
       }
-      this.requestService.postMethod('/activity/childs/day', requestData).subscribe(data => {
+      this.subscriptionFour = this.requestService.postMethod('/activity/childs/day', requestData).subscribe(data => {
         if (data.error === false) {
           if (data.data.length > 0) {
             this.activityTable = data.data;
@@ -208,7 +240,7 @@ export class ActivityPage {
           'count': -(diff)
         }
       }
-      this.requestService.postMethod('/activity/child/day', requestData).subscribe(data => {
+      this.subscriptionFive = this.requestService.postMethod('/activity/child/day', requestData).subscribe(data => {
         if (data.error === false) {
           if (data.data.length > 0) {
             this.activityTable = data.data;
@@ -248,7 +280,7 @@ export class ActivityPage {
           'id2': this.children[1]
         }
       }
-      this.requestService.postMethod('/activity/childs', requestData).subscribe(data => {
+      this.subscriptionSix = this.requestService.postMethod('/activity/childs', requestData).subscribe(data => {
         if (data.error === false) {
           if (data.data.length > 0) {
             this.activityTable = data.data;
@@ -265,7 +297,7 @@ export class ActivityPage {
         token: this.authService.userToken,
       }
       let id = this.children[0];
-      this.requestService.getMethod('/activity/child/' + id, requestData).subscribe(data => {
+      this.subscriptionSeven = this.requestService.getMethod('/activity/child/' + id, requestData).subscribe(data => {
         if (data.error === false) {
           if (data.data.length > 0) {
             this.activityTable = data.data;
@@ -287,7 +319,7 @@ export class ActivityPage {
       token: this.authService.userToken,
     }
     let id = child_id;
-    this.requestService.getMethod('/activity/child/' + id, requestData).subscribe(data => {
+    this.subscriptionEight = this.requestService.getMethod('/activity/child/' + id, requestData).subscribe(data => {
       if (data.error === false) {
         if (data.data.length > 0) {
           this.activityTable = data.data;
@@ -336,7 +368,7 @@ export class ActivityPage {
           'count': this.count
         }
       }
-      this.requestService.postMethod('/activity/childs/day', requestData).subscribe(data => {
+      this.subscriptionNine = this.requestService.postMethod('/activity/childs/day', requestData).subscribe(data => {
         if (data.error === false) {
           if (data.data.length > 0) {
             this.activityTable = data.data;
@@ -358,7 +390,7 @@ export class ActivityPage {
           'count': this.count
         }
       }
-      this.requestService.postMethod('/activity/child/day', requestData).subscribe(data => {
+      this.subscriptionTen = this.requestService.postMethod('/activity/child/day', requestData).subscribe(data => {
         if (data.error === false) {
           if (data.data.length > 0) {
             this.activityTable = data.data;
@@ -379,19 +411,19 @@ export class ActivityPage {
   getCategoryTitle(sourceCategory) {
     switch (sourceCategory) {
       case ('breast'): {
-        return this.categoriesService.categories[0].text;
+        return this.categoriesService.categories[0].text[this.translate.getDefaultLang()];
       }
       case ('bottle'): {
-        return this.categoriesService.categories[1].text;
+        return this.categoriesService.categories[1].text[this.translate.getDefaultLang()];
       }
       case ('diaper'): {
-        return this.categoriesService.categories[2].text;
+        return this.categoriesService.categories[2].text[this.translate.getDefaultLang()];
       }
       case ('medicine'): {
-        return this.categoriesService.categories[3].text;
+        return this.categoriesService.categories[3].text[this.translate.getDefaultLang()];
       }
       case ('sleep'): {
-        return this.categoriesService.categories[4].text;
+        return this.categoriesService.categories[4].text[this.translate.getDefaultLang()];
       }
     }
   }
@@ -419,19 +451,19 @@ export class ActivityPage {
   getActivityInfo(sourceCategory) {
     switch (sourceCategory) {
       case ('breast'): {
-        return this.categoriesService.categories[0].text;
+        return this.categoriesService.categories[0].text[this.translate.getDefaultLang()];
       }
       case ('bottle'): {
-        return this.categoriesService.categories[1].text;
+        return this.categoriesService.categories[1].text[this.translate.getDefaultLang()];
       }
       case ('diaper'): {
-        return this.categoriesService.categories[2].text;
+        return this.categoriesService.categories[2].text[this.translate.getDefaultLang()];
       }
       case ('medicine'): {
-        return this.categoriesService.categories[3].text;
+        return this.categoriesService.categories[3].text[this.translate.getDefaultLang()];
       }
       case ('sleep'): {
-        return this.categoriesService.categories[4].text;
+        return this.categoriesService.categories[4].text[this.translate.getDefaultLang()];
       }
     }
   }

@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { TranslateService } from '@ngx-translate/core';
 
 import { RequestService } from "../../services/request";
 import { ChildrenService } from '../../services/children';
 import { AuthService } from "../../services/auth";
+import { AppService } from '../../services/app';
 
+import { Subscription } from 'rxjs/Subscription';
 import * as moment from 'moment';
-
 
 @IonicPage()
 @Component({
@@ -35,7 +36,12 @@ export class EditActivityPage {
   public length: number;
   public weight: number;
 
+  public subscriptionOne: Subscription;
+  public subscriptionTwo: Subscription;
+
   constructor(
+    private translate: TranslateService,
+    private appService: AppService,
     public navCtrl: NavController,
     public navParams: NavParams,
     public childrenService: ChildrenService,
@@ -43,6 +49,11 @@ export class EditActivityPage {
     public authService: AuthService,
     public alertCtrl: AlertController
   ) {
+  }
+
+  ionViewDidLeave() {
+    this.appService.safeUnsubscribe(this.subscriptionOne);
+    this.appService.safeUnsubscribe(this.subscriptionTwo);
   }
 
   ionViewWillEnter() {
@@ -72,11 +83,10 @@ export class EditActivityPage {
         {
           text: 'Tak',
           handler: () => {
-            let options = {
-              headers: new HttpHeaders().set('x-access-token', this.authService.userToken),
-              params: new HttpParams().set('id', this.activityId).set('child_id', this.childId)
-            }
-            this.requestService.deleteMethod('/' + this.type + '/', options).subscribe(data => {
+            let requestData = {
+              token: this.authService.userToken
+            };
+            this.subscriptionOne = this.requestService.deleteMethod('/' + this.type + '/' + this.childId, requestData).subscribe(data => {
               console.log(data);
               if (data.error === false) {
                 console.log('Succes')
@@ -97,7 +107,7 @@ export class EditActivityPage {
 
   save() {
     let requestData = this.setRequestData();
-    this.requestService.putMethod('/' + this.type + '/', requestData).subscribe(data => {
+    this.subscriptionTwo = this.requestService.putMethod('/' + this.type + '/', requestData).subscribe(data => {
       if (data.error === false) {
         console.log('Succes')
       } else {

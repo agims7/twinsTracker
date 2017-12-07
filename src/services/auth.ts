@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
-
-import { HomePage } from "../pages//home/home";
-
 import { RequestService } from './request';
 
 @Injectable()
