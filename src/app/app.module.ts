@@ -31,7 +31,6 @@ import { EditActivityPage } from "../pages/edit-activity/edit-activity";
 
 import { LoaderComponent } from '../components/loader/loader';
 
-
 import { AppService } from '../services/app';
 import { TimerService } from '../services/timer';
 import { CategoriesService } from '../services/categories';

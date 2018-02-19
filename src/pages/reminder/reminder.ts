@@ -34,7 +34,7 @@ export class ReminderPage {
 
   remind() {
     this.loader = true;
-    let requestData = {
+    const requestData = {
       token: {},
       body: {
         'email': this.userEmail

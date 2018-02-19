@@ -54,12 +54,12 @@ export class SleepingPage {
   }
 
   getAllSleep() {
-    let requestData = {
+    const requestData = {
       token: this.authService.userToken
     }
     this.subscriptionOne = this.requestService.getMethod('/sleep/today/' , requestData).subscribe(data => {
       console.log(data, 'SLEEEP')
-      if (data.data.length > 0) {
+      if (data.data.length) {
         this.allData = data.data;
       } else {
         console.log('Brak danych')
@@ -73,7 +73,7 @@ export class SleepingPage {
   }
 
   setChildrenSleeps() {
-    for (var child of this.childrenService.children) {
+    for (const child of this.childrenService.children) {
       this.childrenIds.push(child.id)
     }
   }

@@ -29,14 +29,15 @@ import "rxjs/add/operator/share";
 export class MyApp {
   private toastConnection: any;
   private toastDisconnection: any;
-  homePage = HomePage;
-  childrenPage = ChildrenPage;
-  changePasswordPage = ChangePasswordPage;
-  addChildPage = AddChildPage;
-  rootPage: any = LoginPage;
+  public homePage = HomePage;
+  public childrenPage = ChildrenPage;
+  public changePasswordPage = ChangePasswordPage;
+  public addChildPage = AddChildPage;
+  public rootPage: any = LoginPage;
   public languages: any = ['pl', 'en'];
   public polishLanguages: boolean = true;
   public flag: string = "assets/images/english.png";
+
   @ViewChild('nav') nav: NavController;
 
   constructor(
@@ -54,24 +55,28 @@ export class MyApp {
     public requestService: RequestService
   ) {
     platform.ready().then(() => {
-      let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
+      this.network.onDisconnect().subscribe(() => {
         this.openDesconnectionToast();
       });
-      let connectSubscription = this.network.onConnect().subscribe(() => {
+
+      this.network.onConnect().subscribe(() => {
         this.openConnectionToast();
       });
+
       statusBar.styleDefault();
       translate.setDefaultLang('pl');
       this.authentication();
       this.clearLocalStorage();
+
       console.log('Device OS is: ' + this.device.platform + ' with version: ' + this.device.version + ' and with brand: ' + this.device.manufacturer);
       console.log('Platform READY')
     });
   }
 
-  switchLanguage() {
+  switchLanguage(): void {
     this.polishLanguages = !this.polishLanguages;
     let language;
+
     if (this.polishLanguages) {
       language = this.languages[0];
       this.flag = "assets/images/english.png";
@@ -79,24 +84,28 @@ export class MyApp {
       language = this.languages[1];
       this.flag = "assets/images/polish.png";
     }
+
     this.translate.use(language);
     this.translate.setDefaultLang(language);
     console.log(this.translate.getDefaultLang())
   }
 
-  onLoad(page: any) {
+  onLoad(page: any): void {
     this.nav.setRoot(page);
     this.menuCtrl.close();
   }
 
-  onLogout() {
+  onLogout(): void {
     this.storage.keys().then((data) => {
       let keys = data;
-      for (var key of keys) {
+
+      for (const key of keys) {
         this.storage.remove(key);
       }
+
       this.storage.keys()
     });
+
     this.authService.clear();
     this.menuCtrl.close();
     this.nav.setRoot(LoginPage);
@@ -107,13 +116,14 @@ export class MyApp {
       if (userToken == null || userToken == undefined) {
         return;
       } else {
-        let requestData = {
+        const requestData = {
           body: {
             'token': userToken
           }
         };
+
         this.requestService.authMethod('/other/authcheck', requestData).subscribe(data => {
-          if (data.error === false) {
+          if (!data.error) {
             this.authService.userName = data.name;
             this.authService.userToken = userToken;
             this.authService.userID = data.id;
@@ -130,7 +140,7 @@ export class MyApp {
     });
   }
 
-  openDesconnectionToast() {
+  openDesconnectionToast(): void {
     this.toastDisconnection = this.toastCtrl.create({
       message: 'Brak połączenia z internetem',
       duration: 3500,
@@ -141,7 +151,7 @@ export class MyApp {
     this.toastDisconnection.present();
   }
 
-  openConnectionToast() {
+  openConnectionToast(): void {
     this.toastConnection = this.toastCtrl.create({
       message: 'Połączono z internetem',
       duration: 2500,
@@ -152,17 +162,19 @@ export class MyApp {
     this.toastConnection.present();
   }
 
-  clearLocalStorage() {
+  clearLocalStorage(): void {
     this.storage.ready().then(() => {
       for (let index = 0; index <= 1; index++) {
         this.storage.remove(`sleepingTime[${index}]`).then(() => {
           this.storage.remove(`sleepingStart[${index}]`).then(() => {
           });
         });
+
         this.storage.remove(`breastFeedingTime[${index}]`).then(() => {
           this.storage.remove(`breastFeedingStart[${index}]`).then(() => {
           });
         });
+
         this.storage.remove(`bottleFeedingTime[${index}]`).then(() => {
           this.storage.remove(`bottleFeedingStart[${index}]`).then(() => {
           });
@@ -172,4 +184,3 @@ export class MyApp {
   }
 
 }
-

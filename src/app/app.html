@@ -1,39 +1,95 @@
-<ion-menu side="right" [content]="nav">
-    <ion-header>
-        <ion-toolbar>
-            <ion-title>Menu</ion-title>
-        </ion-toolbar>
-    </ion-header>
-    <ion-content>
-        <ion-list>
-            <button ion-item (tap)="onLoad(childrenPage)">
-                <ion-icon name="people" color="white" item-left></ion-icon>
-                {{ 'settings.children' | translate }}
-            </button>
-            <button ion-item (tap)="onLoad(addChildPage)">
-                <ion-icon name="person-add" color="white" item-left></ion-icon>
-                {{ 'settings.addChild' | translate }}
-            </button>
-            <button ion-item (tap)="onLoad(changePasswordPage)">
-                <ion-icon name="settings" color="white" item-left></ion-icon>
-                {{ 'settings.changePassword' | translate }}
-            </button>
-            <button ion-item icon-left (click)="onLogout()">
-                <ion-icon name="log-out" color="white" item-left></ion-icon>
-                {{ 'settings.logout' | translate }}
-            </button>
-            <button ion-item icon-left (click)="switchLanguage()">
-                <img class="flag" [src]="flag" item-left> {{ 'settings.language' | translate }}
-            </button>
+<ion-menu
+  [content]="nav"
+  side="right"
+>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <button 
+        (tap)="onLoad(childrenPage)"
+        ion-item
+      >
+        <ion-icon
+          color="white"
+          item-left
+          name="people"
+        ></ion-icon>
+        {{ 'settings.children' | translate }}
+      </button>
+      <button 
+        (tap)="onLoad(addChildPage)"
+        ion-item 
+      >
+        <ion-icon 
+          color="white" 
+          item-left
+          name="person-add" 
+        ></ion-icon>
+        {{ 'settings.addChild' | translate }}
+      </button>
+      <button 
+        (tap)="onLoad(changePasswordPage)"
+        ion-item 
+      >
+        <ion-icon 
+          color="white" 
+          item-left
+          name="settings" 
+        ></ion-icon>
+        {{ 'settings.changePassword' | translate }}
+      </button>
+      <button 
+        (click)="onLogout()"
+        icon-left 
+        ion-item 
+      >
+        <ion-icon 
+          color="white" 
+          item-left
+          name="log-out" 
+        ></ion-icon>
+        {{ 'settings.logout' | translate }}
+      </button>
+      <button 
+        (click)="switchLanguage()"
+        icon-left
+        ion-item
+      >
+        <img 
+          [src]="flag" 
+          class="flag" 
+          item-left
+        >
+          {{ 'settings.language' | translate }}
+      </button>
 
-            <p class="username">{{ authService.userName }}</p>
-            <div class="version">
-                <span class="version-title">{{ 'settings.version' | translate }}:</span>
-                <span *ngIf="authService.premium == 0" class="version-type light">Light</span>
-                <span *ngIf="authService.premium == 1" class="version-type premium">Premium</span>
-            </div>
-        </ion-list>
-    </ion-content>
+      <p class="username">
+        {{ authService.userName }}
+      </p>
+      <div class="version">
+        <span class="version-title">{{ 'settings.version' | translate }}:</span>
+        <span 
+          *ngIf="authService.premium == 0" 
+          class="version-type light"
+        >
+          Light
+        </span>
+        <span 
+          *ngIf="authService.premium == 1" 
+          class="version-type premium"
+        >
+          Premium
+        </span>
+      </div>
+    </ion-list>
+  </ion-content>
 </ion-menu>
 
-<ion-nav [root]="rootPage" #nav></ion-nav>
+<ion-nav 
+  #nav
+  [root]="rootPage"
+ ></ion-nav>

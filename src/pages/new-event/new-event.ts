@@ -77,8 +77,8 @@ export class NewEventPage {
     this.loader = true;
       let date = moment(this.date).format('YYYY-MM-DD');
       if (this.kid == 'Razem') {
-        for (var child of this.childrenService.children) {
-          let requestData = {
+        for (const child of this.childrenService.children) {
+          const requestData = {
             token: this.authService.userToken,
             body: {
               'child_id': child.id,
@@ -88,7 +88,7 @@ export class NewEventPage {
             }
           }
           this.subscriptionOne = this.requestService.postMethod('/timetable/', requestData).subscribe(data => {
-            if (data.error === false) {
+            if (!data.error) {
               console.log('Succes')
             } else {
               console.log('Error')
@@ -98,7 +98,7 @@ export class NewEventPage {
           });
         }
       } else {
-        let requestData = {
+        const requestData = {
           token: this.authService.userToken,
           body: {
             'child_id': this.kid,
@@ -108,7 +108,7 @@ export class NewEventPage {
           }
         }
         this.subscriptionTwo = this.requestService.postMethod('/timetable/', requestData).subscribe(data => {
-          if (data.error === false) {
+          if (!data.error) {
             console.log('Succes')
           } else {
             console.log('Error')

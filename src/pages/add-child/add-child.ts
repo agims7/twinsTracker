@@ -21,7 +21,7 @@ import * as moment from 'moment';
 export class AddChildPage {
   public loader: boolean = true;
   public date: Date = moment()['_d'];
-  public object = {
+  public object: any = {
     monday: false,
     weekdays: ['Niedz', 'Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob'],
     months: ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień']
@@ -44,21 +44,22 @@ export class AddChildPage {
   ) {
   }
 
-  ionViewDidLeave() {
+  ionViewDidLeave(): void {
     this.appService.safeUnsubscribe(this.subscriptionOne);
   }
 
-  ionViewWillEnter() {
-    if (this.childrenService.children.length > 1) {
+  ionViewWillEnter(): void {
+    if (1 < this.childrenService.children.length) {
       this.newChildBlock = true;
     } else {
       this.newChildBlock = false;
     }
+
     this.imageTaken = false;
     this.loader = false;
   }
 
-  setPicture() {
+  setPicture(): void {
     console.log('setpicture')
     const options: CameraOptions = {
       quality: 100,
@@ -70,16 +71,19 @@ export class AddChildPage {
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
-    }
-    this.camera.getPicture(options).then((imageData) => {
+    };
+
+    this.camera.getPicture(options).then(
+      (imageData: any) => {
       this.image = 'data:image/jpeg;base64,' + imageData;
       this.imageTaken = true;
-    }, (err) => {
+      },
+      (err) => {
       console.log('error');
     });
   }
 
-  takePicture() {
+  takePicture(): void {
     console.log('takepicture')
     const options: CameraOptions = {
       quality: 100,
@@ -93,18 +97,20 @@ export class AddChildPage {
       sourceType: this.camera.PictureSourceType.CAMERA,
     }
 
-    this.camera.getPicture(options).then((imageData) => {
+    this.camera.getPicture(options).then(
+      (imageData: any) => {
       this.image = 'data:image/jpeg;base64,' + imageData;
       this.imageTaken = true;
-    }, (err) => {
+      },
+      (err) => {
       console.log('error');
     });
   }
 
-  addChild(form: NgForm) {
+  addChild(form: NgForm): void {
     this.loader = true;
-    let date = moment(this.date).format('YYYY-MM-DD HH:mm:ss');
-    let requestData = {
+    const date = moment(this.date).format('YYYY-MM-DD HH:mm:ss');
+    const requestData = {
       token: this.authService.userToken,
       body: {
         'parrent_id': this.authService.userID,
@@ -114,18 +120,21 @@ export class AddChildPage {
         'dateofbirth': date,
         'photo': this.image
       }
-    }
+    };
+
     this.subscriptionOne = this.requestService.postMethod('/children/', requestData).subscribe(data => {
-      if (data.error === false) {
+      if (!data.error) {
         console.log('Succes')
         this.timerService.breastFeeding.push({
           running: false,
           time: 0,
         });
+
         this.timerService.bottleFeeding.push({
           running: false,
           time: 0,
         });
+
         this.timerService.sleeping.push({
           running: false,
           time: 0
@@ -133,20 +142,21 @@ export class AddChildPage {
       } else {
         console.log('Error')
       }
+
       this.loader = false;
       this.navCtrl.setRoot(HomePage);
     });
   }
 
-  setDate(date: Date) {
+  setDate(date: Date): void {
     this.date = date;
   }
 
-  showTime(time) {
+  showTime(time: any): any {
     return moment(time).format('DD.MM.YYYY');
   }
 
-  goBack() {
+  goBack(): void {
     this.navCtrl.setRoot(HomePage);
   }
 

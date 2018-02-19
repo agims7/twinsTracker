@@ -4,17 +4,17 @@ import * as _ from 'lodash';
 
 @Injectable()
 export class ChildrenService {
-    public children: any = [];
+    public children: any[] = [];
 
     constructor(
     ) { }
 
-    getChildNameFromId(id) {
+    getChildNameFromId(id: number): string {
         let childIndex = _.findIndex(this.children, { 'id': id });
         return this.children[childIndex].name;
     }
 
-    getChildPhotoFromId(id) {
+    getChildPhotoFromId(id: number): string {
         let childIndex = _.findIndex(this.children, { 'id': id });
         if (this.children[childIndex].photo) {
             let photo = this.children[childIndex].photo;

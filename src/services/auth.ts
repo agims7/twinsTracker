@@ -16,7 +16,7 @@ export class AuthService {
     public requestService: RequestService
   ) { }
 
-  clear() {
+  clear(): void {
     this.premium = false;
     this.userName = null;
     this.userToken = null;
@@ -25,7 +25,7 @@ export class AuthService {
     this.userID = null;
   }
 
-  setKeys(premium, name, token, email, id) {
+  setKeys(premium, name, token, email, id): void {
     this.storage.ready().then(() => {
       this.premium = premium;
       this.userName = name;
@@ -40,7 +40,7 @@ export class AuthService {
     });
   }
 
-  getKeys() {
+  getKeys(): any {
     let userData = {
       "premium": '',
       "name": '',
@@ -65,5 +65,5 @@ export class AuthService {
     });
     return userData;
   }
-  
+
 }

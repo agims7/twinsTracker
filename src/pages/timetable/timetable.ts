@@ -72,7 +72,7 @@ export class TimetablePage {
   }
 
   getAllData() {
-    let requestData = {
+    const requestData = {
       token: this.authService.userToken,
       body: {}
     };
@@ -90,7 +90,7 @@ export class TimetablePage {
       };
     }
     this.subscriptionOne = this.requestService.postMethod('/timetable/' + this.url, requestData).subscribe(data => {
-      if (data.error === false) {
+      if (!data.error) {
         this.mainData = data.data;
         this.events = _.clone(this.mainData);
         this.eventsDates = this.events.map(item => item.date.slice(0, -14)).filter((value, index, self) => self.indexOf(value) === index);
@@ -117,13 +117,13 @@ export class TimetablePage {
 
   makeChoice(id) {
     this.loader = true;
-    let requestData = {
+    const requestData = {
       token: this.authService.userToken,
     }
     if (this.choiceArray[id].id) {
       let childId = this.choiceArray[id].id
       this.subscriptionTwo = this.requestService.getMethod('/timetable/child/' + childId, requestData).subscribe(data => {
-        if (data.error === false) {
+        if (!data.error) {
           this.mainData = data.data;
           this.events = _.clone(this.mainData);
           this.eventsDates = this.events.map(item => item.date.slice(0, -14)).filter((value, index, self) => self.indexOf(value) === index);
@@ -133,7 +133,7 @@ export class TimetablePage {
       });
     } else {
       this.subscriptionThree = this.requestService.getMethod('/timetable/', requestData).subscribe(data => {
-        if (data.error === false) {
+        if (!data.error) {
           this.mainData = data.data;
           this.events = _.clone(this.mainData);
           this.eventsDates = this.events.map(item => item.date.slice(0, -14)).filter((value, index, self) => self.indexOf(value) === index);

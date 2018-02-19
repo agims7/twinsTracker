@@ -42,7 +42,7 @@ export class ChangePasswordPage {
     this.loader = true;
     if (this.newPassword === this.newPasswordRewritten) {
       this.passwordMatch = true;
-      let requestData = {
+      const requestData = {
         token: this.authService.userToken,
         body: {
           'id': this.authService.userID,

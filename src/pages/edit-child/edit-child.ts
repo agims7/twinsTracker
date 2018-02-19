@@ -120,7 +120,7 @@ export class EditChildPage {
 
   editChild(form: NgForm) {
     this.loader = true;
-    let requestData = {
+    const requestData = {
       token: this.authService.userToken,
       body: {
         'name': this.name,
@@ -132,7 +132,7 @@ export class EditChildPage {
       }
     }
     this.subscriptionOne = this.requestService.putMethod('/children/', requestData).subscribe(data => {
-      if (data.error === false) {
+      if (!data.error) {
         console.log('Succes')
       } else {
         console.log('Error')

@@ -43,14 +43,14 @@ export class LoginPage {
   }
 
   loginUser() {
-    let requestData = {
+    const requestData = {
       body: {
         'email': this.authService.userEmail,
         'password': this.authService.userPassword
       }
     }
     this.subscriptionOne = this.requestService.authMethod('/other/auth', requestData).subscribe(data => {
-      if (data.error === false) {
+      if (!data.error) {
         this.authService.premium = data.user.premium;
         this.authService.userName = data.user.name;
         this.authService.userToken = data.token;

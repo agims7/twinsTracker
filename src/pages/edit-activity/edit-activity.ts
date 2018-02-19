@@ -83,12 +83,12 @@ export class EditActivityPage {
         {
           text: 'Tak',
           handler: () => {
-            let requestData = {
+            const requestData = {
               token: this.authService.userToken
             };
             this.subscriptionOne = this.requestService.deleteMethod('/' + this.type + '/' + this.childId, requestData).subscribe(data => {
               console.log(data);
-              if (data.error === false) {
+              if (!data.error) {
                 console.log('Succes')
                 this.loader = false;
                 this.navCtrl.pop();
@@ -106,9 +106,9 @@ export class EditActivityPage {
   }
 
   save() {
-    let requestData = this.setRequestData();
+    const requestData = this.setRequestData();
     this.subscriptionTwo = this.requestService.putMethod('/' + this.type + '/', requestData).subscribe(data => {
-      if (data.error === false) {
+      if (!data.error) {
         console.log('Succes')
       } else {
         console.log('Error')

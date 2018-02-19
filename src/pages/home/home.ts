@@ -68,13 +68,13 @@ export class HomePage {
 
   getKids() {
     this.childrenService.children = [];
-    let requestData = {
+    const requestData = {
       token: this.authService.userToken
     }
     this.subscriptionOne = this.requestService.getMethod('/children/parrent/' + this.authService.userID, requestData).subscribe(data => {
       let kids = data.data;
       if (data.data) {
-        for (var child of kids) {
+        for (const child of kids) {
           this.childrenService.children.push(child);
         }
         this.loader = false;

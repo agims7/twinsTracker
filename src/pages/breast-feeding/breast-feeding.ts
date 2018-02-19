@@ -54,11 +54,11 @@ export class BreastFeedingPage {
   }
 
   getAllBreast() {
-    let requestData = {
+    const requestData = {
       token: this.authService.userToken
     }
     this.subscriptionOne = this.requestService.getMethod('/breast/today/', requestData).subscribe(data => {
-      if (data.data.length > 0) {
+      if (data.data.length) {
         this.allData = data.data;
         console.log(data.data)
       } else {
@@ -74,7 +74,7 @@ export class BreastFeedingPage {
 
 
   setChildrenBreasts() {
-    for (var child of this.childrenService.children) {
+    for (const child of this.childrenService.children) {
       this.childrenIds.push(child.id)
     }
   }

@@ -56,11 +56,11 @@ export class ChildrenPage {
 
   remove(id, index) {
     this.loader = true;
-    let requestData = {
+    const requestData = {
       token: this.authService.userToken
     };
     this.subscriptionOne = this.requestService.deleteMethod('/children/' + id, requestData).subscribe(data => {
-      if (data.error === false) {
+      if (!data.error) {
         console.log('Succes')
         this.timerService.breastFeeding.splice(index, 1);
         this.timerService.bottleFeeding.splice(index, 1);
@@ -82,13 +82,13 @@ export class ChildrenPage {
   updateKids() {
     this.loader = true;
     this.childrenService.children = [];
-    let requestData = {
+    const requestData = {
       token: this.authService.userToken
     }
     this.subscriptionTwo = this.requestService.getMethod('/children/parrent/' + this.authService.userID, requestData).subscribe(data => {
       let kids = data.data;
       if (data.data) {
-        for (var child of kids) {
+        for (const child of kids) {
           this.childrenService.children.push(child);
         }
       }

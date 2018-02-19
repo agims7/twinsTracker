@@ -19,23 +19,22 @@ import * as _ from 'lodash';
 })
 export class ActivityPage {
   public loader: boolean = true;
-  public choiceArray: any = [];
+  public choiceArray: any[] = [];
   public choice: number = 0;
-
   public date: Date = moment()['_d'];
   public today: Date = moment()['_d'];
   public minDate: Date = moment().subtract(30, 'day')['_d'];
-  public children = [];
-  public activityTable = [];
+  public children: any[] = [];
+  public activityTable: any[] = [];
   public count: number = 0;
   public emptyTable: boolean = false;
   public arrowFutureDisable: boolean = true;
   public diffDay: boolean = true;
-  public togetherText : any = {
+  public togetherText: any = {
     pl: "Razem",
     en: "Together"
   };
-  public cancelText : any = {
+  public cancelText: any = {
     pl: "Wróc",
     en: "Cancel"
   };
@@ -66,7 +65,7 @@ export class ActivityPage {
     this.createTable();
   }
 
-  ionViewDidLeave() {
+  ionViewDidLeave(): void {
     this.appService.safeUnsubscribe(this.subscriptionOne);
     this.appService.safeUnsubscribe(this.subscriptionTwo);
     this.appService.safeUnsubscribe(this.subscriptionThree);
@@ -79,7 +78,7 @@ export class ActivityPage {
     this.appService.safeUnsubscribe(this.subscriptionTen);
   }
 
-  ionViewDidEnter() {
+  ionViewDidEnter(): void {
     this.clear();
     this.showTime(this.date);
     this.children = [];
@@ -87,37 +86,39 @@ export class ActivityPage {
     this.getChildActivity();
   }
 
-  clear() {
+  clear(): void {
     this.count = 0;
     this.loader = true;
   }
 
-  createTable() {
+  createTable(): void {
     this.choiceArray = _.clone(this.childrenService.children);
     this.choiceArray.unshift({ name: this.togetherText[this.translate.getDefaultLang()] });
   }
 
-  makeChoice(index) {
+  makeChoice(index: number): void {
     this.choice = index;
-    let child_id = this.choiceArray[this.choice].id;
+    const child_id = this.choiceArray[this.choice].id;
     this.checkDates();
+
     if (child_id) {
       if (!this.diffDay) {
         this.getSingleChildActivity(child_id);
       } else {
-        let diff = moment().diff(this.date, 'days');
+        const diff = moment().diff(this.date, 'days');
         this.date = moment().subtract(diff, 'day')['_d'];
-        let id = child_id;
-        let requestData = {
+        const id = child_id;
+        const requestData = {
           token: this.authService.userToken,
           body: {
             'id': id,
             'count': -(diff)
           }
-        }
+        };
+
         this.subscriptionOne = this.requestService.postMethod('/activity/child/day', requestData).subscribe(data => {
-          if (data.error === false) {
-            if (data.data.length > 0) {
+          if (!data.error) {
+            if (data.data.length) {
               this.activityTable = data.data;
               this.emptyTable = false;
             } else {
@@ -131,21 +132,22 @@ export class ActivityPage {
       if (!this.diffDay) {
         this.getChildActivity()
       } else {
-        let diff = moment().diff(this.date, 'days');
+        const diff = moment().diff(this.date, 'days');
         this.date = moment().subtract(diff, 'day')['_d'];
 
-        if (this.children.length > 1) {
-          let requestData = {
+        if (1 < this.children.length ) {
+          const requestData = {
             token: this.authService.userToken,
             body: {
               'id1': this.children[0],
               'id2': this.children[1],
               'count': -(diff)
             }
-          }
+          };
+
           this.subscriptionTwo = this.requestService.postMethod('/activity/childs/day', requestData).subscribe(data => {
-            if (data.error === false) {
-              if (data.data.length > 0) {
+            if (!data.error) {
+              if (data.data.length) {
                 this.activityTable = data.data;
                 this.emptyTable = false;
               } else {
@@ -155,9 +157,9 @@ export class ActivityPage {
             }
           });
         }
-        else if (this.children.length === 1) {
+        else if (1 === this.children.length) {
           let id = this.children[0];
-          let requestData = {
+          const requestData = {
             token: this.authService.userToken,
             body: {
               'id': id,
@@ -165,8 +167,8 @@ export class ActivityPage {
             }
           }
           this.subscriptionThree = this.requestService.postMethod('/activity/child/day', requestData).subscribe(data => {
-            if (data.error === false) {
-              if (data.data.length > 0) {
+            if (!data.error) {
+              if (data.data.length) {
                 this.activityTable = data.data;
                 this.emptyTable = false;
               } else {
@@ -206,12 +208,12 @@ export class ActivityPage {
       return true;
     }
     this.children = [];
-    for (var child of this.childrenService.children) {
+    for (const child of this.childrenService.children) {
       this.children.push(child.id)
     }
 
-    if (this.children.length > 1) {
-      let requestData = {
+    if (1 < this.children.length ) {
+      const requestData = {
         token: this.authService.userToken,
         body: {
           'id1': this.children[0],
@@ -220,8 +222,8 @@ export class ActivityPage {
         }
       }
       this.subscriptionFour = this.requestService.postMethod('/activity/childs/day', requestData).subscribe(data => {
-        if (data.error === false) {
-          if (data.data.length > 0) {
+        if (!data.error) {
+          if (data.data.length) {
             this.activityTable = data.data;
             this.emptyTable = false;
           } else {
@@ -231,18 +233,19 @@ export class ActivityPage {
         }
       });
     }
-    else if (this.children.length === 1) {
-      let id = this.children[0];
-      let requestData = {
+    else if (1 === this.children.length) {
+      const id = this.children[0];
+      const requestData = {
         token: this.authService.userToken,
         body: {
           'id': id,
           'count': -(diff)
         }
-      }
+      };
+
       this.subscriptionFive = this.requestService.postMethod('/activity/child/day', requestData).subscribe(data => {
-        if (data.error === false) {
-          if (data.data.length > 0) {
+        if (!data.error) {
+          if (data.data.length) {
             this.activityTable = data.data;
             this.emptyTable = false;
           } else {
@@ -254,35 +257,39 @@ export class ActivityPage {
     } else {
       this.emptyTable = true;
     }
+
     this.checkDates();
   }
 
-  showTime(time) {
+  showTime(time: any): any {
     return moment(time).format('dddd DD.MM');
   }
 
-  showDayTime(time) {
+  showDayTime(time: any): any {
     return moment(time).format('HH:mm');
   }
 
-  getChildActivity() {
+  getChildActivity(): void {
     this.loader = true;
     this.date = moment()['_d'];
     this.children = [];
-    for (var child of this.childrenService.children) {
+
+    for (const child of this.childrenService.children) {
       this.children.push(child.id)
     }
-    if (this.children.length > 1) {
-      let requestData = {
+
+    if (1 < this.children.length ) {
+      const requestData = {
         token: this.authService.userToken,
         body: {
           'id1': this.children[0],
           'id2': this.children[1]
         }
-      }
+      };
+
       this.subscriptionSix = this.requestService.postMethod('/activity/childs', requestData).subscribe(data => {
-        if (data.error === false) {
-          if (data.data.length > 0) {
+        if (!data.error) {
+          if (data.data.length) {
             this.activityTable = data.data;
             this.emptyTable = false;
           } else {
@@ -290,16 +297,18 @@ export class ActivityPage {
             this.activityTable = [];
           }
         }
+
         this.loader = false;
       });
-    } else if (this.children.length === 1) {
-      let requestData = {
+    } else if (1 === this.children.length) {
+      const requestData = {
         token: this.authService.userToken,
-      }
-      let id = this.children[0];
+      };
+      const id = this.children[0];
+
       this.subscriptionSeven = this.requestService.getMethod('/activity/child/' + id, requestData).subscribe(data => {
-        if (data.error === false) {
-          if (data.data.length > 0) {
+        if (!data.error) {
+          if (data.data.length) {
             this.activityTable = data.data;
             this.emptyTable = false;
           } else {
@@ -307,21 +316,24 @@ export class ActivityPage {
             this.activityTable = [];
           }
         }
+
         this.loader = false;
       });
     }
+
     this.checkDates();
   }
 
-  getSingleChildActivity(child_id) {
+  getSingleChildActivity(child_id: number): void {
     this.loader = true;
-    let requestData = {
+    const requestData = {
       token: this.authService.userToken,
-    }
-    let id = child_id;
+    };
+    const id = child_id;
+
     this.subscriptionEight = this.requestService.getMethod('/activity/child/' + id, requestData).subscribe(data => {
-      if (data.error === false) {
-        if (data.data.length > 0) {
+      if (!data.error) {
+        if (data.data.length) {
           this.activityTable = data.data;
           this.emptyTable = false;
         } else {
@@ -329,48 +341,55 @@ export class ActivityPage {
           this.activityTable = [];
         }
       }
+
       this.loader = false;
     });
+
     this.checkDates();
   }
 
-  getDifferentDayChildActivity(sign) {
+  getDifferentDayChildActivity(sign: string): any {
     this.loader = true;
-    let diff = moment().diff(this.date, 'days');
-    if (diff !== 0) {
+    const diff = moment().diff(this.date, 'days');
+
+    if (0 !== diff) {
       this.count = -(diff);
     }
-    if (sign === '-') {
+
+    if ('-' === sign) {
       this.count--;
-      if (this.count === 0) {
+
+      if (0 === this.count) {
         this.getChildActivity();
         this.date = moment()['_d'];
         return true;
       }
-    } else if (sign === '+') {
+    } else if ('+' === sign) {
       this.count++;
-      if (this.count === 0) {
+
+      if (0 === this.count) {
         this.getChildActivity();
         this.date = moment()['_d'];
         return true;
       }
     }
-      let date = moment().subtract(-(this.count), 'day')['_d'];
-      this.date = date;
-    
 
-    if (this.children.length > 1) {
-      let requestData = {
+    const date = moment().subtract(-(this.count), 'day')['_d'];
+    this.date = date;
+
+    if (1 < this.children.length) {
+      const requestData = {
         token: this.authService.userToken,
         body: {
           'id1': this.children[0],
           'id2': this.children[1],
           'count': this.count
         }
-      }
+      };
+
       this.subscriptionNine = this.requestService.postMethod('/activity/childs/day', requestData).subscribe(data => {
-        if (data.error === false) {
-          if (data.data.length > 0) {
+        if (!data.error) {
+          if (data.data.length) {
             this.activityTable = data.data;
             this.emptyTable = false;
           } else {
@@ -378,21 +397,23 @@ export class ActivityPage {
             this.activityTable = [];
           }
         }
+
         this.loader = false;
       });
     }
-    else if (this.children.length === 1) {
-      let id = this.children[0];
-      let requestData = {
+    else if (1 === this.children.length) {
+      const id = this.children[0];
+      const requestData = {
         token: this.authService.userToken,
         body: {
           'id': id,
           'count': this.count
         }
-      }
+      };
+
       this.subscriptionTen = this.requestService.postMethod('/activity/child/day', requestData).subscribe(data => {
-        if (data.error === false) {
-          if (data.data.length > 0) {
+        if (!data.error) {
+          if (data.data.length) {
             this.activityTable = data.data;
             this.emptyTable = false;
           } else {
@@ -400,15 +421,17 @@ export class ActivityPage {
             this.activityTable = [];
           }
         }
+
         this.loader = false;
       });
     } else {
       this.emptyTable = true;
     }
+
     this.checkDates();
   }
 
-  getCategoryTitle(sourceCategory) {
+  getCategoryTitle(sourceCategory: string): string {
     switch (sourceCategory) {
       case ('breast'): {
         return this.categoriesService.categories[0].text[this.translate.getDefaultLang()];
@@ -428,7 +451,7 @@ export class ActivityPage {
     }
   }
 
-  getCategoryColor(sourceCategory) {
+  getCategoryColor(sourceCategory: string): string {
     switch (sourceCategory) {
       case ('breast'): {
         return this.categoriesService.categories[0].color;
@@ -448,7 +471,7 @@ export class ActivityPage {
     }
   }
 
-  getActivityInfo(sourceCategory) {
+  getActivityInfo(sourceCategory: string): string {
     switch (sourceCategory) {
       case ('breast'): {
         return this.categoriesService.categories[0].text[this.translate.getDefaultLang()];
@@ -468,7 +491,7 @@ export class ActivityPage {
     }
   }
 
-  getBreast(side_id) {
+  getBreast(side_id: number): string {
     switch (side_id) {
       case (1): {
         return "lewa";
@@ -479,7 +502,7 @@ export class ActivityPage {
     }
   }
 
-  getDiaper(type_id) {
+  getDiaper(type_id: number): string {
     switch (type_id) {
       case (1): {
         return "kupka";

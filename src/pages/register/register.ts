@@ -41,7 +41,7 @@ export class RegisterPage {
 
   register() {
     this.loader = true;
-    let requestData = {
+    const requestData = {
       body: {
         'name': this.name,
         'email': this.email,
@@ -50,7 +50,7 @@ export class RegisterPage {
     };
     this.subscriptionOne = this.requestService.authMethod('/other/new', requestData).subscribe(data => {
       console.log('Zarejestrowano', data)
-      if (data.error === false) {
+      if (!data.error) {
         this.goBack();
       } else {
         

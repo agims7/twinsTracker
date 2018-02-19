@@ -4,7 +4,6 @@ import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angu
 import { ModalPage } from '../modal/modal';
 import { EditActivityPage } from '../edit-activity/edit-activity';
 
-
 import { ChildrenService } from '../../services/children';
 import { RequestService } from "../../services/request";
 import { TimerService } from "../../services/timer";
@@ -40,60 +39,62 @@ export class BottleFeedingPage {
   ) {
   }
 
-  ionViewDidLeave() {
+  ionViewDidLeave(): void {
     this.appService.safeUnsubscribe(this.subscriptionOne);
   }
 
-  ionViewDidEnter() {
+  ionViewDidEnter(): void {
     this.cleraAll();
     this.setChildrenBottles();
     this.getAllBreast();
   }
 
-  cleraAll() {
+  cleraAll(): void {
     this.childrenBottles = [];
     this.childrenIds = [];
     this.loader = true;
   }
 
   getAllBreast() {
-    let requestData = {
+    const requestData = {
       token: this.authService.userToken
-    }
+    };
+
     this.subscriptionOne = this.requestService.getMethod('/bottle/today/' , requestData).subscribe(data => {
-      if (data.data.length > 0) {
+      if (data.data.length) {
         this.allData = data.data;
       } else {
         console.log('Brak danych')
       }
+
       this.loader = false;
     });
   }
 
-  getChildBottles(id) {
+  getChildBottles(id: number): any {
     return _.filter(this.allData, { 'child_id': id });
   }
 
-  setChildrenBottles() {
-    for (var child of this.childrenService.children) {
+  setChildrenBottles(): void {
+    for (const child of this.childrenService.children) {
       this.childrenIds.push(child.id)
     }
   }
 
-  feedingOption() {
+  feedingOption(): void {
     this.together  = this.together ? false : true;
   }
 
-  openModal(index) {
+  openModal(index: number): void {
     this.navCtrl.push(ModalPage, {"category": "bottleFeeding", "text": "Karmienie butelką", "together": this.together, "child": index });
   }
 
-  toTime(date) {
-    let newDate = new Date(date)
+  toTime(date: any): any {
+    const newDate = new Date(date)
     return moment(newDate).format('HH:mm');
   }
 
-  moreActions(type, data) {
+  moreActions(type: any, data: any): void {
     this.navCtrl.push(EditActivityPage, {
       'type': type,
       'data': data

@@ -321,12 +321,12 @@ export class ModalPage {
       case (0): {
         if (this.paramData.together) {
           let count = 0;
-          for (var child of this.childrenService.children) {
+          for (const child of this.childrenService.children) {
             console.log('petla start ', count)
             let childID = child.id;
             let sideID = this.getBreastSide(this.breastSide[count]);
             let time = this.getTime(count);
-            let requestData = {
+            const requestData = {
               token: this.authService.userToken,
               body: {
                 'child_id': childID,
@@ -336,7 +336,7 @@ export class ModalPage {
               }
             }
             this.subscriptionOne = this.requestService.postMethod('/breast/', requestData).subscribe(data => {
-              if (data.error === false) {
+              if (!data.error) {
                 console.log('Succes')
               } else {
                 console.log('Error')
@@ -352,7 +352,7 @@ export class ModalPage {
           let childID = this.childrenService.children[this.childSelectedIndex].id;
           let sideID = this.getBreastSide(this.breastSide[this.childSelectedIndex]);
           let time = this.getTime(this.childSelectedIndex);
-          let requestData = {
+          const requestData = {
             token: this.authService.userToken,
             body: {
               'child_id': childID,
@@ -362,7 +362,7 @@ export class ModalPage {
             }
           }
           this.subscriptionTwo = this.requestService.postMethod('/breast/', requestData).subscribe(data => {
-            if (data.error === false) {
+            if (!data.error) {
               console.log('Succes')
             } else {
               console.log('Error')
@@ -377,11 +377,11 @@ export class ModalPage {
       case (1): {
         if (this.paramData.together) {
           let count = 0;
-          for (var child of this.childrenService.children) {
+          for (const child of this.childrenService.children) {
             let childID = child.id;
             let volume = Number(this.volume[count]);
             let time = this.getTime(count);
-            let requestData = {
+            const requestData = {
               token: this.authService.userToken,
               body: {
                 'child_id': childID,
@@ -391,7 +391,7 @@ export class ModalPage {
               }
             }
             this.subscriptionThree = this.requestService.postMethod('/bottle/', requestData).subscribe(data => {
-              if (data.error === false) {
+              if (!data.error) {
                 console.log('Succes')
               } else {
                 console.log('Error')
@@ -406,7 +406,7 @@ export class ModalPage {
           let childID = this.childrenService.children[this.childSelectedIndex].id;
           let volume = Number(this.volume[this.childSelectedIndex]);
           let time = this.getTime(this.childSelectedIndex);
-          let requestData = {
+          const requestData = {
             token: this.authService.userToken,
             body: {
               'child_id': childID,
@@ -416,7 +416,7 @@ export class ModalPage {
             }
           }
           this.subscriptionFour = this.requestService.postMethod('/bottle', requestData).subscribe(data => {
-            if (data.error === false) {
+            if (!data.error) {
               console.log('Succes')
             } else {
               console.log('Error')
@@ -431,12 +431,12 @@ export class ModalPage {
       case (2): {
         if (this.paramData.together) {
           let count = 0;
-          for (var child of this.childrenService.children) {
+          for (const child of this.childrenService.children) {
             let childID = child.id;
             let type_id;
             if (this.timerService.fecesDone[count]) {
               type_id = 1;
-              let requestData = {
+              const requestData = {
                 token: this.authService.userToken,
                 body: {
                   'child_id': childID,
@@ -445,7 +445,7 @@ export class ModalPage {
                 }
               }
               this.subscriptionFive = this.requestService.postMethod('/diaper/', requestData).subscribe(data => {
-                if (data.error === false) {
+                if (!data.error) {
                   console.log('Succes')
                 } else {
                   console.log('Error')
@@ -455,7 +455,7 @@ export class ModalPage {
             }
             if (this.timerService.urineDone[count]) {
               type_id = 2;
-              let requestData = {
+              const requestData = {
                 token: this.authService.userToken,
                 body: {
                   'child_id': childID,
@@ -464,7 +464,7 @@ export class ModalPage {
                 }
               }
               this.subscriptionSix = this.requestService.postMethod('/diaper/', requestData).subscribe(data => {
-                if (data.error === false) {
+                if (!data.error) {
                   console.log('Succes')
                 } else {
                   console.log('Error')
@@ -480,7 +480,7 @@ export class ModalPage {
           let type_id;
           if (this.timerService.fecesDone[this.childSelectedIndex]) {
             let type_id = 1;
-            let requestData = {
+            const requestData = {
               token: this.authService.userToken,
               body: {
                 'child_id': childID,
@@ -489,7 +489,7 @@ export class ModalPage {
               }
             }
             this.subscriptionSeven = this.requestService.postMethod('/diaper/', requestData).subscribe(data => {
-              if (data.error === false) {
+              if (!data.error) {
                 console.log('Succes')
               } else {
                 console.log('Error')
@@ -500,7 +500,7 @@ export class ModalPage {
           }
           if (this.timerService.urineDone[this.childSelectedIndex]) {
             let type_id = 2;
-            let requestData = {
+            const requestData = {
               token: this.authService.userToken,
               body: {
                 'child_id': childID,
@@ -509,7 +509,7 @@ export class ModalPage {
               }
             }
             this.subscriptionEight = this.requestService.postMethod('/diaper/', requestData).subscribe(data => {
-              if (data.error === false) {
+              if (!data.error) {
                 console.log('Succes')
               } else {
                 console.log('Error')
@@ -524,11 +524,11 @@ export class ModalPage {
       }
       case (3): {
         if (this.paramData.together) {
-          for (var child of this.childrenService.children) {
+          for (const child of this.childrenService.children) {
             let childID = child.id;
             let medicine = this.medicine;
             let portion = this.portion
-            let requestData = {
+            const requestData = {
               token: this.authService.userToken,
               body: {
                 'child_id': childID,
@@ -538,7 +538,7 @@ export class ModalPage {
               }
             }
             this.subscriptionNine = this.requestService.postMethod('/medicine/', requestData).subscribe(data => {
-              if (data.error === false) {
+              if (!data.error) {
                 console.log('Succes')
               } else {
                 console.log('Error')
@@ -551,7 +551,7 @@ export class ModalPage {
           let childID = this.childrenService.children[this.childSelectedIndex].id;
           let medicine = this.medicine;
           let portion = this.portion
-          let requestData = {
+          const requestData = {
             token: this.authService.userToken,
             body: {
               'child_id': childID,
@@ -561,7 +561,7 @@ export class ModalPage {
             }
           }
           this.subscriptionTen = this.requestService.postMethod('/medicine/', requestData).subscribe(data => {
-            if (data.error === false) {
+            if (!data.error) {
               console.log('Succes')
             } else {
               console.log('Error')
@@ -575,10 +575,10 @@ export class ModalPage {
       case (4): {
         if (this.paramData.together) {
           let count = 0;
-          for (var child of this.childrenService.children) {
+          for (const child of this.childrenService.children) {
             let childID = child.id;
             let time = this.getTime(count);
-            let requestData = {
+            const requestData = {
               token: this.authService.userToken,
               body: {
                 'child_id': childID,
@@ -587,7 +587,7 @@ export class ModalPage {
               }
             }
             this.subscriptionEleven = this.requestService.postMethod('/sleep/', requestData).subscribe(data => {
-              if (data.error === false) {
+              if (!data.error) {
                 console.log('Succes')
               } else {
                 console.log('Error')
@@ -601,7 +601,7 @@ export class ModalPage {
         } else {
           let childID = this.childrenService.children[this.childSelectedIndex].id;
           let time = this.getTime(this.childSelectedIndex);
-          let requestData = {
+          const requestData = {
             token: this.authService.userToken,
             body: {
               'child_id': childID,
@@ -610,7 +610,7 @@ export class ModalPage {
             }
           }
           this.subscriptionTwelve = this.requestService.postMethod('/sleep/', requestData).subscribe(data => {
-            if (data.error === false) {
+            if (!data.error) {
               console.log('Succes')
             } else {
               console.log('Error')
@@ -629,7 +629,7 @@ export class ModalPage {
           let childID = this.childrenService.children[this.childSelectedIndex].id;
           let weight = this.weight;
           let length = this.length;
-          let requestData = {
+          const requestData = {
             token: this.authService.userToken,
             body: {
               'child_id': childID,
@@ -639,7 +639,7 @@ export class ModalPage {
             }
           }
           this.subscriptionThirteen = this.requestService.postMethod('/growth/', requestData).subscribe(data => {
-            if (data.error === false) {
+            if (!data.error) {
               console.log('Succes')
             } else {
               console.log('Error')
