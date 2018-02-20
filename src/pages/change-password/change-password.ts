@@ -30,15 +30,15 @@ export class ChangePasswordPage {
   ) {
   }
   
-  ionViewDidLeave() {
+  ionViewDidLeave(): void {
     this.appService.safeUnsubscribe(this.subscriptionOne);
   }
 
-  ionViewDidEnter() {
+  ionViewDidEnter(): void {
     this.loader = false;
   }
   
-  change() {
+  change(): void {
     this.loader = true;
     if (this.newPassword === this.newPasswordRewritten) {
       this.passwordMatch = true;
@@ -60,7 +60,7 @@ export class ChangePasswordPage {
     }
   }
 
-  goBack() {
+  goBack(): void {
     this.navCtrl.setRoot(HomePage);
   }
 

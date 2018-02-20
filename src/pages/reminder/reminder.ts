@@ -24,15 +24,15 @@ export class ReminderPage {
   ) {
   }
 
-  ionViewDidLeave() {
+  ionViewDidLeave(): void {
     this.appService.safeUnsubscribe(this.subscriptionOne);
   }
 
-  ionViewDidEnter() {
+  ionViewDidEnter(): void {
     this.loader = false;
   }
 
-  remind() {
+  remind(): void {
     this.loader = true;
     const requestData = {
       token: {},

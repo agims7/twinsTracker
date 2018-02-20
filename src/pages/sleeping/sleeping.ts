@@ -37,23 +37,23 @@ export class SleepingPage {
   ) {
   }
 
-  ionViewDidLeave() {
+  ionViewDidLeave(): void {
     this.appService.safeUnsubscribe(this.subscriptionOne);
   }
 
-  ionViewDidEnter() {
+  ionViewDidEnter(): void {
     this.cleraAll();
     this.setChildrenSleeps();
     this.getAllSleep();
   }
 
-  cleraAll() {
+  cleraAll(): void {
     this.childrenSleeps = [];
     this.childrenIds = [];
     this.loader = true;
   }
 
-  getAllSleep() {
+  getAllSleep(): void {
     const requestData = {
       token: this.authService.userToken
     }
@@ -72,13 +72,13 @@ export class SleepingPage {
     return _.filter(this.allData, { 'child_id': id });
   }
 
-  setChildrenSleeps() {
+  setChildrenSleeps(): void {
     for (const child of this.childrenService.children) {
       this.childrenIds.push(child.id)
     }
   }
 
-  slippingOption() {
+  slippingOption(): void {
     this.together  = this.together ? false : true;
   }
 

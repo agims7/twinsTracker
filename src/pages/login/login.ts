@@ -24,31 +24,32 @@ export class LoginPage {
   public wrongEmail: boolean = false;
 
   public subscriptionOne: Subscription;
-  
+
   constructor(
     private appService: AppService,
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
     public authService: AuthService,
     public requestService: RequestService
   ) {
   }
 
-  ionViewDidLeave() {
+  ionViewDidLeave(): void {
     this.appService.safeUnsubscribe(this.subscriptionOne);
   }
 
-  ionViewDidEnter() {
+  ionViewDidEnter(): void {
     this.authService.getKeys();
   }
 
-  loginUser() {
+  loginUser(): void {
     const requestData = {
       body: {
         'email': this.authService.userEmail,
         'password': this.authService.userPassword
       }
-    }
+    };
+
     this.subscriptionOne = this.requestService.authMethod('/other/auth', requestData).subscribe(data => {
       if (!data.error) {
         this.authService.premium = data.user.premium;

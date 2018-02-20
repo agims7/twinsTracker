@@ -37,28 +37,28 @@ export class DiaperPage {
   ) {
   }
 
-  ionViewDidLeave() {
+  ionViewDidLeave(): void {
     this.appService.safeUnsubscribe(this.subscriptionOne);
   }
 
-  ionViewWillEnter() {
+  ionViewWillEnter(): void {
     this.timerService.setDiaper();
   }
 
-  ionViewDidEnter() {
+  ionViewDidEnter(): void {
     this.cleraAll();
     this.setChildrenDiapers();
     this.getAllDiaper();
   }
 
-  cleraAll() {
+  cleraAll(): void {
     this.childrenDiapers = [];
     this.childrenIds = [];
     this.loader = true;
     
   }
 
-  getAllDiaper() {
+  getAllDiaper(): void {
     const requestData = {
       token: this.authService.userToken
     }
@@ -76,13 +76,13 @@ export class DiaperPage {
     return _.filter(this.allData, { 'child_id': id });
   }
 
-  setChildrenDiapers() {
+  setChildrenDiapers(): void {
     for (const child of this.childrenService.children) {
       this.childrenIds.push(child.id)
     }
   }
 
-  diaperOption() {
+  diaperOption(): void {
     this.together  = this.together ? false : true;
   }
 

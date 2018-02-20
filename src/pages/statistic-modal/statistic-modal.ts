@@ -47,7 +47,7 @@ export class StatisticModalPage {
   public subscriptionSix: Subscription;
 
   @HostListener('init')
-  handleInit() {
+  handleInit(): void {
     this.chart.legend.addListener("rollOverItem", this.handleRollOver);
   }
 
@@ -70,7 +70,7 @@ export class StatisticModalPage {
     moment.locale(this.translate.getDefaultLang());
   }
 
-  ionViewDidLeave() {
+  ionViewDidLeave(): void {
     this.appService.safeUnsubscribe(this.subscriptionOne);
     this.appService.safeUnsubscribe(this.subscriptionTwo);
     this.appService.safeUnsubscribe(this.subscriptionThree);

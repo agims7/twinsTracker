@@ -1,51 +1,50 @@
 page-children {
-    ion-grid {
-        display: flex;
-        flex-direction: row !important;
-        justify-content: center !important;
-        align-items: center !important;
-        .child-container {
-            width: 50%;
-            display: flex;
-            flex-direction: column !important;
-            justify-content: center !important;
-            align-items: center !important;
-            padding: 10px 15px;
-            .child-image {
-                max-height: 150px;
-                max-width: 150px;
-                border-radius: 100%;
-            }
-            p,
-            h2 {
-                color: white;
-                margin: 0;
-            }
-            h2 {
-                font-size: 30px;
-                font-weight: bold;
-                margin-top: 15px;
-            }
-            p {
-                font-size: 16px;
-                margin-top: 15px;
-            }
-            .value {
-                font-size: 22px;
-                margin-top: 8px;
-                border-bottom: 1px solid grey;
-            }
-            .birth {
-                font-size: 11px;
-            }
-            .buttons-container {
-                width: 100%;
-                margin-top: 15px;
-                button {
-                    margin: 0 0 15px;
-                }
-            }
+  ion-grid {
+    display: flex;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    .child-container {
+      width: 50%;
+      display: flex;
+      flex-direction: column !important;
+      justify-content: center !important;
+      align-items: center !important;
+      padding: 10px 15px;
+      .child-image {
+        max-height: 150px;
+        max-width: 150px;
+        border-radius: 100%;
+      }
+      p,
+      h2 {
+        color: white;
+        margin: 0;
+      }
+      h2 {
+        font-size: 30px;
+        font-weight: bold;
+        margin-top: 15px;
+      }
+      p {
+        font-size: 16px;
+        margin-top: 15px;
+      }
+      .value {
+        font-size: 22px;
+        margin-top: 8px;
+        border-bottom: 1px solid grey;
+      }
+      .birth {
+        font-size: 11px;
+      }
+      .buttons-container {
+        width: 100%;
+        margin-top: 15px;
+        button {
+          margin: 0 0 15px;
         }
+      }
     }
-
+  }
 }

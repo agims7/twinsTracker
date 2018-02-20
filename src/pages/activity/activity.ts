@@ -185,7 +185,7 @@ export class ActivityPage {
     this.checkDates();
   }
 
-  checkDates() {
+  checkDates(): void {
     let date1 = (moment(this.date).format('l'));
     let date2 = (moment(this.today).format('l'));
     if (date1 == date2) {

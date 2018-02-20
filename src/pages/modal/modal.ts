@@ -67,7 +67,7 @@ export class ModalPage {
   ) {
   }
 
-  ionViewDidLeave() {
+  ionViewDidLeave(): void {
     this.appService.safeUnsubscribe(this.subscriptionOne);
     this.appService.safeUnsubscribe(this.subscriptionTwo);
     this.appService.safeUnsubscribe(this.subscriptionThree);
@@ -83,7 +83,7 @@ export class ModalPage {
     this.appService.safeUnsubscribe(this.subscriptionThirteen);
   }
 
-  ionViewDidEnter() {
+  ionViewDidEnter(): void {
     this.paramData = this.navParams.data;
     this.title = this.paramData.text;
     this.childSelectedIndex = this.paramData.child;
@@ -97,7 +97,7 @@ export class ModalPage {
     // console.log(this.navParams.data)
   }
 
-  clearOption() {
+  clearOption(): void {
     this.breastSelected = false;
     this.bottleSelected = false;
     this.sleepingSelected = false;
@@ -116,7 +116,7 @@ export class ModalPage {
     this.loader = true;
   }
 
-  isTogether() {
+  isTogether(): void {
     if (this.paramData.together) {
       this.togetherOrNot = 'razem';
     } else {
@@ -189,13 +189,13 @@ export class ModalPage {
     }
   }
 
-  setBottleVolumes() {
+  setBottleVolumes(): void {
     for (let child in this.childrenService.children) {
       this.volume.push(null);
     }
   }
 
-  setNameLocation() {
+  setNameLocation(): void {
     if (this.paramData.child == 0) {
       this.breastSide = ["lewa", "prawa"];
     } else {
@@ -285,7 +285,7 @@ export class ModalPage {
     }
   }
 
-  setMedicines() {
+  setMedicines(): void {
     if (this.medicine && this.portion) {
       this.timeStopped = true;
     } else {
@@ -293,7 +293,7 @@ export class ModalPage {
     }
   }
 
-  setGrowths() {
+  setGrowths(): void {
     if (this.weight && this.length) {
       this.timeStopped = true;
     } else {
@@ -315,7 +315,7 @@ export class ModalPage {
     }
   }
 
-  save() {
+  save(): void {
     this.loader = true;
     switch (this.selection) {
       case (0): {

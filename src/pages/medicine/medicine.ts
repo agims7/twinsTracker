@@ -36,23 +36,23 @@ export class MedicinePage {
   ) {
   }
 
-  ionViewDidLeave() {
+  ionViewDidLeave(): void {
     this.appService.safeUnsubscribe(this.subscriptionOne);
   }
 
-  ionViewDidEnter() {
+  ionViewDidEnter(): void {
     this.cleraAll();
     this.setChildrenMedicines();
     this.getAllMedicine();
   }
 
-  cleraAll() {
+  cleraAll(): void {
     this.childrenMedicines = [];
     this.childrenIds = [];
     this.loader = true;
   }
 
-  getAllMedicine() {
+  getAllMedicine(): void {
     const requestData = {
       token: this.authService.userToken
     }
@@ -70,13 +70,13 @@ export class MedicinePage {
     return _.filter(this.allData, { 'child_id': id });
   }
 
-  setChildrenMedicines() {
+  setChildrenMedicines(): void {
     for (const child of this.childrenService.children) {
       this.childrenIds.push(child.id)
     }
   }
 
-  medicineOption() {
+  medicineOption(): void {
     this.together  = this.together ? false : true;
   }
 

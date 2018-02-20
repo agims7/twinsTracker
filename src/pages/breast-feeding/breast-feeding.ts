@@ -37,23 +37,23 @@ export class BreastFeedingPage {
 
   }
 
-  ionViewDidLeave() {
+  ionViewDidLeave(): void {
     this.appService.safeUnsubscribe(this.subscriptionOne);
   }
 
-  ionViewDidEnter() {
+  ionViewDidEnter(): void {
     this.cleraAll();
     this.setChildrenBreasts();
     this.getAllBreast();
   }
 
-  cleraAll() {
+  cleraAll(): void {
     this.childrenBreasts = [];
     this.childrenIds = [];
     this.loader = true;
   }
 
-  getAllBreast() {
+  getAllBreast(): void {
     const requestData = {
       token: this.authService.userToken
     }
@@ -73,13 +73,13 @@ export class BreastFeedingPage {
   }
 
 
-  setChildrenBreasts() {
+  setChildrenBreasts(): void {
     for (const child of this.childrenService.children) {
       this.childrenIds.push(child.id)
     }
   }
 
-  feedingOption() {
+  feedingOption(): void {
     this.together = this.together ? false : true;
   }
 

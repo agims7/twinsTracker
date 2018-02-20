@@ -28,18 +28,18 @@ export class RegisterPage {
   ) {
   }
 
-  ionViewDidLeave() {
+  ionViewDidLeave(): void {
     this.appService.safeUnsubscribe(this.subscriptionOne);
   }
 
-  ionViewDidEnter() {
+  ionViewDidEnter(): void {
     this.password = null;
     this.email = null;
     this.name = null;
     this.loader = false;
   }
 
-  register() {
+  register(): void {
     this.loader = true;
     const requestData = {
       body: {
@@ -59,7 +59,7 @@ export class RegisterPage {
     });
   }
 
-  goBack() {
+  goBack(): void {
     this.navCtrl.setRoot(LoginPage);
   }
 

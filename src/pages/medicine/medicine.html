@@ -1,57 +1,57 @@
 <ion-header>
-  <ion-navbar color="background">
-    <ion-title>
-      {{ 'medicines.medicines' | translate }}
-    </ion-title>
-  </ion-navbar>
+    <ion-navbar color="background">
+        <ion-title>
+            {{ 'medicines.medicines' | translate }}
+        </ion-title>
+    </ion-navbar>
 </ion-header>
 
 
 <ion-content>
-  <loader *ngIf="loader"></loader>
+    <loader *ngIf="loader"></loader>
 
-  <ion-grid>
-    <ion-row class="header">
-      <ion-col class="logo-content">
-        <div class="logo">
-          <p>{{ 'medicines.medicines' | translate }}</p>
-        </div>
-      </ion-col>
-      <ion-col class="choice-content">
-        <div class="choice">
-          <p class="choice-title">{{ 'medicines.childrenMedicines' | translate }}:</p>
-          <button ion-button [ngClass]="{'selected': together}" (click)="medicineOption()">
+    <ion-grid>
+        <ion-row class="header">
+            <ion-col class="logo-content">
+                <div class="logo">
+                    <p>{{ 'medicines.medicines' | translate }}</p>
+                </div>
+            </ion-col>
+            <ion-col class="choice-content">
+                <div class="choice">
+                    <p class="choice-title">{{ 'medicines.childrenMedicines' | translate }}:</p>
+                    <button ion-button [ngClass]="{'selected': together}" (click)="medicineOption()">
             {{ 'medicines.together' | translate }}
           </button>
-          <button ion-button [ngClass]="{'selected': !together}" (click)="medicineOption()">
+                    <button ion-button [ngClass]="{'selected': !together}" (click)="medicineOption()">
             {{ 'medicines.separately' | translate }}
           </button>
-        </div>
-      </ion-col>
-    </ion-row>
+                </div>
+            </ion-col>
+        </ion-row>
 
-    <h1 class="select-child">{{ 'medicines.chooseChild' | translate }}:</h1>
-    <ion-row class="content">
-      <ion-col *ngFor="let child of childrenService.children; let i = index">
-        <div class="child-content">
-          <button ion-button (click)="openModal(i)">
+        <h1 class="select-child">{{ 'medicines.chooseChild' | translate }}:</h1>
+        <ion-row class="content">
+            <ion-col *ngFor="let child of childrenService.children; let i = index">
+                <div class="child-content">
+                    <button ion-button (click)="openModal(i)">
             <span>{{ child.name }}</span>
             <ion-icon name="arrow-round-forward"></ion-icon>
           </button>
-          <div class="list-container">
-            <ul>
-              <li *ngFor="let medicine of getChildBreast(child.id)">
-                <p>{{ timerService.toTime(medicine.date) }}</p>
-                <p>{{ medicine.medicine }} / {{ medicine.portion }}
-                  <span *ngIf="medicine.comment"> - {{ medicine.comment }}</span>
-                </p>
-                <ion-icon class="settings" name="settings" (tap)="moreActions('medicine', medicine)"></ion-icon>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+                    <div class="list-container">
+                        <ul>
+                            <li *ngFor="let medicine of getChildBreast(child.id)">
+                                <p>{{ timerService.toTime(medicine.date) }}</p>
+                                <p>{{ medicine.medicine }} / {{ medicine.portion }}
+                                    <span *ngIf="medicine.comment"> - {{ medicine.comment }}</span>
+                                </p>
+                                <ion-icon class="settings" name="settings" (tap)="moreActions('medicine', medicine)"></ion-icon>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 
 </ion-content>

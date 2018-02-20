@@ -57,21 +57,23 @@ export class HomePage {
   ) {
   }
 
-  ionViewDidLeave() {
+  ionViewDidLeave(): void {
     this.appService.safeUnsubscribe(this.subscriptionOne);
   }
 
-  ionViewDidEnter() {
+  ionViewDidEnter(): void {
     this.getKids();
   }
 
-  getKids() {
+  getKids(): void {
     this.childrenService.children = [];
     const requestData = {
       token: this.authService.userToken
-    }
+    };
+
     this.subscriptionOne = this.requestService.getMethod('/children/parrent/' + this.authService.userID, requestData).subscribe(data => {
-      let kids = data.data;
+      const kids = data.data;
+
       if (data.data) {
         for (const child of kids) {
           this.childrenService.children.push(child);
@@ -80,6 +82,7 @@ export class HomePage {
       } else {
         this.loader = false;
       }
+
       this.timerService.setTimerObjects();
     });
   }

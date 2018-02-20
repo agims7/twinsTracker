@@ -111,7 +111,7 @@ export class MyApp {
     this.nav.setRoot(LoginPage);
   }
 
-  authentication() {
+  authentication(): void {
     this.storage.get('userToken').then((userToken) => {
       if (userToken == null || userToken == undefined) {
         return;

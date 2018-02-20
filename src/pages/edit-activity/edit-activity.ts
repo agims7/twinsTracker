@@ -51,12 +51,12 @@ export class EditActivityPage {
   ) {
   }
 
-  ionViewDidLeave() {
+  ionViewDidLeave(): void {
     this.appService.safeUnsubscribe(this.subscriptionOne);
     this.appService.safeUnsubscribe(this.subscriptionTwo);
   }
 
-  ionViewWillEnter() {
+  ionViewWillEnter(): void {
     this.clear();
     this.data = this.navParams.get('data');
     this.type = this.navParams.get('type');
@@ -66,11 +66,11 @@ export class EditActivityPage {
     this.loader = false;
   }
 
-  clear() {
+  clear(): void {
     this.childrenNames = [];
   }
 
-  remove() {
+  remove(): void {
     let confirm = this.alertCtrl.create({
       title: 'Czy na pewno chcesz to usunać?',
       buttons: [
@@ -105,7 +105,7 @@ export class EditActivityPage {
     confirm.present();
   }
 
-  save() {
+  save(): void {
     const requestData = this.setRequestData();
     this.subscriptionTwo = this.requestService.putMethod('/' + this.type + '/', requestData).subscribe(data => {
       if (!data.error) {
@@ -118,7 +118,7 @@ export class EditActivityPage {
     });
   }
 
-setRequestData() {
+setRequestData(): void {
   switch (this.type) {
     case ('breast'): {
       return {
@@ -199,7 +199,7 @@ setRequestData() {
   }
 }
 
-  changeName() {
+  changeName(): void {
     let nameAlert = this.alertCtrl.create({
       title: 'Wybierz dziecko:',
       buttons: this.childrenNames
@@ -207,7 +207,7 @@ setRequestData() {
     nameAlert.present();
   }
 
-  changeBreast() {
+  changeBreast(): void {
     let breastAlert = this.alertCtrl.create({
       title: 'Wybierz pierś:',
       buttons: [
@@ -230,7 +230,7 @@ setRequestData() {
     breastAlert.present();
   }
 
-  changeDiaper() {
+  changeDiaper(): void {
     let diaperAlert = this.alertCtrl.create({
       title: 'Wybierz rodzaj:',
       buttons: [
@@ -253,7 +253,7 @@ setRequestData() {
     diaperAlert.present();
   }
 
-  setProperties() {
+  setProperties(): void {
     this.childPhoto = this.data.photo;
     this.childId = this.data.child_id;
     this.childName = this.childrenService.getChildNameFromId(this.data.child_id);
@@ -270,7 +270,7 @@ setRequestData() {
     this.weight = this.data.weight;
   }
 
-  setChildrenButtons() {
+  setChildrenButtons(): void {
     for (const child of this.childrenService.children) {
       this.childrenNames.push(
         {
@@ -333,7 +333,7 @@ setRequestData() {
     return moment(time).format('DD.MM.YYYY');
   }
 
-  goBack() {
+  goBack(): void {
     this.navCtrl.pop();
   }
 

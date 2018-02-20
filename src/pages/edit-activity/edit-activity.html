@@ -1,12 +1,17 @@
 <ion-header>
   <ion-toolbar color="background">
-    <ion-buttons start>
-      <button ion-button icon-only (tap)="goBack()">
+    <ion-buttons start="start">
+      <button
+        (tap)="goBack()"
+        icon-only="icon-only"
+        ion-button="ion-button"
+      >
         <ion-icon name="arrow-back"></ion-icon>
       </button>
     </ion-buttons>
+
     <ion-title>
-        {{ 'editActivity.editActivity' | translate }}
+      {{ 'editActivity.editActivity' | translate }}
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -15,62 +20,153 @@
   <loader *ngIf="loader"></loader>
 
   <ion-grid>
-    
-    <img *ngIf="childPhoto" class="child-image" [src]="childrenService.getChildPhotoFromId(activity.child_id)">
-    <img *ngIf="!childPhoto" class="child-image" src="http://via.placeholder.com/150x150">
+    <img
+      *ngIf="childPhoto"
+      class="child-image"
+      [src]="childrenService.getChildPhotoFromId(activity.child_id)"
+    >
 
-      <ion-list>
-        <ion-item>
-          <ion-label fixed>{{ 'editActivity.child' | translate }}</ion-label>
-          <ion-input (tap)="changeName()" type="text" [(ngModel)]="childName" name="childName" required></ion-input>
-        </ion-item>
+    <img
+      *ngIf="!childPhoto"
+      class="child-image"
+      src="http://via.placeholder.com/150x150"
+    >
 
-        <ion-item *ngIf="type == 'breast' || type == 'bottle' || type == 'sleep'">
-          <ion-label fixed>{{ 'editActivity.time' | translate }} (s)</ion-label>
-          <ion-input type="number" [(ngModel)]="time" name="time" required></ion-input>
-        </ion-item>
+    <ion-list>
+      <ion-item>
+        <ion-label fixed="fixed">
+          {{ 'editActivity.child' | translate }}
+        </ion-label>
 
-        <ion-item *ngIf="type == 'bottle'">
-          <ion-label fixed>{{ 'editActivity.drunk' | translate }} (ml)</ion-label>
-          <ion-input type="number" [(ngModel)]="volume" name="volume" required></ion-input>
-        </ion-item>
+        <ion-input
+          (tap)="changeName()"
+          [(ngModel)]="childName"
+          name="childName"
+          required="required"
+          type="text"
+        ></ion-input>
+      </ion-item>
 
-        <ion-item *ngIf="type == 'breast'">
-          <ion-label fixed>{{ 'editActivity.breast' | translate }}</ion-label>
-          <ion-input (tap)="changeBreast()" type="text" [(ngModel)]="breastSide" name="breastSide"  required></ion-input>
-        </ion-item>
+      <ion-item *ngIf="type == 'breast' || type == 'bottle' || type == 'sleep'">
+        <ion-label fixed="fixed">
+          {{ 'editActivity.time' | translate }} (s)
+        </ion-label>
 
-        <ion-item *ngIf="type == 'medicine'">
-          <ion-label fixed>{{ 'editActivity.medicineName' | translate }}</ion-label>
-          <ion-input type="text" [(ngModel)]="medicine" name="medicine" required></ion-input>
-        </ion-item>
+        <ion-input
+          [(ngModel)]="time"
+          name="time"
+          required="required"
+          type="number"
+        ></ion-input>
+      </ion-item>
 
-        <ion-item *ngIf="type == 'medicine'">
-          <ion-label fixed>{{ 'editActivity.portion' | translate }}</ion-label>
-          <ion-input type="text" [(ngModel)]="portion" name="portion"required></ion-input>
-        </ion-item>
+      <ion-item *ngIf="type == 'bottle'">
+        <ion-label fixed="fixed">
+          {{ 'editActivity.drunk' | translate }} (ml)
+        </ion-label>
 
-        <ion-item *ngIf="type == 'diaper'">
-          <ion-label fixed>{{ 'editActivity.type' | translate }}</ion-label>
-          <ion-input (tap)="changeDiaper()" type="text" [(ngModel)]="diaperType" name="diaperType" required></ion-input>
-        </ion-item>
+        <ion-input
+          [(ngModel)]="volume"
+          name="volume"
+          required="required"
+          type="number"
+        ></ion-input>
+      </ion-item>
 
-        <ion-item *ngIf="type == 'growth'">
-          <ion-label fixed>{{ 'editActivity.weight' | translate }} (g)</ion-label>
-          <ion-input type="number" [(ngModel)]="weight" name="weight" required></ion-input>
-        </ion-item>
+      <ion-item *ngIf="type == 'breast'">
+        <ion-label fixed="fixed">
+          {{ 'editActivity.breast' | translate }}
+        </ion-label>
 
-        <ion-item *ngIf="type == 'growth'">
-          <ion-label fixed>{{ 'editActivity.lenght' | translate }} (cm)</ion-label>
-          <ion-input type="number" [(ngModel)]="length" name="length" required></ion-input>
-        </ion-item>
+        <ion-input
+          (tap)="changeBreast()"
+          [(ngModel)]="breastSide"
+          name="breastSide"
+          required="required"
+          type="text"
+        ></ion-input>
+      </ion-item>
 
-        <ion-item>
-            <ion-label fixed>{{ 'editActivity.comment' | translate }}</ion-label>
-            <ion-input type="text" [(ngModel)]="comment" name="comment" required></ion-input>
-          </ion-item>
-        <!-- 
-        <ion-item>
+      <ion-item *ngIf="type == 'medicine'">
+        <ion-label fixed="fixed">
+          {{ 'editActivity.medicineName' | translate }}
+        </ion-label>
+
+        <ion-input
+          [(ngModel)]="medicine"
+          name="medicine"
+          required="required"
+          type="text"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item *ngIf="type == 'medicine'">
+        <ion-label fixed="fixed">
+          {{ 'editActivity.portion' | translate }}
+        </ion-label>
+
+        <ion-input
+          [(ngModel)]="portion"
+          name="portion"
+          required="required"
+          type="text"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item *ngIf="type == 'diaper'">
+        <ion-label fixed="fixed">
+          {{ 'editActivity.type' | translate }}
+        </ion-label>
+
+        <ion-input
+          (tap)="changeDiaper()"
+          [(ngModel)]="diaperType"
+          name="diaperType"
+          required="required"
+          type="text"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item *ngIf="type == 'growth'">
+        <ion-label fixed="fixed">
+          {{ 'editActivity.weight' | translate }} (g)
+        </ion-label>
+
+        <ion-input
+          [(ngModel)]="weight"
+          name="weight"
+          required="required"
+          type="number"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item *ngIf="type == 'growth'">
+        <ion-label fixed="fixed">
+          {{ 'editActivity.lenght' | translate }} (cm)
+        </ion-label>
+
+        <ion-input
+          [(ngModel)]="length"
+          name="length"
+          required="required"
+          type="number"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label fixed="fixed">
+          {{ 'editActivity.comment' | translate }}
+        </ion-label>
+
+        <ion-input
+          [(ngModel)]="comment"
+          name="comment"
+          required="required"
+          type="text"
+        ></ion-input>
+      </ion-item>
+
+      <!-- <ion-item>
           <p fixed>Data</p>
           <button class="datepicker-button" item-end ion-button icon-left ion-datepicker (ionChanged)="setDate($event);" [value]="date"
           [localeStrings]="object">
@@ -78,8 +174,24 @@
           <ion-icon class="date-icon" name="calendar"></ion-icon>
         </button>
         </ion-item> -->
-      </ion-list>
-      <button ion-button block color="danger" (tap)="remove()">Usuń</button>
-      <button ion-button block color="white" (tap)="save()">Zapisz</button>
+    </ion-list>
+
+    <button
+      (tap)="remove()"
+      block="block"
+      color="danger"
+      ion-button="ion-button"
+    >
+      Usuń
+    </button>
+
+    <button
+      (tap)="save()"
+      block="block"
+      color="white"
+      ion-button="ion-button"
+    >
+      Zapisz
+    </button>
   </ion-grid>
 </ion-content>

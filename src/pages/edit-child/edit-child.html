@@ -1,49 +1,128 @@
 <ion-header>
-    <ion-toolbar color="background">
-      <ion-buttons start>
-          <button ion-button icon-only (tap)="goBack()">
-              <ion-icon name="arrow-back"></ion-icon>
-            </button>
-      </ion-buttons>
-      <ion-title>
-          {{ 'editChild.editChild' | translate }}
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-  
-  <ion-content>
-    <loader *ngIf="loader"></loader>
+  <ion-toolbar color="background">
+    <ion-buttons start="start">
+      <button
+        (tap)="goBack()"
+        icon-only="icon-only"
+        ion-button="ion-button"
+      >
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
 
-    <ion-grid>
-      <form *ngIf="editChildBlock" #childForm="ngForm" (ngSubmit)="editChild(childForm)">
-        <ion-list>
-          <ion-item>
-            <ion-label fixed>{{ 'editChild.name' | translate }}</ion-label>
-            <ion-input type="text" [(ngModel)]="name" name="name" placeholder="imię dziecka" required></ion-input>
-          </ion-item>
-          <ion-item>
-              <ion-label fixed>{{ 'editChild.weight' | translate }}</ion-label>
-              <ion-input type="number" [(ngModel)]="weight" name="weight" placeholder="g" required></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-label fixed>{{ 'editChild.lenght' | translate }}</ion-label>
-                <ion-input type="number" [(ngModel)]="length" name="length" placeholder="cm" required></ion-input>
-              </ion-item>
-          <ion-item>
-            <p fixed>{{ 'editChild.dateMain' | translate }}</p>
-            <button class="datepicker-button" item-end ion-button icon-left ion-datepicker (ionChanged)="setDate($event);" [value]="date"
-            [localeStrings]="object">
+    <ion-title>
+      {{ 'editChild.editChild' | translate }}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <loader *ngIf="loader"></loader>
+
+  <ion-grid>
+    <form
+      (ngSubmit)="editChild(childForm)"
+      *ngIf="editChildBlock"
+      #childForm="ngForm"
+    >
+      <ion-list>
+        <ion-item>
+          <ion-label fixed="fixed">
+            {{ 'editChild.name' | translate }}
+          </ion-label>
+
+          <ion-input
+            [(ngModel)]="name"
+            name="name"
+            placeholder="imię dziecka"
+            required="required"
+            type="text"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label fixed="fixed">
+            {{ 'editChild.weight' | translate }}
+          </ion-label>
+
+          <ion-input
+            [(ngModel)]="weight"
+            name="weight"
+            placeholder="g"
+            required="required"
+            type="number"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label fixed="fixed">
+            {{ 'editChild.lenght' | translate }}
+          </ion-label>
+
+          <ion-input
+            [(ngModel)]="length"
+            name="length"
+            placeholder="cm"
+            required="required"
+            type="number"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <p fixed="fixed">
+            {{ 'editChild.dateMain' | translate }}
+          </p>
+
+          <button
+            (ionChanged)="setDate($event);"
+            [localeStrings]="object"
+            [value]="date"
+            class="datepicker-button"
+            icon-left="icon-left"
+            ion-button="ion-button"
+            ion-datepicker="ion-datepicker"
+            item-end="item-end"
+          >
             <span>{{ showTime(date) }}</span>
-            <ion-icon class="date-icon" name="calendar"></ion-icon>
+
+            <ion-icon
+              class="date-icon"
+              name="calendar"
+            ></ion-icon>
           </button>
-          </ion-item>
-          <ion-item>
-              <button class="button" ion-button block (click)="takePicture()">{{ 'editChild.takeImage' | translate }}</button>
-              <button class="button" ion-button block (click)="setPicture()">{{ 'editChild.loadImage' | translate }}</button>
-            </ion-item>
-        </ion-list>
-        <button class="submit-button" ion-button block color="white" type="submit" [disabled]="!childForm.valid">{{ 'editChild.add' | translate }}</button>
-      </form>
-    </ion-grid>
-  </ion-content>
+        </ion-item>
+
+        <ion-item>
+          <button
+            (click)="takePicture()"
+            block="block"
+            class="button"
+            ion-button="ion-button"
+          >
+            {{ 'editChild.takeImage' | translate }}
+          </button>
+
+          <button
+            (click)="setPicture()"
+            block="block"
+            class="button"
+            ion-button="ion-button"
+          >
+            {{ 'editChild.loadImage' | translate }}
+          </button>
+        </ion-item>
+      </ion-list>
+
+      <button
+        [disabled]="!childForm.valid"
+        block="block"
+        class="submit-button"
+        color="white"
+        ion-button="ion-button"
+        type="submit"
+      >
+        {{ 'editChild.add' | translate }}
+      </button>
+    </form>
+  </ion-grid>
+</ion-content>

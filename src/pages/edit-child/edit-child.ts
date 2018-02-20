@@ -47,27 +47,29 @@ export class EditChildPage {
   ) {
   }
 
-  ionViewDidLeave() {
+  ionViewDidLeave(): void {
     this.appService.safeUnsubscribe(this.subscriptionOne);
   }
 
-  ionViewWillEnter() {
-    console.log(this.navParams.get('child'));
+  ionViewWillEnter(): void {
     this.getProperties();
-    if (this.childrenService.children.length > 1) {
+
+    if (1 < this.childrenService.children.length) {
       this.editChildBlock = true;
     } else {
       this.editChildBlock = false;
     }
+
     if (this.photo) {
       this.imageTaken = true;
     } else {
       this.imageTaken = false;
     }
+
     this.loader = false;
   }
 
-  getProperties() {
+  getProperties(): void {
     let child = this.navParams.get('child');
     this.name = child.name;
     this.id = child.id;
@@ -77,7 +79,7 @@ export class EditChildPage {
     this.date = new Date(child.dateofbirth);
   }
 
-  setPicture() {
+  setPicture(): void {
     const options: CameraOptions = {
       quality: 100,
       correctOrientation: true,
@@ -89,7 +91,7 @@ export class EditChildPage {
       mediaType: this.camera.MediaType.PICTURE,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
     }
-    this.camera.getPicture(options).then((imageData) => {
+    this.camera.getPicture(options).then((imageData: any) => {
       this.image = 'data:image/jpeg;base64,' + imageData;
       this.imageTaken = true;
     }, (err) => {
@@ -97,7 +99,7 @@ export class EditChildPage {
     });
   }
 
-  takePicture() {
+  takePicture(): void {
     const options: CameraOptions = {
       quality: 100,
       correctOrientation: true,
@@ -108,9 +110,9 @@ export class EditChildPage {
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       sourceType: this.camera.PictureSourceType.CAMERA,
-    }
+    };
 
-    this.camera.getPicture(options).then((imageData) => {
+    this.camera.getPicture(options).then((imageData: any) => {
       this.image = 'data:image/jpeg;base64,' + imageData;
       this.imageTaken = true;
     }, (err) => {
@@ -118,7 +120,7 @@ export class EditChildPage {
     });
   }
 
-  editChild(form: NgForm) {
+  editChild(form: NgForm): void {
     this.loader = true;
     const requestData = {
       token: this.authService.userToken,
@@ -130,29 +132,30 @@ export class EditChildPage {
         'photo': this.photo,
         'id': this.id
       }
-    }
+    };
+
     this.subscriptionOne = this.requestService.putMethod('/children/', requestData).subscribe(data => {
       if (!data.error) {
         console.log('Succes')
       } else {
         console.log('Error')
       }
+
       this.loader = false;
       this.navCtrl.setRoot(HomePage);
     });
   }
 
-  setDate(date: Date) {
-    let newDate = moment(date).format('YYYY-MM-DD HH:mm:ss');
+  setDate(date: Date): void {
+    const newDate = moment(date).format('YYYY-MM-DD HH:mm:ss');
     this.date = newDate;
-    console.log(this.date)
   }
 
-  showTime(time) {
+  showTime(time: any): any {
     return moment(time).format('DD.MM.YYYY');
   }
 
-  goBack() {
+  goBack(): void {
     this.navCtrl.setRoot(HomePage);
   }
 

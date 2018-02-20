@@ -36,23 +36,23 @@ export class GrowthPage {
   ) {
   }
 
-  ionViewDidLeave() {
+  ionViewDidLeave(): void {
     this.appService.safeUnsubscribe(this.subscriptionOne);
   }
 
-  ionViewDidEnter() {
+  ionViewDidEnter(): void {
     this.cleraAll();
     this.setChildrenGrowth();
     this.getAllGrowth();
   }
 
-  cleraAll() {
+  cleraAll(): void {
     this.childrenGrowths = [];
     this.childrenIds = [];
     this.loader = true;
   }
 
-  getAllGrowth() {
+  getAllGrowth(): void {
     const requestData = {
       token: this.authService.userToken
     }
@@ -71,7 +71,7 @@ export class GrowthPage {
     
   }
 
-  setChildrenGrowth() {
+  setChildrenGrowth(): void {
     for (const child of this.childrenService.children) {
       this.childrenIds.push(child.id)
     }

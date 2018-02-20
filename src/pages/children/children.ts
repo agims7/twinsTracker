@@ -33,22 +33,22 @@ export class ChildrenPage {
   ) {
   }
 
-  ionViewDidLeave() {
+  ionViewDidLeave(): void {
     this.appService.safeUnsubscribe(this.subscriptionOne);
     this.appService.safeUnsubscribe(this.subscriptionTwo);
   }
 
-  ionViewDidEnter() {
+  ionViewDidEnter(): void {
     this.loader = false;
     this.areChildren();
     console.log(this.childrenService.children);
   }
 
-  goBack() {
+  goBack(): void {
     this.navCtrl.setRoot(HomePage);
   }
 
-  areChildren() {
+  areChildren(): void {
     if (this.childrenService.children.length == 0) {
       this.navCtrl.push(AddChildPage);
     }
@@ -79,7 +79,7 @@ export class ChildrenPage {
     });
   }
 
-  updateKids() {
+  updateKids(): void {
     this.loader = true;
     this.childrenService.children = [];
     const requestData = {

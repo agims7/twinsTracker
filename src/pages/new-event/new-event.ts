@@ -49,17 +49,17 @@ export class NewEventPage {
     this.createTable();
   }
 
-  ionViewDidLeave() {
+  ionViewDidLeave(): void {
     this.appService.safeUnsubscribe(this.subscriptionOne);
     this.appService.safeUnsubscribe(this.subscriptionTwo);
   }
 
-  ionViewDidEnter() {
+  ionViewDidEnter(): void {
     this.time = moment().format('HH:mm:ss');
     this.loader = false;
   }
 
-  createTable() {
+  createTable(): void {
     this.choiceArray = _.clone(this.childrenService.children);
     this.choiceArray.unshift({ name: "Razem" });
   }
@@ -72,7 +72,7 @@ export class NewEventPage {
     return moment(time).format('DD.MM.YYYY');
   }
 
-  addEvent() {
+  addEvent(): void {
     console.log('kliknieto')
     this.loader = true;
       let date = moment(this.date).format('YYYY-MM-DD');

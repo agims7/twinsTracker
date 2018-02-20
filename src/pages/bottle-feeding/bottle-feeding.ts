@@ -55,7 +55,7 @@ export class BottleFeedingPage {
     this.loader = true;
   }
 
-  getAllBreast() {
+  getAllBreast(): void {
     const requestData = {
       token: this.authService.userToken
     };

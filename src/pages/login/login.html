@@ -1,28 +1,74 @@
 <ion-content padding>
   <ion-grid>
-    <img class="logo-image" src="./assets/images/logo.png">
+    <img
+      class="logo-image"
+      src="./assets/images/logo.png"
+    >
     <form #login="ngForm">
       <ion-item>
-        <ion-label floating>Email</ion-label>
-        <ion-input type="text" name="email" email [(ngModel)]="authService.userEmail" required></ion-input>
+        <ion-label floating>
+          Email
+        </ion-label>
+        <ion-input
+          [(ngModel)]="authService.userEmail"
+          email
+          name="email"
+          required
+          type="text"
+        ></ion-input>
       </ion-item>
-      <p *ngIf="wrongEmail" class="wrong">Błędny email</p>
+      <p 
+        *ngIf="wrongEmail" 
+        class="wrong"
+      >
+        Błędny email
+      </p>
       <ion-item>
-        <ion-label floating>Hasło</ion-label>
-        <ion-input type="password" name="password" [(ngModel)]="authService.userPassword" required></ion-input>
+        <ion-label floating>
+          Hasło
+        </ion-label>
+        <ion-input 
+          [(ngModel)]="authService.userPassword" 
+          name="password" 
+          required
+          type="password" 
+        ></ion-input>
       </ion-item>
-      <p *ngIf="wrongPassword" class="wrong">Błędne hasło</p>
+      <p 
+        *ngIf="wrongPassword" 
+        class="wrong"
+      >
+        Błędne hasło
+      </p>
 
-      <button class="login-button" ion-button block outline color="white" (click)="loginUser()">Zaloguj</button>
+      <button 
+        (click)="loginUser()"
+        block
+        class="login-button"
+        color="white"
+        ion-button
+        outline
+      >
+        Zaloguj
+      </button>
     </form>
 
     <div class="reminder">
-      <p [navPush]="reminderPage">Nie pamiętam hasła</p>
+      <p [navPush]="reminderPage">
+        Nie pamiętam hasła
+      </p>
     </div>
 
     <div class="registration">
       <p>Nie masz konta?</p>
-      <button ion-button outline color="white" [navPush]="registerPage">Zarejestruj się!</button>
+      <button 
+        [navPush]="registerPage"
+        color="white" 
+        ion-button 
+        outline 
+      >
+        Zarejestruj się!
+      </button>
     </div>
 
   </ion-grid>

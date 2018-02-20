@@ -6,7 +6,6 @@
   </ion-navbar>
 </ion-header>
 
-
 <ion-content>
   <loader *ngIf="loader"></loader>
 
@@ -14,39 +13,71 @@
     <ion-row class="header">
       <ion-col class="logo-content">
         <div class="logo">
-          <p>{{ 'diaper.diaper' | translate }}</p>
+          <p>
+            {{ 'diaper.diaper' | translate }}
+          </p>
         </div>
       </ion-col>
+
       <ion-col class="choice-content">
         <div class="choice">
-          <p class="choice-title">{{ 'diaper.diaperChange' | translate }}:</p>
-          <button ion-button [ngClass]="{'selected': together}" (click)="diaperOption()">
+          <p class="choice-title">
+            {{ 'diaper.diaperChange' | translate }}:
+          </p>
+
+          <button
+            ion-button="ion-button"
+            [ngClass]="{'selected': together}"
+            (click)="diaperOption()"
+          >
             {{ 'diaper.together' | translate }}
           </button>
-          <button ion-button [ngClass]="{'selected': !together}" (click)="diaperOption()">
+
+          <button
+            ion-button="ion-button"
+            [ngClass]="{'selected': !together}"
+            (click)="diaperOption()"
+          >
             {{ 'diaper.separately' | translate }}
           </button>
         </div>
       </ion-col>
     </ion-row>
 
-    <h1 class="select-child">{{ 'diaper.chooseChild' | translate }}:</h1>
+    <h1 class="select-child">
+      {{ 'diaper.chooseChild' | translate }}:
+    </h1>
+
     <ion-row class="content">
       <ion-col *ngFor="let child of childrenService.children; let i = index">
         <div class="child-content">
-          <button ion-button (click)="openModal(i)">
+          <button
+            ion-button="ion-button"
+            (click)="openModal(i)"
+          >
             <span>{{ child.name }}</span>
+
             <ion-icon name="arrow-round-forward"></ion-icon>
           </button>
+
           <div class="list-container">
             <ul>
               <li *ngFor="let diaper of getChildDiaper(child.id)">
-                <p>{{ timerService.toTime(diaper.date) }}</p>
-                <p>{{ setDiaperType(diaper.type_id) }}
-                  <span *ngIf="diaper.comment"> / {{ diaper.comment }}</span>
+                <p>
+                  {{ timerService.toTime(diaper.date) }}
                 </p>
-                <ion-icon class="settings" name="settings" (tap)="moreActions('diaper', diaper)"></ion-icon>
 
+                <p>
+                  {{ setDiaperType(diaper.type_id) }}
+
+                  <span *ngIf="diaper.comment">/ {{ diaper.comment }}</span>
+                </p>
+
+                <ion-icon
+                  class="settings"
+                  name="settings"
+                  (tap)="moreActions('diaper', diaper)"
+                ></ion-icon>
               </li>
             </ul>
           </div>
@@ -54,5 +85,4 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-
 </ion-content>
