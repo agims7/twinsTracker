@@ -1,8 +1,14 @@
 <ion-header>
   <ion-toolbar color="background">
     <ion-buttons start>
-      <button ion-button navPop>
-        <ion-icon name="arrow-back" class="icon-back"></ion-icon>
+      <button
+        ion-button
+        navPop
+      >
+        <ion-icon
+          class="icon-back"
+          name="arrow-back"
+        ></ion-icon>
       </button>
     </ion-buttons>
     <ion-title>
@@ -16,23 +22,46 @@
   <loader *ngIf="loader"></loader>
 
   <ion-grid>
-    <canvas id="myChart" width="400" height="400"></canvas>
+    <canvas
+      height="400"
+      id="myChart"
+      width="400"
+    ></canvas>
 
-
-    <div class="category-buttons" *ngIf="selectedCategory === 'breast'">
-
-      <p class="chart-categories">Średniego ilości wypitego mleka (zakresy)</p>
+    <div
+      *ngIf="selectedCategory === 'breast'"
+      class="category-buttons"
+    >
+      <p class="chart-categories">
+        Średniego ilości wypitego mleka (zakresy)
+      </p>
       <div class="buttons-container">
-        <button ion-button small (click)="selectBreastChart('weekcount')">
+        <button
+          (click)="selectBreastChart('weekcount')"
+          ion-button
+          small
+        >
           <span>Tydzień</span>
         </button>
-        <button ion-button small (click)="selectBreastChart('monthcount')">
+        <button
+          (click)="selectBreastChart('monthcount')"
+          ion-button
+          small
+        >
           <span>Miesiąc</span>
         </button>
-        <button ion-button small (click)="selectBreastChart('yearcount')">
+        <button
+          (click)="selectBreastChart('yearcount')"
+          ion-button
+          small
+        >
           <span>Rok</span>
         </button>
-        <button ion-button small (click)="selectBreastChart('allcount')">
+        <button
+          (click)="selectBreastChart('allcount')"
+          ion-button
+          small
+        >
           <span>Wszystko</span>
         </button>
       </div>

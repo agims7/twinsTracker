@@ -57,13 +57,13 @@ export class TimetablePage {
     this.createTable();
   }
 
-  ionViewDidLeave() {
+  ionViewDidLeave(): void {
     this.appService.safeUnsubscribe(this.subscriptionOne);
     this.appService.safeUnsubscribe(this.subscriptionTwo);
     this.appService.safeUnsubscribe(this.subscriptionThree);
   }
 
-  ionViewDidEnter() {
+  ionViewDidEnter(): void {
     this.events = [];
     this.eventsDates = [];
     this.eventsFullDates = [];
@@ -71,24 +71,27 @@ export class TimetablePage {
     this.getAllData();
   }
 
-  getAllData() {
+  getAllData(): void {
     const requestData = {
       token: this.authService.userToken,
       body: {}
     };
-    if (this.childrenService.children.length == 0) {
-    } else if (this.childrenService.children.length == 1) {
+
+    if (1 === this.childrenService.children.length) {
       this.url = 'child';
+
       requestData.body = {
         child_id: this.childrenService.children[0].id
       };
-    } else if (this.childrenService.children.length == 2) {
+    } else if (2 === this.childrenService.children.length) {
       this.url = 'children';
+
       requestData.body = {
         first_child_id: this.childrenService.children[0].id,
         second_child_id: this.childrenService.children[1].id
       };
     }
+
     this.subscriptionOne = this.requestService.postMethod('/timetable/' + this.url, requestData).subscribe(data => {
       if (!data.error) {
         this.mainData = data.data;
@@ -96,32 +99,35 @@ export class TimetablePage {
         this.eventsDates = this.events.map(item => item.date.slice(0, -14)).filter((value, index, self) => self.indexOf(value) === index);
         this.eventsFullDates = this.events.map(item => item.date).filter((value, index, self) => self.indexOf(value) === index);
       }
+
       this.loader = false;
     });
   }
 
-  getEventsForDay(index) {
+  getEventsForDay(index: number): any {
     let text = this.eventsFullDates[index];
     return _.filter(this.events, ['date', text]);
   }
 
-  addEvent() {
+  addEvent(): void {
     const modal = this.modalCtrl.create(NewEventPage);
     modal.present();
   }
 
-  createTable() {
+  createTable(): void {
     this.choiceArray = _.clone(this.childrenService.children);
     this.choiceArray.unshift({ name: this.togetherText[this.translate.getDefaultLang()] });
   }
 
-  makeChoice(id) {
+  makeChoice(id: number): void {
     this.loader = true;
     const requestData = {
       token: this.authService.userToken,
-    }
+    };
+
     if (this.choiceArray[id].id) {
-      let childId = this.choiceArray[id].id
+      const childId = this.choiceArray[id].id;
+
       this.subscriptionTwo = this.requestService.getMethod('/timetable/child/' + childId, requestData).subscribe(data => {
         if (!data.error) {
           this.mainData = data.data;
@@ -129,6 +135,7 @@ export class TimetablePage {
           this.eventsDates = this.events.map(item => item.date.slice(0, -14)).filter((value, index, self) => self.indexOf(value) === index);
           this.eventsFullDates = this.events.map(item => item.date).filter((value, index, self) => self.indexOf(value) === index);
         }
+
         this.loader = false;
       });
     } else {
@@ -137,28 +144,28 @@ export class TimetablePage {
           this.mainData = data.data;
           this.events = _.clone(this.mainData);
           this.eventsDates = this.events.map(item => item.date.slice(0, -14)).filter((value, index, self) => self.indexOf(value) === index);
-
           this.eventsFullDates = this.events.map(item => item.date).filter((value, index, self) => self.indexOf(value) === index);
         }
+
         this.loader = false;
       });
     }
   }
 
-  setDate(date: Date) {
+  setDate(date: Date): void {
     this.date = date;
   }
 
-  toDay(date) {
+  toDay(date: any): void {
     return moment(date).format('DD MMMM YYYY');
   }
 
-  toTime(date, time) {
+  toTime(date: any, time: any): any {
     let newDate = date.slice(0, -14) + 'T' + time + '.000Z';
     return moment.utc(newDate).format('LT');
   }
 
-  showTime(time) {
+  showTime(time: any): any {
     return moment(time).format('DD.MM.YYYY');
   }
 

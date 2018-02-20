@@ -6,7 +6,6 @@
   </ion-navbar>
 </ion-header>
 
-
 <ion-content>
   <ion-grid>
     <ion-row class="header">
@@ -17,37 +16,60 @@
       </ion-col>
     </ion-row>
 
-
     <div class="content">
       <h1 class="select-option">{{ 'statistics.statistics' | translate }}:</h1>
       <ul>
         <li>
-          <button ion-button block (click)="openStatisticModal('breast')">
+          <button
+            (click)="openStatisticModal('breast')"
+            block
+            ion-button
+          >
             {{ 'statistics.breast' | translate }}
           </button>
         </li>
         <li>
-          <button ion-button block (click)="openStatisticModal('bottle')">
+          <button
+            (click)="openStatisticModal('bottle')"
+            block
+            ion-button
+          >
             {{ 'statistics.bottle' | translate }}
           </button>
         </li>
         <li>
-          <button ion-button block (click)="openStatisticModal('diaper')">
+          <button
+            (click)="openStatisticModal('diaper')"
+            block
+            ion-button
+          >
             {{ 'statistics.diaper' | translate }}
           </button>
         </li>
         <li>
-          <button ion-button block (click)="openStatisticModal('sleep')">
+          <button
+            (click)="openStatisticModal('sleep')"
+            block
+            ion-button
+          >
             {{ 'statistics.sleeping' | translate }}
           </button>
         </li>
         <li>
-          <button ion-button block (click)="openStatisticModal('growth')">
+          <button
+            (click)="openStatisticModal('growth')"
+            block
+            ion-button
+          >
             {{ 'statistics.growth' | translate }}
           </button>
         </li>
         <li>
-          <button ion-button block (click)="openStatisticModal('weight')">
+          <button
+            (click)="openStatisticModal('weight')"
+            block
+            ion-button
+          >
             {{ 'statistics.weight' | translate }}
           </button>
         </li>

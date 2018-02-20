@@ -79,27 +79,27 @@ export class StatisticModalPage {
     this.appService.safeUnsubscribe(this.subscriptionSix);
   }
 
-  ionViewWillEnter() {
+  ionViewWillEnter(): void {
     this.clear();
     this.countChildren();
     this.paramData = this.navParams.data;
     this.selectedCategory = this.paramData.category;
-    console.log(this.paramData)
   }
 
-  ionViewDidEnter() {
+  ionViewDidEnter(): void {
     this.setCategoryParameters();
     this.getData();
   }
 
-  clear() {
+  clear(): void {
     this.xaxis = [];
     this.yaxisFirst = [];
     this.yaxisSecond = [];
   }
 
-  countChildren() {
-    let kids = this.childrenService.children.length;
+  countChildren(): void {
+    const kids = this.childrenService.children.length;
+
     switch (kids) {
       case (0): {
         this.isTogether = false;
@@ -141,7 +141,7 @@ export class StatisticModalPage {
     }
   }
 
-  setCategoryParameters() {
+  setCategoryParameters(): void {
     switch (this.selectedCategory) {
       case ('breast'): {
         this.requestUrl = '/statistics/breast/';
@@ -170,7 +170,7 @@ export class StatisticModalPage {
     }
   }
 
-  getData() {
+  getData(): void {
     switch (this.selectedCategory) {
       case ('breast'): {
         this.selectBreastChart('weekcount')
@@ -199,7 +199,7 @@ export class StatisticModalPage {
     }
   }
 
-  setSingleAxis(data, time) {
+  setSingleAxis(data: any, time: any): void {
     this.clear();
     for (let key of data) {
       this.xaxis.push(this.convertToDateTime(key.date));
@@ -208,77 +208,87 @@ export class StatisticModalPage {
     time ? this.setProperChart('time') : this.setProperChart('none');
   }
 
-  setMutliAxis(data, time) {
+  setMutliAxis(data: any, time: any): void {
     this.clear();
-    for (let key of data) {
+
+    for (const key of data) {
       this.xaxis.push(this.convertToDateTime(key.date));
       this.yaxisFirst.push(key.firstChild);
       this.yaxisSecond.push(key.secondChild);
     }
+
     time ? this.setProperChart('time') : this.setProperChart('none');
 
   }
 
-  setProperChart(time) {
+  setProperChart(time: any): void {
     switch (this.selectedCategory) {
       case ('breast'): {
         this.requestUrl = '/statistics/breast/';
-        if (time === 'time') {
+
+        if ('time' === time) {
           this.yaxisFirst = this.yaxisFirst.map((key, value) => {
             return this.timerService.secondConvertToMinutes(key);
           });
-          if (this.isTogether === true) {
+          if (this.isTogether) {
             this.yaxisSecond = this.yaxisSecond.map((key, value) => {
               return this.timerService.secondConvertToMinutes(key);
             });
           }
         }
+
         break;
       }
       case ('bottle'): {
         this.requestUrl = '/statistics/bottle/';
-        if (time === 'time') {
+
+        if ('time' === time) {
           this.yaxisFirst = this.yaxisFirst.map((key, value) => {
             return this.timerService.secondConvertToMinutes(key);
           });
-          if (this.isTogether === true) {
+          if (this.isTogether) {
             this.yaxisSecond = this.yaxisSecond.map((key, value) => {
               return this.timerService.secondConvertToMinutes(key);
             });
           }
         }
+
         break;
       }
       case ('diaper'): {
         this.requestUrl = '/statistics/diaper/';
+
         break;
       }
       case ('sleep'): {
-        if (time === 'time') {
+        if ('time' === time) {
           this.yaxisFirst = this.yaxisFirst.map((key, value) => {
             return this.timerService.secondConvertToMinutes(key);
           });
-          if (this.isTogether === true) {
+          if (this.isTogether) {
             this.yaxisSecond = this.yaxisSecond.map((key, value) => {
               return this.timerService.secondConvertToMinutes(key);
             });
           }
         }
+
         break;
       }
       case ('growth'): {
         this.requestUrl = '/statistics/growth/';
+
         break;
       }
       case ('weight'): {
         this.requestUrl = '/statistics/growth/';
+
         break;
       }
     }
   }
 
   //BAR CHART
-  setBarChartExample() {
+  setBarChartExample(): void {
     const ctx = document.getElementById("myChart");
     const myChart = new Chart(ctx, {
       responsive: true,
@@ -323,7 +333,7 @@ export class StatisticModalPage {
   }
 
   // LINE
-  setLineChartExample() {
+  setLineChartExample(): void {
     const ctx = document.getElementById("myChart");
     const myChart = new Chart(ctx, {
       responsive: true,
@@ -371,8 +381,7 @@ export class StatisticModalPage {
     });
   }
 
-
-  setPolarChartExample() {
+  setPolarChartExample(): void {
     const ctx = document.getElementById("myChart");
     const myChart = new Chart(ctx, {
       responsive: true,
@@ -401,9 +410,7 @@ export class StatisticModalPage {
     });
   }
 
-
-
-  setPieChartExample() {
+  setPieChartExample(): void {
     const ctx = document.getElementById("myChart");
     const myChart = new Chart(ctx, {
       responsive: true,
@@ -432,7 +439,7 @@ export class StatisticModalPage {
     });
   }
 
-  setChart(type) {
+  setChart(type: string): void {
     switch (type) {
       case ('line'): {
         this.setLineChartExample();
@@ -453,21 +460,22 @@ export class StatisticModalPage {
     }
   }
 
-  convertToFullTime(date) {
+  convertToFullTime(date: any): any {
     return moment(date).format('DD/MM/YYYY - HH:mm');
   }
 
-  convertToDateTime(date) {
+  convertToDateTime(date: any): any {
     // return moment(date).format('DD/MM/YYYY');
     return moment(date).format('DD MMMM');
   }
 
-  selectBreastChart(type) {
-    if (this.isTogether === true) {
+  selectBreastChart(type: string): void {
+    if (this.isTogether) {
       this.chartTogether = "/together";
     } else {
       this.chartTogether = "";
     }
+
     switch (type) {
       case ('allcount'): {
         this.selectedTyped = "all";
@@ -536,22 +544,24 @@ export class StatisticModalPage {
     }
     /////// UNIWERSALNE
     this.subscriptionOne = this.requestService.postMethod(this.requestUrl + this.selectedTyped + this.chartTogether, this.requestData).subscribe(data => {
-      console.log(data, '?????');
-      if (this.isTogether === true) {
+      if (this.isTogether) {
         this.setMutliAxis(data.data, this.isTime)
       } else {
         this.setSingleAxis(data.data, this.isTime)
-      } this.setChart(this.selectedChart)
+      }
+
+      this.setChart(this.selectedChart)
       this.loader = false;
     });
   }
 
-  selectBottleChart(type) {
-    if (this.isTogether === true) {
+  selectBottleChart(type: string): void {
+    if (this.isTogether) {
       this.chartTogether = "/together";
     } else {
       this.chartTogether = "";
     }
+
     switch (type) {
       case ('allvolume'): {
         this.selectedTyped = "all/volume";
@@ -612,25 +622,29 @@ export class StatisticModalPage {
     }
     /////// UNIWERSALNE
     this.subscriptionTwo = this.requestService.postMethod(this.requestUrl + this.selectedTyped + this.chartTogether, this.requestData).subscribe(data => {
-      console.log(data, '?????');
-      if (this.isTogether === true) {
+
+      if (this.isTogether) {
         this.setMutliAxis(data.data, this.isTime)
       } else {
         this.setSingleAxis(data.data, this.isTime)
-      } this.setChart(this.selectedChart)
+      }
+
+      this.setChart(this.selectedChart)
       this.loader = false;
     });
   }
 
-  selectDiaperChart(type) {
+  selectDiaperChart(type: string): void {
     this.chartTitle = "Wykres ilości zrobionych kupek";
     this.chartStepSize = 1;
     this.isTime = false;
-    if (this.isTogether === true) {
+
+    if (this.isTogether) {
       this.chartTogether = "/together";
     } else {
       this.chartTogether = "";
     }
+
     switch (type) {
       case ('all'): {
         this.selectedTyped = "all";
@@ -655,21 +669,23 @@ export class StatisticModalPage {
     }
     /////// UNIWERSALNE
     this.subscriptionThree = this.requestService.postMethod(this.requestUrl + this.selectedTyped + this.chartTogether, this.requestData).subscribe(data => {
-      console.log(data, '?????');
-      if (this.isTogether === true) {
+
+      if (this.isTogether) {
         this.setMutliAxis(data.data, this.isTime)
       } else {
         this.setSingleAxis(data.data, this.isTime)
-      } this.setChart(this.selectedChart)
+      }
+
+      this.setChart(this.selectedChart)
       this.loader = false;
     });
   }
 
-  selectSleepChart(type) {
+  selectSleepChart(type: string): void {
     this.chartTitle = "Wykres średniej długości spania";
     this.chartStepSize = null;
     this.isTime = true;
-    if (this.isTogether === true) {
+    if (this.isTogether) {
       this.chartTogether = "/together";
     } else {
       this.chartTogether = "";
@@ -699,7 +715,7 @@ export class StatisticModalPage {
     /////// UNIWERSALNE
     this.subscriptionFour = this.requestService.postMethod(this.requestUrl + this.selectedTyped + this.chartTogether, this.requestData).subscribe(data => {
       console.log(data, '?????');
-      if (this.isTogether === true) {
+      if (this.isTogether) {
         this.setMutliAxis(data.data, this.isTime)
       } else {
         this.setSingleAxis(data.data, this.isTime)
@@ -712,7 +728,7 @@ export class StatisticModalPage {
     this.chartTitle = "Wykres zmian wagi";
     this.chartStepSize = 500;
     this.isTime = false;
-    if (this.isTogether === true) {
+    if (this.isTogether) {
       this.chartTogether = "/together";
     } else {
       this.chartTogether = "";
@@ -742,7 +758,7 @@ export class StatisticModalPage {
     /////// UNIWERSALNE
     this.subscriptionFive = this.requestService.postMethod(this.requestUrl + this.selectedTyped + this.chartTogether, this.requestData).subscribe(data => {
       console.log(data, '?????');
-      if (this.isTogether === true) {
+      if (this.isTogether) {
         this.setMutliAxis(data.data, this.isTime)
       } else {
         this.setSingleAxis(data.data, this.isTime)
@@ -756,7 +772,7 @@ export class StatisticModalPage {
     this.chartTitle = "Wykres zmian wzrostu";
     this.chartStepSize = 5;
     this.isTime = false;
-    if (this.isTogether === true) {
+    if (this.isTogether) {
       this.chartTogether = "/together";
     } else {
       this.chartTogether = "";
@@ -786,7 +802,7 @@ export class StatisticModalPage {
     /////// UNIWERSALNE
     this.subscriptionSix = this.requestService.postMethod(this.requestUrl + this.selectedTyped + this.chartTogether, this.requestData).subscribe(data => {
       console.log(data, '?????');
-      if (this.isTogether === true) {
+      if (this.isTogether) {
         this.setMutliAxis(data.data, this.isTime)
       } else {
         this.setSingleAxis(data.data, this.isTime)

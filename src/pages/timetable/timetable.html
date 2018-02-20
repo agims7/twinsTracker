@@ -11,46 +11,78 @@
 
   <ion-grid>
     <div>
-      <button ion-button block class="add-button" (click)="addEvent()">
+      <button
+        (click)="addEvent()"
+        block
+        class="add-button"
+        ion-button
+      >
         {{ 'timetable.newTerm' | translate }}
         <ion-icon name="add"></ion-icon>
       </button>
 
       <ion-row class="choice">
         <ion-col *ngFor="let option of choiceArray; let i = index">
-          <button [ngClass]="{'selected': choice === i}" ion-button (click)="makeChoice(i)">{{ option.name }}</button>
+          <button
+            (click)="makeChoice(i)"
+            [ngClass]="{'selected': choice === i}"
+            ion-button
+          >
+            {{ option.name }}
+          </button>
         </ion-col>
       </ion-row>
     </div>
     <ion-list>
       <ion-item-group>
         <div *ngFor="let event of eventsDates; let i = index">
-          <ion-item-divider class="devider" color="light-background">
+          <ion-item-divider
+            class="devider"
+            color="light-background"
+          >
             {{ toDay(eventsFullDates[i]) }}
           </ion-item-divider>
-          <ion-item *ngFor="let event of getEventsForDay(i); let x = index" color="background" text-wrap class="item-content">
+          <ion-item
+            *ngFor="let event of getEventsForDay(i); let x = index"
+            class="item-content"
+            color="background"
+            text-wrap
+          >
             <ion-row>
               <ion-col col-2>
                 <ion-avatar class="avatar">
-                  <img class="child-image" [src]="childrenService.getChildPhotoFromId(event.child_id)">
+                  <img
+                    [src]="childrenService.getChildPhotoFromId(event.child_id)"
+                    class="child-image"
+                  >
                 </ion-avatar>
               </ion-col>
-              <ion-col col-3 class="child-name-field">
-                <h2 class="child-name">{{ childrenService.getChildNameFromId(event.child_id) }}</h2>
+              <ion-col
+                class="child-name-field"
+                col-3
+              >
+                <h2 class="child-name">
+                  {{ childrenService.getChildNameFromId(event.child_id) }}
+                </h2>
               </ion-col>
-              <ion-col col-5 class="event-description-field">
-                <p class="event-description">{{ event.description }}</p>
+              <ion-col
+                class="event-description-field"
+                col-5
+              >
+                <p class="event-description">
+                  {{ event.description }}
+                </p>
               </ion-col>
               <ion-col col-2>
-                <ion-note class="event-date">{{ toTime(event.date, event.time) }}</ion-note>
+                <ion-note class="event-date">
+                  {{ toTime(event.date, event.time) }}
+                </ion-note>
               </ion-col>
             </ion-row>
           </ion-item>
         </div>
       </ion-item-group>
     </ion-list>
-
-
 
   </ion-grid>
 </ion-content>

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-
 import { TranslateService } from '@ngx-translate/core';
 
 import { ActivityPage } from "../activity/activity";
@@ -45,8 +44,8 @@ export class HomePage {
   public subscriptionOne: Subscription;
 
   constructor(
-    private translate: TranslateService,
     private appService: AppService,
+    public translate: TranslateService,
     public navCtrl: NavController,
     public categoriesService: CategoriesService,
     public timerService: TimerService,
@@ -83,6 +82,6 @@ export class HomePage {
       }
       this.timerService.setTimerObjects();
     });
-  }  
+  }
 
 }
