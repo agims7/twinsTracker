@@ -13,38 +13,69 @@
     <ion-row class="header">
       <ion-col class="logo-content">
         <div class="logo">
-          <p>{{ 'breast.breast' | translate }}</p>
+          <p>
+            {{ 'breast.breast' | translate }}
+          </p>
         </div>
       </ion-col>
+
       <ion-col class="choice-content">
         <div class="choice">
-          <p class="choice-title">{{ 'breast.childrenFeeding' | translate }}:</p>
-          <button ion-button [ngClass]="{'selected': together}" (click)="feedingOption()">
+          <p class="choice-title">
+            {{ 'breast.childrenFeeding' | translate }}:
+          </p>
+
+          <button
+            (click)="feedingOption()"
+            [ngClass]="{'selected': together}"
+            ion-button="ion-button"
+          >
             {{ 'breast.together' | translate }}
           </button>
-          <button ion-button [ngClass]="{'selected': !together}" (click)="feedingOption()">
+
+          <button
+            (click)="feedingOption()"
+            [ngClass]="{'selected': !together}"
+            ion-button="ion-button"
+          >
             {{ 'breast.separately' | translate }}
           </button>
         </div>
       </ion-col>
     </ion-row>
 
-    <h1 class="select-child">{{ 'breast.chooseChild' | translate }}:</h1>
+    <h1 class="select-child">
+      {{ 'breast.chooseChild' | translate }}:
+    </h1>
+
     <ion-row class="content">
       <ion-col *ngFor="let child of childrenService.children; let i = index">
         <div class="child-content">
-          <button ion-button (click)="openModal(i)">
+          <button
+            (click)="openModal(i)"
+            ion-button="ion-button"
+          >
             <span>{{ child.name }}</span>
+
             <ion-icon name="arrow-round-forward"></ion-icon>
           </button>
+
           <div class="list-container">
             <ul>
               <li *ngFor="let breast of getChildBreast(child.id)">
-                <p>{{ timerService.toTime(breast.date) }}</p>
-                <p>{{ 'breast.time' | translate }}: {{ timerService.secondConvert(breast.time) }}
-                  <span *ngIf="breast.comment"> - {{ breast.comment }}</span>
+                <p>
+                  {{ timerService.toTime(breast.date) }}
                 </p>
-                <ion-icon class="settings" name="settings" (tap)="moreActions('breast', breast)"></ion-icon>
+                <p>
+                  {{ 'breast.time' | translate }}: {{ timerService.secondConvert(breast.time) }}
+
+                  <span *ngIf="breast.comment">- {{ breast.comment }}</span>
+                </p>
+                <ion-icon
+                  class="settings"
+                  name="settings"
+                  (tap)="moreActions('breast', breast)"
+                ></ion-icon>
               </li>
             </ul>
           </div>
@@ -52,5 +83,4 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-
 </ion-content>

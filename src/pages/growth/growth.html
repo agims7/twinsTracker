@@ -6,7 +6,6 @@
   </ion-navbar>
 </ion-header>
 
-
 <ion-content>
   <loader *ngIf="loader"></loader>
 
@@ -14,37 +13,62 @@
     <ion-row class="header">
       <ion-col class="logo-content">
         <div class="logo">
-          <p>{{ 'growth.growth' | translate }}</p>
+          <p>
+            {{ 'growth.growth' | translate }}
+          </p>
         </div>
       </ion-col>
       <ion-col class="choice-content">
         <div class="choice">
-          <p class="choice-title">{{ 'growth.childrenGrowth' | translate }}:</p>
-          <button ion-button [ngClass]="{'selected': together}" (click)="growthOption()" [disabled]="true">
+          <p class="choice-title">
+            {{ 'growth.childrenGrowth' | translate }}:
+          </p>
+          <button
+            (click)="growthOption()"
+            [disabled]="true"
+            [ngClass]="{'selected': together}"
+            ion-button="ion-button"
+          >
             {{ 'growth.together' | translate }}
           </button>
-          <button ion-button [ngClass]="{'selected': !together}" (click)="growthOption()">
+          <button
+            (click)="growthOption()"
+            [ngClass]="{'selected': !together}"
+            ion-button="ion-button"
+          >
             {{ 'growth.separately' | translate }}
           </button>
         </div>
       </ion-col>
     </ion-row>
-
-    <h1 class="select-child">{{ 'growth.chooseChild' | translate }}:</h1>
+    <h1 class="select-child">
+      {{ 'growth.chooseChild' | translate }}:
+    </h1>
     <ion-row class="content">
       <ion-col *ngFor="let child of childrenService.children; let i = index">
         <div class="child-content">
-          <button ion-button (click)="openModal(i)">
+          <button
+            (click)="openModal(i)"
+            ion-button="ion-button"
+          >
             <span>{{ child.name }}</span>
             <ion-icon name="arrow-round-forward"></ion-icon>
           </button>
           <div class="list-container">
             <ul>
               <li *ngFor="let growth of getChildGrowths(child.id)">
-                <p>{{ timerService.toTime(growth.date) }}</p>
-                <p>{{ growth.weight }} g / {{ growth.length }} cm</p>
-                <p *ngIf="growth.comment"> - {{ growth.comment }}</p>
-                <ion-icon class="settings" name="settings" (tap)="moreActions('growth', growth)"></ion-icon>
+                <p>
+                  {{ timerService.toTime(growth.date) }}
+                </p>
+                <p>
+                  {{ growth.weight }} g / {{ growth.length }} cm
+                </p>
+                <p *ngIf="growth.comment">- {{ growth.comment }}</p>
+                <ion-icon
+                  (tap)="moreActions('growth', growth)"
+                  class="settings"
+                  name="settings"
+                ></ion-icon>
               </li>
             </ul>
           </div>
@@ -52,5 +76,4 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-
 </ion-content>

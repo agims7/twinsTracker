@@ -11,45 +11,97 @@
 
   <ion-grid>
     <div class="timetable-content">
-      <h3>{{ 'newEvent.enterData' | translate }}:</h3>
+      <h3>
+        {{ 'newEvent.enterData' | translate }}:
+      </h3>
+
       <ion-row>
         <ion-item>
-          <ion-label>{{ 'newEvent.child' | translate }}:</ion-label>
+          <ion-label>
+            {{ 'newEvent.child' | translate }}:
+          </ion-label>
+
           <ion-select [(ngModel)]="kid">
-            <ion-option *ngFor="let child of choiceArray; let i = index" [value]="child.id">{{ child.name }}</ion-option>
+            <ion-option
+              [value]="child.id"
+              *ngFor="let child of choiceArray; let i = index"
+            >{{ child.name }}</ion-option>
           </ion-select>
         </ion-item>
       </ion-row>
+
       <ion-row>
         <ion-item>
-          <ion-label>{{ 'newEvent.description' | translate }}:</ion-label>
-          <ion-input [(ngModel)]="description" type="text" value="" class="textarea"></ion-input>
+          <ion-label>
+            {{ 'newEvent.description' | translate }}:
+          </ion-label>
+
+          <ion-input
+            [(ngModel)]="description"
+            class="textarea"
+            type="text"
+            value=""
+          ></ion-input>
         </ion-item>
       </ion-row>
+
       <ion-row>
         <ion-item>
-          <span class="datepicker">{{ 'newEvent.date' | translate }}:</span>
-          <button class="datepicker-button" item-end ion-button icon-left ion-datepicker (ionChanged)="setDate($event);" [value]="date"
-            [localeStrings]="object">
+          <span class="datepicker">
+            {{ 'newEvent.date' | translate }}:
+          </span>
+
+          <button
+            (ionChanged)="setDate($event);"
+            [localeStrings]="object"
+            [value]="date"
+            class="datepicker-button"
+            icon-left="icon-left"
+            ion-button="ion-button"
+            ion-datepicker="ion-datepicker"
+            item-end="item-end"
+          >
             <span>{{ showTime(date) }}</span>
+
             <ion-icon name="calendar"></ion-icon>
           </button>
         </ion-item>
+
         <ion-item>
-            <ion-label>{{ 'newEvent.time' | translate }}</ion-label>
-            <ion-datetime displayFormat="HH:mm:ss" [(ngModel)]="time"></ion-datetime>
-          </ion-item>
+          <ion-label>
+            {{ 'newEvent.time' | translate }}
+          </ion-label>
+
+          <ion-datetime
+            [(ngModel)]="time"
+            displayFormat="HH:mm:ss"
+          ></ion-datetime>
+        </ion-item>
       </ion-row>
-      
+
       <ion-row>
-        <ion-col >
-            <button ion-button block class="add-button" (tap)="addEvent()">{{ 'newEvent.add' | translate }}</button>           
+        <ion-col>
+          <button
+            (tap)="addEvent()"
+            block="block"
+            class="add-button"
+            ion-button="ion-button"
+          >
+            {{ 'newEvent.add' | translate }}
+          </button>
         </ion-col>
-        <ion-col >
-            <button navPop ion-button block class="add-button">{{ 'newEvent.back' | translate }}</button>            
+
+        <ion-col>
+          <button
+            block="block"
+            class="add-button"
+            ion-button="ion-button"
+            navPop="navPop"
+          >
+            {{ 'newEvent.back' | translate }}
+          </button>
         </ion-col>
       </ion-row>
     </div>
-
   </ion-grid>
 </ion-content>

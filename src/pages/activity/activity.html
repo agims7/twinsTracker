@@ -15,58 +15,58 @@
 
       <ion-list-header class="header">
         <ion-row>
-          <ion-col 
+          <ion-col
             class="data-change"
-            col-12 
+            col-12
           >
-            <button 
-              (ionChanged)="setDate($event);" 
+            <button
+              (ionChanged)="setDate($event);"
               [cancelText]="cancelText[translate.getDefaultLang()]"
-              [localeStrings]="appService.object[translate.getDefaultLang()]" 
-              [max]="today" 
-              [min]="minDate" 
+              [localeStrings]="appService.object[translate.getDefaultLang()]"
+              [max]="today"
+              [min]="minDate"
               [value]="date"
-              class="data-change-button" 
-              icon-left 
-              ion-button 
-              ion-datepicker 
-              item-end 
+              class="data-change-button"
+              icon-left
+              ion-button
+              ion-datepicker
+              item-end
             >
               <span>{{ 'activity.changeDate' | translate }}</span>
               <ion-icon name="calendar"></ion-icon>
             </button>
           </ion-col>
-          <ion-col 
+          <ion-col
             (tap)="getDifferentDayChildActivity('-')"
-            class="data-selection" 
+            class="data-selection"
           >
-            <ion-icon 
-              class="arrow" 
-              color="white" 
+            <ion-icon
+              class="arrow"
+              color="white"
               name="arrow-dropleft"
             ></ion-icon>
           </ion-col>
           <ion-col class="data-selection">
             <p class="list-header">{{ showTime(date) }}</p>
           </ion-col>
-          <ion-col 
-            *ngIf="arrowFutureDisable" 
+          <ion-col
+            *ngIf="arrowFutureDisable"
             class="data-selection"
           >
-            <ion-icon 
-              class="arrow" 
-              color="primary" 
+            <ion-icon
+              class="arrow"
+              color="primary"
               name="arrow-dropright"
             ></ion-icon>
           </ion-col>
-          <ion-col 
-            *ngIf="!arrowFutureDisable" 
+          <ion-col
+            *ngIf="!arrowFutureDisable"
             (tap)="getDifferentDayChildActivity('+')"
-            class="data-selection" 
+            class="data-selection"
           >
-            <ion-icon 
-              class="arrow" 
-              color="white" 
+            <ion-icon
+              class="arrow"
+              color="white"
               name="arrow-dropright"
             ></ion-icon>
           </ion-col>
@@ -74,31 +74,31 @@
       </ion-list-header>
 
       <ion-row class="choice">
-        <ion-col 
+        <ion-col
           *ngFor="let option of choiceArray; let i = index"
-          class="option-block" 
+          class="option-block"
         >
-          <button 
+          <button
             (tap)="makeChoice(i)"
-            [ngClass]="{'selected': choice === i}" 
-            ion-button 
+            [ngClass]="{'selected': choice === i}"
+            ion-button
           >
             {{ option.name }}
           </button>
         </ion-col>
       </ion-row>
 
-      <ion-item 
+      <ion-item
         *ngFor="let activity of activityTable; let i = index"
-        class="item" 
-        text-wrap 
+        class="item"
+        text-wrap
       >
         <ion-row [ngStyle]="{'background-color': getCategoryColor(activity.source), 'opacity': 0.8}">
           <ion-col col-2>
             <ion-avatar class="avatar">
-              <img 
+              <img
                 [src]="childrenService.getChildPhotoFromId(activity.child_id)"
-                class="child-image" 
+                class="child-image"
               >
             </ion-avatar>
           </ion-col>
@@ -110,54 +110,54 @@
               {{ getCategoryTitle(activity.source) }}
             </p>
             <!-- Breast -->
-            <p 
-            *ngIf="activity.source === 'breast'" 
+            <p
+            *ngIf="activity.source === 'breast'"
             class="activity-description"
             >
               {{ 'statistics.breastSide' | translate }}: {{ getBreast(activity.side_id) }}
             </p>
-            <p 
-            *ngIf="activity.source === 'breast'" 
+            <p
+            *ngIf="activity.source === 'breast'"
             class="activity-description"
             >
               {{ 'statistics.time' | translate }}: {{ timerService.secondConvert(activity.time) }}
             </p>
             <!-- Bottle -->
-            <p 
-            *ngIf="activity.source === 'bottle'" 
+            <p
+            *ngIf="activity.source === 'bottle'"
             class="activity-description"
             >
               {{ 'statistics.drunk' | translate }}: {{ activity.volume }}ml
             </p>
-            <p 
-            *ngIf="activity.source === 'bottle'" 
+            <p
+            *ngIf="activity.source === 'bottle'"
             class="activity-description"
             >
               {{ 'statistics.time' | translate }}: {{ timerService.secondConvert(activity.time) }}
             </p>
             <!-- Diaper -->
-            <p 
-            *ngIf="activity.source === 'diaper'" 
+            <p
+            *ngIf="activity.source === 'diaper'"
             class="activity-description"
             >
               {{ 'statistics.type' | translate }}: {{ getDiaper(activity.type_id) }}
             </p>
             <!-- Medicine -->
-            <p 
-            *ngIf="activity.source === 'medicine'" 
+            <p
+            *ngIf="activity.source === 'medicine'"
             class="activity-description"
             >
               {{ 'statistics.medicine' | translate }}: {{ activity.medicine }}
             </p>
-            <p 
-            *ngIf="activity.source === 'medicine'" 
+            <p
+            *ngIf="activity.source === 'medicine'"
             class="activity-description"
             >
               {{ 'statistics.portion' | translate }}: {{ activity.portion }}
             </p>
             <!-- Sleep -->
-            <p 
-              *ngIf="activity.source === 'sleep'" 
+            <p
+              *ngIf="activity.source === 'sleep'"
               class="activity-description"
             >
               {{ 'statistics.time' | translate }}: {{ timerService.secondConvert(activity.time) }}
@@ -171,13 +171,13 @@
         </ion-row>
       </ion-item>
 
-      <div 
+      <div
         *ngIf="emptyTable"
-        class="warning" 
+        class="warning"
       >
-        <ion-icon 
-          class="warning-icon" 
-          color="danger" 
+        <ion-icon
+          class="warning-icon"
+          color="danger"
           name="alert"
         ></ion-icon>
         <h1 class="warning-first">

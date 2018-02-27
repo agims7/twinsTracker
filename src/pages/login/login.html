@@ -17,8 +17,8 @@
           type="text"
         ></ion-input>
       </ion-item>
-      <p 
-        *ngIf="wrongEmail" 
+      <p
+        *ngIf="wrongEmail"
         class="wrong"
       >
         Błędny email
@@ -27,21 +27,21 @@
         <ion-label floating>
           Hasło
         </ion-label>
-        <ion-input 
-          [(ngModel)]="authService.userPassword" 
-          name="password" 
+        <ion-input
+          [(ngModel)]="authService.userPassword"
+          name="password"
           required
-          type="password" 
+          type="password"
         ></ion-input>
       </ion-item>
-      <p 
-        *ngIf="wrongPassword" 
+      <p
+        *ngIf="wrongPassword"
         class="wrong"
       >
         Błędne hasło
       </p>
 
-      <button 
+      <button
         (click)="loginUser()"
         block
         class="login-button"
@@ -61,11 +61,11 @@
 
     <div class="registration">
       <p>Nie masz konta?</p>
-      <button 
+      <button
         [navPush]="registerPage"
-        color="white" 
-        ion-button 
-        outline 
+        color="white"
+        ion-button
+        outline
       >
         Zarejestruj się!
       </button>

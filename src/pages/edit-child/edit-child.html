@@ -21,9 +21,9 @@
 
   <ion-grid>
     <form
+      #childForm="ngForm"
       (ngSubmit)="editChild(childForm)"
       *ngIf="editChildBlock"
-      #childForm="ngForm"
     >
       <ion-list>
         <ion-item>

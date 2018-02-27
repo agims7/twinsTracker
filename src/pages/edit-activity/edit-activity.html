@@ -21,9 +21,9 @@
 
   <ion-grid>
     <img
+      [src]="childrenService.getChildPhotoFromId(activity.child_id)"
       *ngIf="childPhoto"
       class="child-image"
-      [src]="childrenService.getChildPhotoFromId(activity.child_id)"
     >
 
     <img
@@ -181,17 +181,13 @@
       block="block"
       color="danger"
       ion-button="ion-button"
-    >
-      Usuń
-    </button>
+    >Usuń</button>
 
     <button
       (tap)="save()"
       block="block"
       color="white"
       ion-button="ion-button"
-    >
-      Zapisz
-    </button>
+    >Zapisz</button>
   </ion-grid>
 </ion-content>

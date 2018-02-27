@@ -16,7 +16,7 @@ export class AppService {
 		}
 	};
 
-	constructor(): void { }
+	constructor() { }
 
 	safeUnsubscribe(subscription): void {
 		try {

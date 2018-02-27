@@ -18,65 +18,57 @@
           </p>
         </div>
       </ion-col>
-
       <ion-col class="choice-content">
         <div class="choice">
           <p class="choice-title">
             {{ 'diaper.diaperChange' | translate }}:
           </p>
-
           <button
-            ion-button="ion-button"
-            [ngClass]="{'selected': together}"
             (click)="diaperOption()"
+            [ngClass]="{'selected': together}"
+            ion-button="ion-button"
           >
             {{ 'diaper.together' | translate }}
           </button>
-
           <button
-            ion-button="ion-button"
-            [ngClass]="{'selected': !together}"
             (click)="diaperOption()"
+            [ngClass]="{'selected': !together}"
+            ion-button="ion-button"
           >
             {{ 'diaper.separately' | translate }}
           </button>
         </div>
       </ion-col>
     </ion-row>
-
     <h1 class="select-child">
       {{ 'diaper.chooseChild' | translate }}:
     </h1>
-
     <ion-row class="content">
       <ion-col *ngFor="let child of childrenService.children; let i = index">
         <div class="child-content">
           <button
-            ion-button="ion-button"
             (click)="openModal(i)"
+            ion-button="ion-button"
           >
             <span>{{ child.name }}</span>
 
             <ion-icon name="arrow-round-forward"></ion-icon>
           </button>
-
           <div class="list-container">
             <ul>
               <li *ngFor="let diaper of getChildDiaper(child.id)">
                 <p>
                   {{ timerService.toTime(diaper.date) }}
                 </p>
-
                 <p>
                   {{ setDiaperType(diaper.type_id) }}
 
                   <span *ngIf="diaper.comment">/ {{ diaper.comment }}</span>
                 </p>
-
                 <ion-icon
+                  (tap)="moreActions('diaper', diaper)"
                   class="settings"
                   name="settings"
-                  (tap)="moreActions('diaper', diaper)"
                 ></ion-icon>
               </li>
             </ul>

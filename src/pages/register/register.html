@@ -1,27 +1,59 @@
-<ion-content padding>
+<ion-content padding="padding">
   <loader *ngIf="loader"></loader>
-  
+
   <ion-grid>
-    <img class="logo-image" src="./assets/images/logo.png">
+    <img
+      class="logo-image"
+      src="./assets/images/logo.png"
+    >
+
     <p class="register">Rejestracja</p>
+
     <ion-item>
-      <ion-label fixed>Imię</ion-label>
-      <ion-input [(ngModel)]="name" type="text" required></ion-input>
+      <ion-label fixed="fixed">Imię</ion-label>
+
+      <ion-input
+        [(ngModel)]="name"
+        required="required"
+        type="text"
+      ></ion-input>
     </ion-item>
+
     <ion-item>
-      <ion-label fixed>Email</ion-label>
-      <ion-input [(ngModel)]="email" type="text" email required></ion-input>
+      <ion-label fixed="fixed">Email</ion-label>
+
+      <ion-input
+        [(ngModel)]="email"
+        email="email"
+        required="required"
+        type="text"
+      ></ion-input>
     </ion-item>
+
     <ion-item>
-      <ion-label fixed>Hasło</ion-label>
-      <ion-input [(ngModel)]="password" type="password" required></ion-input>
+      <ion-label fixed="fixed">Hasło</ion-label>
+
+      <ion-input
+        [(ngModel)]="password"
+        required="required"
+        type="password"
+      ></ion-input>
     </ion-item>
 
     <div class="registration">
-      <button ion-button block color="white" (click)="register()">Zarejestruj się!</button>  
+      <button
+        (click)="register()"
+        block="block"
+        color="white"
+        ion-button="ion-button"
+      >Zarejestruj się!</button>
     </div>
 
-    <button ion-button outline color navPop="white">Wróc</button>  
-    
+    <button
+      color="color"
+      ion-button="ion-button"
+      navPop="white"
+      outline="outline"
+    >Wróc</button>
   </ion-grid>
 </ion-content>

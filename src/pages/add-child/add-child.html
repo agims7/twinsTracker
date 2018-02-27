@@ -1,10 +1,10 @@
 <ion-header>
   <ion-toolbar color="background">
     <ion-buttons start>
-        <button 
+        <button
           (tap)="goBack()"
-          icon-only 
-          ion-button 
+          icon-only
+          ion-button
         >
             <ion-icon name="arrow-back"></ion-icon>
           </button>
@@ -18,11 +18,11 @@
 
 <ion-content>
   <loader *ngIf="loader"></loader>
-  
+
   <ion-grid>
-    <form 
-      #childForm="ngForm" 
-      *ngIf="!newChildBlock" 
+    <form
+      #childForm="ngForm"
+      *ngIf="!newChildBlock"
       (ngSubmit)="addChild(childForm)"
     >
       <ion-list>
@@ -30,12 +30,12 @@
           <ion-label fixed>
             {{ 'addChild.name' | translate }}
           </ion-label>
-          <ion-input 
-            name="name" 
-            ngModel 
-            placeholder="imię dziecka" 
+          <ion-input
+            name="name"
+            ngModel
+            placeholder="imię dziecka"
             required
-            type="text" 
+            type="text"
           ></ion-input>
         </ion-item>
         <ion-item>
@@ -47,12 +47,12 @@
                 ({{ 'addChild.date' | translate }})
               </p>
             </ion-label>
-            <ion-input 
-              name="weight" 
-              ngModel 
-              placeholder="g" 
+            <ion-input
+              name="weight"
+              ngModel
+              placeholder="g"
               required
-              type="number" 
+              type="number"
             ></ion-input>
           </ion-item>
           <ion-item>
@@ -64,12 +64,12 @@
                   ({{ 'addChild.date' | translate }})
                 </p>
               </ion-label>
-              <ion-input 
-                name="length" 
-                ngModel 
-                placeholder="cm" 
+              <ion-input
+                name="length"
+                ngModel
+                placeholder="cm"
                 required
-                type="number" 
+                type="number"
               ></ion-input>
             </ion-item>
         <ion-item>
@@ -80,63 +80,63 @@
             <p class="footer">
               ({{ 'addChild.date' | translate }})
             </p>
-          <button 
-            (ionChanged)="setDate($event);" 
+          <button
+            (ionChanged)="setDate($event);"
             [localeStrings]="object"
             [value]="date"
-            class="datepicker-button" 
-            icon-left 
-            ion-button 
-            ion-datepicker 
-            item-end 
+            class="datepicker-button"
+            icon-left
+            ion-button
+            ion-datepicker
+            item-end
           >
           <span>
             {{ showTime(date) }}
           </span>
-          <ion-icon 
-            class="date-icon" 
+          <ion-icon
+            class="date-icon"
             name="calendar"
           ></ion-icon>
         </button>
         </ion-item>
         <ion-row>
             <ion-col>
-              <div 
+              <div
                 (tap)="takePicture()"
-                class="button" 
+                class="button"
               >
                 {{ 'addChild.takeImage' | translate }}
               </div>
             </ion-col>
             <ion-col>
-              <div 
+              <div
                 (tap)="setPicture()"
-                class="button" 
+                class="button"
               >
                 {{ 'addChild.loadImage' | translate }}
               </div>
             </ion-col>
           </ion-row>
       </ion-list>
-      <button 
+      <button
         [disabled]="!childForm.valid"
-        block 
-        class="submit-button" 
-        color="white" 
-        ion-button 
-        type="submit" 
+        block
+        class="submit-button"
+        color="white"
+        ion-button
+        type="submit"
       >
         Dodaj
       </button>
     </form>
 
-    <div 
+    <div
       *ngIf="newChildBlock"
-      class="warning" 
+      class="warning"
     >
-      <ion-icon 
-        class="warning-icon" 
-        color="danger" 
+      <ion-icon
+        class="warning-icon"
+        color="danger"
         name="alert"
       ></ion-icon>
       <h1 class="warning-first">

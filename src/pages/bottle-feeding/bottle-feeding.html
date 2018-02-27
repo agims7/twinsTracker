@@ -6,7 +6,6 @@
   </ion-navbar>
 </ion-header>
 
-
 <ion-content>
   <loader *ngIf="loader"></loader>
 
@@ -19,22 +18,25 @@
           </p>
         </div>
       </ion-col>
+
       <ion-col class="choice-content">
         <div class="choice">
           <p class="choice-title">
             {{ 'bottle.bottle' | translate }}:
           </p>
-          <button 
+
+          <button
             (click)="feedingOption()"
-            [ngClass]="{'selected': together}" 
-            ion-button 
+            [ngClass]="{'selected': together}"
+            ion-button="ion-button"
           >
             {{ 'bottle.together' | translate }}
           </button>
-          <button 
+
+          <button
             (click)="feedingOption()"
-            [ngClass]="{'selected': !together}" 
-            ion-button 
+            [ngClass]="{'selected': !together}"
+            ion-button="ion-button"
           >
             {{ 'bottle.separately' | translate }}
           </button>
@@ -45,18 +47,18 @@
     <h1 class="select-child">
       {{ 'bottle.chooseChild' | translate }}:
     </h1>
+
     <ion-row class="content">
       <ion-col *ngFor="let child of childrenService.children; let i = index">
         <div class="child-content">
-          <button 
+          <button
             (click)="openModal(i)"
-            ion-button 
+            ion-button="ion-button"
           >
-            <span>
-              {{ child.name }}
-            </span>
+            <span>{{ child.name }}</span>
             <ion-icon name="arrow-round-forward"></ion-icon>
           </button>
+
           <div class="list-container">
             <ul>
               <li *ngFor="let bottle of getChildBottles(child.id)">
@@ -65,14 +67,13 @@
                 </p>
                 <p>
                   {{ 'bottle.time' | translate }}: {{ timerService.secondConvert(bottle.time) }} / {{ 'bottle.volume' | translate }}: {{ bottle.volume }}ml
-                  <span *ngIf="bottle.comment">
-                    - {{ bottle.comment }}
-                  </span>
+
+                  <span *ngIf="bottle.comment">- {{ bottle.comment }}</span>
                 </p>
-                <ion-icon 
+                <ion-icon
                   (tap)="moreActions('bottle', bottle)"
-                  class="settings" 
-                  name="settings" 
+                  class="settings"
+                  name="settings"
                 ></ion-icon>
               </li>
             </ul>
@@ -81,5 +82,4 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-
 </ion-content>

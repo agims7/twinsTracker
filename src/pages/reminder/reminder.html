@@ -1,17 +1,34 @@
-<ion-content padding>
+<ion-content padding="padding">
   <loader *ngIf="loader"></loader>
 
   <ion-grid>
-    <img class="logo-image" src="./assets/images/logo.png">
+    <img
+      class="logo-image"
+      src="./assets/images/logo.png"
+    >
+
     <p class="reminder">Wpisz swój adres email:</p>
-    <ion-input [(ngModel)]="userEmail" type="text" email></ion-input>
+
+    <ion-input
+      [(ngModel)]="userEmail"
+      email="email"
+      type="text"
+    ></ion-input>
 
     <div class="reminder-block">
-      <button ion-button block color="white" (click)="remind()">Przypomnij hasło!</button>  
+      <button
+        (click)="remind()"
+        block="block"
+        color="white"
+        ion-button="ion-button"
+      >Przypomnij hasło!</button>
     </div>
 
-    <button ion-button outline color navPop="white">Wróc</button>  
-    
-
+    <button
+      color="color"
+      ion-button="ion-button"
+      navPop="white"
+      outline="outline"
+    >Wróc</button>
   </ion-grid>
 </ion-content>

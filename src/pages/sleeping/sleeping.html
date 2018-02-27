@@ -6,7 +6,6 @@
   </ion-navbar>
 </ion-header>
 
-
 <ion-content>
   <loader *ngIf="loader"></loader>
 
@@ -14,38 +13,71 @@
     <ion-row class="header">
       <ion-col class="logo-content">
         <div class="logo">
-          <p>{{ 'sleeping.sleeping' | translate }}</p>
+          <p>
+            {{ 'sleeping.sleeping' | translate }}
+          </p>
         </div>
       </ion-col>
+
       <ion-col class="choice-content">
         <div class="choice">
-          <p class="choice-title">{{ 'sleeping.childrenSleeping' | translate }}:</p>
-          <button ion-button [ngClass]="{'selected': together}" (click)="slippingOption()">
+          <p class="choice-title">
+            {{ 'sleeping.childrenSleeping' | translate }}:
+          </p>
+
+          <button
+            (click)="slippingOption()"
+            [ngClass]="{'selected': together}"
+            ion-button="ion-button"
+          >
             {{ 'sleeping.together' | translate }}
           </button>
-          <button ion-button [ngClass]="{'selected': !together}" (click)="slippingOption()">
+
+          <button
+            (click)="slippingOption()"
+            [ngClass]="{'selected': !together}"
+            ion-button="ion-button"
+          >
             {{ 'sleeping.separately' | translate }}
           </button>
         </div>
       </ion-col>
     </ion-row>
 
-    <h1 class="select-child">{{ 'sleeping.chooseChild' | translate }}:</h1>
+    <h1 class="select-child">
+      {{ 'sleeping.chooseChild' | translate }}:
+    </h1>
+
     <ion-row class="content">
       <ion-col *ngFor="let child of childrenService.children; let i = index">
         <div class="child-content">
-          <button ion-button (click)="openModal(i)">
+          <button
+            (click)="openModal(i)"
+            ion-button="ion-button"
+          >
             <span>{{ child.name }}</span>
+
             <ion-icon name="arrow-round-forward"></ion-icon>
           </button>
+
           <div class="list-container">
             <ul>
               <li *ngFor="let sleep of getChildBreast(child.id)">
-                <p>{{ timerService.toTime(sleep.date) }}</p>
-                <p>{{ 'sleeping.time' | translate }}: {{ timerService.secondConvert(sleep.time) }}
-                  <span *ngIf="sleep.comment"> - {{ sleep.comment }}</span>
+                <p>
+                  {{ timerService.toTime(sleep.date) }}
                 </p>
-                <ion-icon class="settings" name="settings" (tap)="moreActions('sleep', sleep)"></ion-icon>
+
+                <p>
+                  {{ 'sleeping.time' | translate }}: {{ timerService.secondConvert(sleep.time) }}
+
+                  <span *ngIf="sleep.comment">- {{ sleep.comment }}</span>
+                </p>
+
+                <ion-icon
+                  (tap)="moreActions('sleep', sleep)"
+                  class="settings"
+                  name="settings"
+                ></ion-icon>
               </li>
             </ul>
           </div>
@@ -53,5 +85,4 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-
 </ion-content>
